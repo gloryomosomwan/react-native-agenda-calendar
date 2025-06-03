@@ -7,14 +7,6 @@ import { useSharedValue } from "react-native-reanimated";
 
 import Month from '../components/Month'
 
-const NUM_ITEMS = 50;
-
-function getColor(i: number) {
-  const multiplier = 255 / (NUM_ITEMS - 1);
-  const colorVal = Math.abs(i) * multiplier;
-  return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`;
-}
-
 const today = new Date()
 today.setUTCHours(0, 0, 0, 0)
 console.log(addDays(today, 1))
@@ -46,12 +38,10 @@ const Page = ({ index }: { index: number }) => {
         {
           alignItems: "center",
           justifyContent: "center",
-          // backgroundColor: getColor(index),
           backgroundColor: 'white'
         },
       ]}
     >
-      {/* <Text style={{ color: "white", fontSize: 80 }}>{addDays(today, index).toDateString()}</Text> */}
       <Month
         initialDay={startOfMonth(addMonths(today, index))}
         selectedDatePosition={selectedDatePosition}
