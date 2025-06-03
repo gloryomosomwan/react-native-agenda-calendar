@@ -22,13 +22,16 @@ export default function App() {
 const CalendarContent = () => {
   const { calendarState } = useCalendar();
   const pagerRef = useRef<InfinitePagerImperativeApi>(null)
+  const isProgrammaticChange = useRef(false);
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
       if (isInEarlierMonth(calendarState.currentDate, calendarState.previousDate)) {
+        isProgrammaticChange.current = true;
         pagerRef.current?.decrementPage({ animated: true })
       }
       else if (isInLaterMonth(calendarState.currentDate, calendarState.previousDate)) {
+        isProgrammaticChange.current = true;
         pagerRef.current?.incrementPage({ animated: true })
       }
     })
@@ -43,7 +46,14 @@ const CalendarContent = () => {
           PageComponent={Page}
           style={styles.flex}
           pageWrapperStyle={styles.flex}
-          onPageChange={(index) => { index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfMonth(addMonths(today, index))) }}
+          onPageChange={(index) => {
+            if (isProgrammaticChange.current) {
+              isProgrammaticChange.current = false;
+              return;
+            }
+
+            index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfMonth(addMonths(today, index)))
+          }}
         />
       </View>
     </GestureHandlerRootView>
