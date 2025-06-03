@@ -21,7 +21,7 @@ const CalendarContent = () => {
           PageComponent={Page}
           style={styles.flex}
           pageWrapperStyle={styles.flex}
-          onPageChange={(index) => { calendarState.selectDate(startOfMonth(addMonths(today, index))) }}
+          onPageChange={(index) => { index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfMonth(addMonths(today, index))) }}
         />
       </View>
     </GestureHandlerRootView>
