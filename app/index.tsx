@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Animated, { useAnimatedProps } from "react-native-reanimated";
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import { addMonths, isAfter, isBefore, isSameDay, startOfMonth } from "date-fns"
 import { useSharedValue } from "react-native-reanimated";
@@ -22,16 +23,22 @@ export default function App() {
 const CalendarContent = () => {
   const { calendarState } = useCalendar();
   const pagerRef = useRef<InfinitePagerImperativeApi>(null)
-  const isProgrammaticChange = useRef(false);
+  const isProgrammaticChange = useSharedValue(false)
+
+  const animatedProps = useAnimatedProps(() => {
+    return {
+      pointerEvents: (isProgrammaticChange.value ? 'none' : 'auto') as 'none' | 'auto',
+    };
+  });
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
       if (isInEarlierMonth(calendarState.currentDate, calendarState.previousDate)) {
-        isProgrammaticChange.current = true;
+        isProgrammaticChange.value = true;
         pagerRef.current?.decrementPage({ animated: true })
       }
       else if (isInLaterMonth(calendarState.currentDate, calendarState.previousDate)) {
-        isProgrammaticChange.current = true;
+        isProgrammaticChange.value = true;
         pagerRef.current?.incrementPage({ animated: true })
       }
     })
@@ -40,22 +47,21 @@ const CalendarContent = () => {
 
   return (
     <GestureHandlerRootView>
-      <View style={styles.flex}>
+      <Animated.View style={styles.flex} animatedProps={animatedProps}>
         <InfinitePager
           ref={pagerRef}
           PageComponent={Page}
           style={styles.flex}
           pageWrapperStyle={styles.flex}
           onPageChange={(index) => {
-            if (isProgrammaticChange.current) {
-              isProgrammaticChange.current = false;
+            if (isProgrammaticChange.value) {
+              isProgrammaticChange.value = false;
               return;
             }
-
             index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfMonth(addMonths(today, index)))
           }}
         />
-      </View>
+      </Animated.View>
     </GestureHandlerRootView>
   );
 };
@@ -64,7 +70,6 @@ const Page = ({ index }: { index: number }) => {
   const selectedDatePosition = useSharedValue(0)
   const bottomSheetTranslationY = useSharedValue(0)
   const setCalendarBottom = () => { };
-
   return (
     <View
       style={[
