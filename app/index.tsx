@@ -12,7 +12,6 @@ today.setUTCHours(0, 0, 0, 0)
 console.log(addDays(today, 1))
 
 export default function App() {
-
   return (
     <GestureHandlerRootView>
       <View style={styles.flex}>
