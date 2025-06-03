@@ -1,8 +1,5 @@
 import { isSameDay } from 'date-fns';
 
-export type ViewMode = 'month' | 'week';
-export type DateRange = { start: Date; end: Date };
-
 export class CalendarState {
   private _currentDate: Date;
   private _subscribers: Set<() => void>;
@@ -26,11 +23,7 @@ export class CalendarState {
     this.notifyDaySubscribers()
   }
 
-  today() {
-    this.selectDate(this.todayDate)
-  }
-
-  selectDate(date: Date, fromDayPress: boolean = false) {
+  selectDate(date: Date) {
     this._currentDate = date;
     this.notifySubscribers();
   }
