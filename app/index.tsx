@@ -11,18 +11,27 @@ import Month from '../components/Month'
 const today = new Date()
 today.setUTCHours(0, 0, 0, 0)
 
+const CalendarContent = () => {
+  const { calendarState } = useCalendar();
+
+  return (
+    <GestureHandlerRootView>
+      <View style={styles.flex}>
+        <InfinitePager
+          PageComponent={Page}
+          style={styles.flex}
+          pageWrapperStyle={styles.flex}
+          onPageChange={(number) => { console.log(addMonths(today, number)) }}
+        />
+      </View>
+    </GestureHandlerRootView>
+  );
+};
+
 export default function App() {
   return (
     <CalendarProvider>
-      <GestureHandlerRootView>
-        <View style={styles.flex}>
-          <InfinitePager
-            PageComponent={Page}
-            style={styles.flex}
-            pageWrapperStyle={styles.flex}
-          />
-        </View>
-      </GestureHandlerRootView>
+      <CalendarContent />
     </CalendarProvider>
   );
 }
@@ -31,9 +40,6 @@ const Page = ({ index }: { index: number }) => {
   const selectedDatePosition = useSharedValue(0)
   const bottomSheetTranslationY = useSharedValue(0)
   const setCalendarBottom = () => { };
-
-  const { calendarState } = useCalendar()
-  // console.log(calendarState.currentDate)
 
   return (
     <View
