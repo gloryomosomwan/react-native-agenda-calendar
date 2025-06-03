@@ -4,6 +4,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import InfinitePager from "react-native-infinite-pager";
 import { addDays, addMonths, startOfMonth } from "date-fns"
 import { useSharedValue } from "react-native-reanimated";
+import { CalendarProvider, useCalendar } from "@/components/CalendarContext";
 
 import Month from '../components/Month'
 
@@ -13,15 +14,17 @@ console.log(addDays(today, 1))
 
 export default function App() {
   return (
-    <GestureHandlerRootView>
-      <View style={styles.flex}>
-        <InfinitePager
-          PageComponent={Page}
-          style={styles.flex}
-          pageWrapperStyle={styles.flex}
-        />
-      </View>
-    </GestureHandlerRootView>
+    <CalendarProvider>
+      <GestureHandlerRootView>
+        <View style={styles.flex}>
+          <InfinitePager
+            PageComponent={Page}
+            style={styles.flex}
+            pageWrapperStyle={styles.flex}
+          />
+        </View>
+      </GestureHandlerRootView>
+    </CalendarProvider>
   );
 }
 
@@ -29,6 +32,9 @@ const Page = ({ index }: { index: number }) => {
   const selectedDatePosition = useSharedValue(0)
   const bottomSheetTranslationY = useSharedValue(0)
   const setCalendarBottom = () => { };
+
+  const calendarState = useCalendar()
+  console.log(calendarState)
 
   return (
     <View
