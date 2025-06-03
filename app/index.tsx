@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import InfinitePager from "react-native-infinite-pager";
-import { addMonths, startOfMonth } from "date-fns"
+import { addMonths, isAfter, isBefore, isSameDay, startOfMonth } from "date-fns"
 import { useSharedValue } from "react-native-reanimated";
 import { CalendarProvider, useCalendar } from "@/components/CalendarContext";
 
@@ -11,8 +11,30 @@ import Month from '../components/Month'
 const today = new Date()
 today.setUTCHours(0, 0, 0, 0)
 
+export default function App() {
+  return (
+    <CalendarProvider>
+      <CalendarContent />
+    </CalendarProvider>
+  );
+}
+
 const CalendarContent = () => {
   const { calendarState } = useCalendar();
+
+  useEffect(() => {
+    const dayUnsubscribe = calendarState.daySubscribe(() => {
+      if (!isSameDay(calendarState.currentDate, calendarState.previousDate)) {
+
+        if (isInEarlierMonth(calendarState.currentDate, calendarState.previousDate)) {
+        }
+        else if (isInLaterMonth(calendarState.currentDate, calendarState.previousDate)) {
+        }
+
+      }
+    })
+    return dayUnsubscribe
+  }, [])
 
   return (
     <GestureHandlerRootView>
@@ -27,14 +49,6 @@ const CalendarContent = () => {
     </GestureHandlerRootView>
   );
 };
-
-export default function App() {
-  return (
-    <CalendarProvider>
-      <CalendarContent />
-    </CalendarProvider>
-  );
-}
 
 const Page = ({ index }: { index: number }) => {
   const selectedDatePosition = useSharedValue(0)
@@ -62,6 +76,17 @@ const Page = ({ index }: { index: number }) => {
   );
 };
 
+function isInEarlierMonth(dateToCheck: Date, referenceDate: Date) {
+  const monthOfDateToCheck = startOfMonth(dateToCheck);
+  const monthOfReferenceDate = startOfMonth(referenceDate);
+  return isBefore(monthOfDateToCheck, monthOfReferenceDate);
+}
+
+function isInLaterMonth(dateToCheck: Date, referenceDate: Date) {
+  const monthOfDateToCheck = startOfMonth(dateToCheck);
+  const monthOfReferenceDate = startOfMonth(referenceDate);
+  return isAfter(monthOfDateToCheck, monthOfReferenceDate);
+}
 const styles = StyleSheet.create({
   flex: { flex: 1 },
 });
