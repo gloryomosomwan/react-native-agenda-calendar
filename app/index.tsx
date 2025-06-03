@@ -9,7 +9,7 @@ import { CalendarProvider, useCalendar } from "@/components/CalendarContext";
 import Month from '../components/Month'
 
 const today = new Date()
-today.setUTCHours(0, 0, 0, 0)
+today.setHours(0, 0, 0, 0)
 
 export default function App() {
   return (
