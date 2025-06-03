@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import InfinitePager from "react-native-infinite-pager";
+import { addDays } from "date-fns"
 
 const NUM_ITEMS = 50;
 
@@ -10,6 +11,10 @@ function getColor(i: number) {
   const colorVal = Math.abs(i) * multiplier;
   return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`;
 }
+
+const today = new Date()
+today.setUTCHours(0, 0, 0, 0)
+console.log(addDays(today, 1))
 
 const Page = ({ index }: { index: number }) => {
   return (
@@ -23,7 +28,7 @@ const Page = ({ index }: { index: number }) => {
         },
       ]}
     >
-      <Text style={{ color: "white", fontSize: 80 }}>{index}</Text>
+      <Text style={{ color: "white", fontSize: 80 }}>{addDays(today, index).toDateString()}</Text>
     </View>
   );
 };
