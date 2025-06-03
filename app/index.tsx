@@ -21,7 +21,6 @@ const CalendarContent = () => {
           PageComponent={Page}
           style={styles.flex}
           pageWrapperStyle={styles.flex}
-          // onPageChange={(number) => { console.log(addMonths(today, number)) }}
           onPageChange={(index) => { calendarState.selectDate(startOfMonth(addMonths(today, index))) }}
         />
       </View>
