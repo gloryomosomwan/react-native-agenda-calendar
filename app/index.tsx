@@ -25,7 +25,12 @@ const CalendarContent = () => {
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
-      pagerRef.current?.incrementPage({ animated: true })
+      if (isInEarlierMonth(calendarState.currentDate, calendarState.previousDate)) {
+        pagerRef.current?.decrementPage({ animated: true })
+      }
+      else if (isInLaterMonth(calendarState.currentDate, calendarState.previousDate)) {
+        pagerRef.current?.incrementPage({ animated: true })
+      }
     })
     return dayUnsubscribe
   }, [])
