@@ -3,7 +3,7 @@ import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth, isBefore } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import { useCalendar } from "./CalendarContext";
+import { useCalendar } from './CalendarContext';
 
 type DayType = 'week' | 'month'
 
@@ -16,8 +16,8 @@ type DayProps = {
 }
 
 export default function Day({ date, firstDayOfMonth, selectedDatePosition, bottomSheetTranslationY, dayType }: DayProps) {
-  // const { calendarState } = useCalendar()
-  const [selectedDate, setSelectedDate] = useState(new Date())
+  const { calendarState } = useCalendar()
+  const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
 
   // useEffect(() => {
   //   const unsubscribe = calendarState.subscribe(() => {
@@ -83,7 +83,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, botto
           dayType === 'month' ? (
             <>
               {/* {isSameDay(date, selectedDate) && <View style={styles.selectedDateCircle} />} */}
-              {/* {isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && <View style={styles.selectedDateCircle} />} */}
+              {isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && <View style={styles.selectedDateCircle} />}
               <Text style={[styles.text, !isSameMonth(date, firstDayOfMonth) && styles.notInCurrentMonth]}>{date.getDate()}</Text>
             </>
           ) : (

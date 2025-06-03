@@ -10,7 +10,6 @@ import Month from '../components/Month'
 
 const today = new Date()
 today.setUTCHours(0, 0, 0, 0)
-console.log(addDays(today, 1))
 
 export default function App() {
   return (
@@ -33,8 +32,8 @@ const Page = ({ index }: { index: number }) => {
   const bottomSheetTranslationY = useSharedValue(0)
   const setCalendarBottom = () => { };
 
-  const calendarState = useCalendar()
-  console.log(calendarState)
+  const { calendarState } = useCalendar()
+  // console.log(calendarState.currentDate)
 
   return (
     <View
