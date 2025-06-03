@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import InfinitePager from "react-native-infinite-pager";
-import { addDays, addMonths } from "date-fns"
+import { addDays, addMonths, startOfMonth } from "date-fns"
 import { useSharedValue } from "react-native-reanimated";
 
 import Month from '../components/Month'
@@ -53,7 +53,7 @@ const Page = ({ index }: { index: number }) => {
     >
       {/* <Text style={{ color: "white", fontSize: 80 }}>{addDays(today, index).toDateString()}</Text> */}
       <Month
-        initialDay={addMonths(today, index)}
+        initialDay={startOfMonth(addMonths(today, index))}
         selectedDatePosition={selectedDatePosition}
         bottomSheetTranslationY={bottomSheetTranslationY}
         setCalendarBottom={setCalendarBottom}
