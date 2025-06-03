@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import InfinitePager from "react-native-infinite-pager";
+import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import { addMonths, isAfter, isBefore, isSameDay, startOfMonth } from "date-fns"
 import { useSharedValue } from "react-native-reanimated";
 import { CalendarProvider, useCalendar } from "@/components/CalendarContext";
@@ -21,17 +21,11 @@ export default function App() {
 
 const CalendarContent = () => {
   const { calendarState } = useCalendar();
+  const pagerRef = useRef<InfinitePagerImperativeApi>(null)
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
-      if (!isSameDay(calendarState.currentDate, calendarState.previousDate)) {
-
-        if (isInEarlierMonth(calendarState.currentDate, calendarState.previousDate)) {
-        }
-        else if (isInLaterMonth(calendarState.currentDate, calendarState.previousDate)) {
-        }
-
-      }
+      pagerRef.current?.incrementPage({ animated: true })
     })
     return dayUnsubscribe
   }, [])
@@ -40,6 +34,7 @@ const CalendarContent = () => {
     <GestureHandlerRootView>
       <View style={styles.flex}>
         <InfinitePager
+          ref={pagerRef}
           PageComponent={Page}
           style={styles.flex}
           pageWrapperStyle={styles.flex}
