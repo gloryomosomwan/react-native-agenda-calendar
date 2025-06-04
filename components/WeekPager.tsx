@@ -1,9 +1,10 @@
-import { Animated, StyleSheet, Text, View } from 'react-native'
+import { Animated, Platform, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { useCalendar } from './CalendarContext';
 import { addWeeks, differenceInCalendarWeeks, isSameWeek, startOfWeek } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import { useSharedValue } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Week from './Week';
 
@@ -15,6 +16,8 @@ export default function WeekPager() {
   const weekPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const isProgrammaticChange = useSharedValue(false)
   const didInitialSync = useRef<boolean>(false)
+  const insets = useSafeAreaInsets()
+  const paddingTop = Platform.OS === 'android' ? 0 : insets.top
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
@@ -39,7 +42,7 @@ export default function WeekPager() {
   }, [])
 
   return (
-    <Animated.View style={[styles.weekPagerContainer]}>
+    <Animated.View style={[styles.weekPagerContainer, { paddingTop: paddingTop }]}>
       <InfinitePager
         ref={weekPagerRef}
         PageComponent={WeekPage}
