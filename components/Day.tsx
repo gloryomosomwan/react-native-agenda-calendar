@@ -57,7 +57,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, botto
   }
 
   useLayoutEffect(() => {
-    if (isSameDay(date, selectedDate) && isSameDay(firstDayOfMonth, startOfMonth(date))) {
+    if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) {
       selectedDatePosition.value = (topPadding + 52) + (47 * (getWeekOfMonth(date) - 1))
     }
   })
@@ -68,7 +68,6 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, botto
         {
           dayType === 'month' ? (
             <>
-              {/* {isSameDay(date, selectedDate) && <View style={styles.selectedDateCircle} />} */}
               {isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && <View style={styles.selectedDateCircle} />}
               <Text style={[styles.text, !isSameMonth(date, firstDayOfMonth) && styles.notInCurrentMonth]}>{date.getDate()}</Text>
             </>
