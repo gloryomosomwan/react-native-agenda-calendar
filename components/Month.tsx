@@ -1,6 +1,6 @@
 import { Platform, StyleSheet, View, Text } from 'react-native'
 import React, { memo } from 'react'
-import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, isSameMonth } from 'date-fns'
+import { startOfMonth, addDays, subDays, getDay, getDaysInMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 

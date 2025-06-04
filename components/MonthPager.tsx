@@ -1,6 +1,5 @@
 import { Platform, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import { useCalendar } from './CalendarContext';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";

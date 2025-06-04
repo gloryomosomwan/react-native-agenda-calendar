@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, Platform } from 'react-native'
 import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
-import { isSameMonth, isSameDay, getWeekOfMonth, isBefore, startOfMonth } from 'date-fns'
+import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCalendar } from './CalendarContext';
