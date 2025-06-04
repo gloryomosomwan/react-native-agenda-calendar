@@ -65,7 +65,6 @@ export default function WeekPager() {
 
 const WeekPage = ({ index }: { index: number }) => {
   const selectedDatePosition = useSharedValue(0)
-  const bottomSheetTranslationY = useSharedValue(0)
   return (
     <View
       style={[
@@ -80,7 +79,6 @@ const WeekPage = ({ index }: { index: number }) => {
       <Week
         initialDay={startOfWeek(addWeeks(today, index))}
         selectedDatePosition={selectedDatePosition}
-        bottomSheetTranslationY={bottomSheetTranslationY}
       />
     </View>
   );
