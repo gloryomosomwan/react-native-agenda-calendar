@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import { useCalendar } from './CalendarContext';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import Animated, { useAnimatedProps, useSharedValue } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Month from '@/components/Month'
 
@@ -16,6 +17,8 @@ export default function MonthPager() {
   const monthPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const isProgrammaticChange = useSharedValue(false)
   const didInitialSync = useRef<boolean>(false)
+  const insets = useSafeAreaInsets()
+  const paddingTop = Platform.OS === 'android' ? 0 : insets.top
 
   const animatedProps = useAnimatedProps(() => {
     return {
@@ -52,7 +55,7 @@ export default function MonthPager() {
   }, [])
 
   return (
-    <Animated.View style={{}} animatedProps={animatedProps}>
+    <Animated.View style={{ paddingTop: paddingTop }} animatedProps={animatedProps}>
       <InfinitePager
         ref={monthPagerRef}
         PageComponent={MonthPage}

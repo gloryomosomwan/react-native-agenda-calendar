@@ -40,7 +40,7 @@ export default function WeekPager() {
   }, [])
 
   return (
-    <Animated.View style={{}}>
+    <Animated.View style={[styles.weekPagerContainer]}>
       <InfinitePager
         ref={weekPagerRef}
         PageComponent={WeekPage}
@@ -83,4 +83,9 @@ const WeekPage = ({ index }: { index: number }) => {
   );
 };
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  weekPagerContainer: {
+    position: 'absolute',
+    zIndex: 1
+  }
+})
