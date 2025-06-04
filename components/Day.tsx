@@ -23,21 +23,21 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
       setSelectedDate(calendarState.currentDate)
     });
     return unsubscribe;
-  }, [calendarState])
+  }, [])
 
   useEffect(() => {
     const unsubscribe = calendarState.monthSubscribe(() => {
       setSelectedDate(calendarState.currentDate)
     });
     return unsubscribe;
-  }, [calendarState])
+  }, [])
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
       setSelectedDate(calendarState.currentDate)
     })
     return dayUnsubscribe
-  }, [calendarState])
+  }, [])
 
   const elementRef = useRef<View | null>(null)
   const insets = useSafeAreaInsets()
