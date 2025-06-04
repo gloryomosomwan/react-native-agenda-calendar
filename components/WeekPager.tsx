@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react'
 import { useCalendar } from './CalendarContext';
 import { addWeeks, differenceInCalendarWeeks, isSameWeek, startOfWeek } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
 import Week from './Week';
