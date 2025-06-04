@@ -30,7 +30,9 @@ const CalendarContent = () => {
   return (
     <View style={{ flex: 1, backgroundColor: 'white', paddingTop: paddingTop, paddingBottom: insets.bottom }}>
       <Header />
-      {/* <WeekPager /> */}
+      <WeekPager
+        bottomSheetTranslationY={bottomSheetTranslationY}
+      />
       <MonthPager
         bottomSheetTranslationY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}

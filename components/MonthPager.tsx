@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import { useCalendar } from './CalendarContext';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
-import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedProps, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { interpolate, SharedValue, useAnimatedProps, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Month from '@/components/Month'
@@ -67,7 +67,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
     return weekUnsubscribe
   }, [])
 
-  const rMonthViewStyle = useAnimatedStyle(() => {
+  const rMonthPagerStyle = useAnimatedStyle(() => {
     return {
       transform: [{
         translateY: interpolate(
@@ -102,7 +102,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
   };
 
   return (
-    <Animated.View style={[rMonthViewStyle]} animatedProps={animatedProps}>
+    <Animated.View style={[rMonthPagerStyle]} animatedProps={animatedProps}>
       <InfinitePager
         ref={monthPagerRef}
         PageComponent={MonthPage}

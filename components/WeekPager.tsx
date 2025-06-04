@@ -1,9 +1,9 @@
-import { Animated, Platform, StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { useCalendar } from './CalendarContext';
 import { addWeeks, differenceInCalendarWeeks, isSameWeek, startOfWeek } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
-import { useSharedValue } from 'react-native-reanimated';
+import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Week from './Week';
@@ -11,7 +11,11 @@ import Week from './Week';
 const today = new Date()
 today.setHours(0, 0, 0, 0)
 
-export default function WeekPager() {
+type WeekPagerProps = {
+  bottomSheetTranslationY: SharedValue<number>
+}
+
+export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
   const { calendarState } = useCalendar();
   const weekPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const isProgrammaticChange = useSharedValue(false)
@@ -41,8 +45,14 @@ export default function WeekPager() {
     return monthUnsubscribe
   }, [])
 
+  const rWeekPagerStyle = useAnimatedStyle(() => {
+    return {
+      opacity: bottomSheetTranslationY.value === -235 ? 1 : 0
+    }
+  })
+
   return (
-    <Animated.View style={[styles.weekPagerContainer, { paddingTop: paddingTop + 30 + 5 + 17 }]}>
+    <Animated.View style={[styles.weekPagerContainer, { paddingTop: paddingTop + 30 + 5 + 17 }, rWeekPagerStyle]}>
       {/* 30 (size of header) + 5 (header margin) + 17 (weekday name text height) */}
       <InfinitePager
         ref={weekPagerRef}
