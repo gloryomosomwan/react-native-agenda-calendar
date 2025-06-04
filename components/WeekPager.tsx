@@ -18,6 +18,15 @@ export default function WeekPager() {
   const didInitialSync = useRef<boolean>(false)
 
   useEffect(() => {
+    const dayUnsubscribe = calendarState.daySubscribe(() => {
+      if (isSameWeek(calendarState.currentDate, calendarState.previousDate)) return;
+      isProgrammaticChange.value = true;
+      weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
+    })
+    return dayUnsubscribe
+  }, [])
+
+  useEffect(() => {
     const monthUnsubscribe = calendarState.monthSubscribe(() => {
       // MonthPager's onPageChange is invoked on mount so we skip that initial "change"
       if (didInitialSync.current === false) {
@@ -28,15 +37,6 @@ export default function WeekPager() {
       weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
     })
     return monthUnsubscribe
-  }, [calendarState.currentDate])
-
-  useEffect(() => {
-    const dayUnsubscribe = calendarState.daySubscribe(() => {
-      if (isSameWeek(calendarState.currentDate, calendarState.previousDate)) return;
-      isProgrammaticChange.value = true;
-      weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
-    })
-    return dayUnsubscribe
   }, [])
 
   return (
@@ -52,7 +52,9 @@ export default function WeekPager() {
               isProgrammaticChange.value = false;
               return;
             }
-            index === 0 ? calendarState.weekSelectDate(today) : calendarState.weekSelectDate(startOfWeek(addWeeks(today, index)))
+            let date = index === 0 ? today : startOfWeek(addWeeks(today, index))
+            calendarState.selectPreviousDate(calendarState.currentDate)
+            calendarState.weekSelectDate(date)
           }}
         />
       </Animated.View>

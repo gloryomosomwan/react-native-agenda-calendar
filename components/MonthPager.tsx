@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { addMonths, isAfter, isBefore, startOfMonth } from 'date-fns';
+import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import { useCalendar } from './CalendarContext';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import Animated, { useAnimatedProps, useSharedValue } from 'react-native-reanimated';
@@ -15,6 +15,7 @@ export default function MonthPager() {
   const { calendarState } = useCalendar();
   const monthPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const isProgrammaticChange = useSharedValue(false)
+  const didInitialSync = useRef<boolean>(false)
 
   const animatedProps = useAnimatedProps(() => {
     return {
@@ -34,6 +35,20 @@ export default function MonthPager() {
       }
     })
     return dayUnsubscribe
+  }, [])
+
+  useEffect(() => {
+    const weekUnsubscribe = calendarState.weekSubscribe(() => {
+      // WeekPager's onPageChange is invoked on mount so we skip that initial "change"
+      if (didInitialSync.current === false) {
+        didInitialSync.current = true;
+        return;
+      }
+      if (isSameMonth(calendarState.currentDate, calendarState.previousDate)) return;
+      isProgrammaticChange.value = true;
+      monthPagerRef.current?.setPage(differenceInCalendarMonths(calendarState.currentDate, today), { animated: false })
+    })
+    return weekUnsubscribe
   }, [])
 
   return (
