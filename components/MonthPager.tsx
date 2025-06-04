@@ -49,7 +49,9 @@ export default function MonthPager() {
               isProgrammaticChange.value = false;
               return;
             }
-            index === 0 ? calendarState.monthSelectDate(today) : calendarState.monthSelectDate(startOfMonth(addMonths(today, index)))
+            let date = index === 0 ? today : startOfMonth(addMonths(today, index))
+            calendarState.selectPreviousDate(calendarState.currentDate)
+            calendarState.monthSelectDate(date)
           }}
         />
       </Animated.View>

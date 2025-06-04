@@ -1,7 +1,7 @@
 import { Animated, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { useCalendar } from './CalendarContext';
-import { addWeeks, differenceInCalendarWeeks, startOfWeek } from 'date-fns';
+import { addWeeks, differenceInCalendarWeeks, isSameWeek, startOfWeek } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
@@ -32,6 +32,7 @@ export default function WeekPager() {
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
+      if (isSameWeek(calendarState.currentDate, calendarState.previousDate)) return;
       isProgrammaticChange.value = true;
       weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
     })
