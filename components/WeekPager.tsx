@@ -15,9 +15,15 @@ export default function WeekPager() {
   const { calendarState } = useCalendar();
   const weekPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const isProgrammaticChange = useSharedValue(false)
+  const didInitialSync = useRef<boolean>(false)
 
   useEffect(() => {
     const unsubscribe = calendarState.monthSubscribe(() => {
+      // MonthPager's onPageChange is invoked on mount so we skip that initial "change"
+      if (didInitialSync.current === false) {
+        didInitialSync.current = true;
+        return;
+      }
       isProgrammaticChange.value = true;
       weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
     })
