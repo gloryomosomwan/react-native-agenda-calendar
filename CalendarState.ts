@@ -1,14 +1,10 @@
-import { isSameDay } from 'date-fns';
-
 export class CalendarState {
   private _currentDate: Date;
   private _daySubscribers: Set<() => void>;
   private _weekSubscribers: Set<() => void>;
   private _monthSubscribers: Set<() => void>;
   private _todayDate: Date;
-  private _dateOfDisplayedMonth: Date;
   private _previousDate: Date
-  private _dayPressed: boolean = false
 
   constructor(initialDate: Date = new Date()) {
     this._todayDate = new Date(new Date().toISOString());
@@ -17,7 +13,6 @@ export class CalendarState {
     this._daySubscribers = new Set();
     this._weekSubscribers = new Set();
     this._monthSubscribers = new Set();
-    this._dateOfDisplayedMonth = initialDate
   }
 
   daySelectDate(date: Date) {
@@ -37,11 +32,6 @@ export class CalendarState {
 
   selectPreviousDate(date: Date) {
     this._previousDate = date
-  }
-
-  setDayOfDisplayedMonth(date: Date) {
-    if (isSameDay(this._dateOfDisplayedMonth, date)) return;
-    this._dateOfDisplayedMonth = date
   }
 
   daySubscribe(callback: () => void): () => void {
@@ -77,10 +67,7 @@ export class CalendarState {
     this._monthSubscribers.forEach(callback => callback());
   }
 
-
   get currentDate() { return this._currentDate; }
   get previousDate() { return this._previousDate }
-  get dateOfDisplayedMonth() { return this._dateOfDisplayedMonth }
   get todayDate() { return this._todayDate; }
-  get dayPressed() { return this._dayPressed }
 }
