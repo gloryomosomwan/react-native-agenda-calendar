@@ -46,23 +46,42 @@ const CalendarContent = () => {
   }, [])
 
   return (
-    <GestureHandlerRootView>
-      <Animated.View style={styles.flex} animatedProps={animatedProps}>
-        <InfinitePager
-          ref={pagerRef}
-          PageComponent={Page}
-          style={styles.flex}
-          pageWrapperStyle={styles.flex}
-          onPageChange={(index) => {
-            if (isProgrammaticChange.value) {
-              isProgrammaticChange.value = false;
-              return;
-            }
-            index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfMonth(addMonths(today, index)))
-          }}
-        />
-      </Animated.View>
-    </GestureHandlerRootView>
+    <View style={{ flex: 1 }}>
+      <GestureHandlerRootView>
+        <Animated.View style={{ flex: 1 }} animatedProps={animatedProps}>
+          <InfinitePager
+            ref={pagerRef}
+            PageComponent={Page}
+            style={styles.flex}
+            pageWrapperStyle={styles.flex}
+            onPageChange={(index) => {
+              if (isProgrammaticChange.value) {
+                isProgrammaticChange.value = false;
+                return;
+              }
+              index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfMonth(addMonths(today, index)))
+            }}
+          />
+        </Animated.View>
+      </GestureHandlerRootView>
+      <GestureHandlerRootView>
+        <Animated.View style={styles.flex} animatedProps={animatedProps}>
+          <InfinitePager
+            ref={pagerRef}
+            PageComponent={Page}
+            style={styles.flex}
+            pageWrapperStyle={styles.flex}
+            onPageChange={(index) => {
+              if (isProgrammaticChange.value) {
+                isProgrammaticChange.value = false;
+                return;
+              }
+              index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfMonth(addMonths(today, index)))
+            }}
+          />
+        </Animated.View>
+      </GestureHandlerRootView>
+    </View>
   );
 };
 

@@ -109,9 +109,10 @@ function createWeeks(daysArray: React.ReactNode[]) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    // height: '100%',
     width: '100%',
-    paddingTop: 102,
+    // paddingTop: 102,
   },
   week: {
     flexDirection: 'row',
