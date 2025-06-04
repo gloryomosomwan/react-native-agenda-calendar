@@ -11,11 +11,10 @@ type DayProps = {
   date: Date;
   firstDayOfMonth: Date;
   selectedDatePosition: SharedValue<number>
-  bottomSheetTranslationY: SharedValue<number>
   dayType: DayType
 }
 
-export default function Day({ date, firstDayOfMonth, selectedDatePosition, bottomSheetTranslationY, dayType }: DayProps) {
+export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayType }: DayProps) {
   const { calendarState } = useCalendar()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
 

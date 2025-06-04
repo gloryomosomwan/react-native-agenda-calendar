@@ -101,7 +101,6 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
         <Month
           initialDay={startOfMonth(addMonths(today, index))}
           selectedDatePosition={selectedDatePosition}
-          bottomSheetTranslationY={bottomSheetTranslationY}
           setCalendarBottom={setCalendarBottom}
         />
       </View>
