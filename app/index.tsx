@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { CalendarProvider } from "@/components/CalendarContext";
+import Header from "@/components/Header";
 import WeekPager from "@/components/WeekPager";
 import MonthPager from "@/components/MonthPager";
 import BottomSheet from "@/components/BottomSheet";
@@ -27,8 +28,9 @@ const CalendarContent = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <WeekPager />
+      <Header />
       <MonthPager />
+      {/* <WeekPager /> */}
       <BottomSheet
         translateY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}

@@ -42,7 +42,8 @@ export default function WeekPager() {
   }, [])
 
   return (
-    <Animated.View style={[styles.weekPagerContainer, { paddingTop: paddingTop }]}>
+    <Animated.View style={[styles.weekPagerContainer, { paddingTop: paddingTop + 30 + 5 + 17 }]}>
+      {/* 30 (size of header) + 5 (header margin) + 17 (weekday name text height) */}
       <InfinitePager
         ref={weekPagerRef}
         PageComponent={WeekPage}

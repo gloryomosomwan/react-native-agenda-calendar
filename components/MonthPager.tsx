@@ -18,7 +18,9 @@ export default function MonthPager() {
   const isProgrammaticChange = useSharedValue(false)
   const didInitialSync = useRef<boolean>(false)
   const insets = useSafeAreaInsets()
-  const paddingTop = Platform.OS === 'android' ? 0 : insets.top
+
+  // const paddingTop = Platform.OS === 'android' ? 0 : insets.top
+  const paddingTop = 0
 
   const animatedProps = useAnimatedProps(() => {
     return {
