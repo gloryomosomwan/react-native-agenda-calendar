@@ -45,11 +45,11 @@ export default function MonthPager() {
           // style={styles.flex}
           // pageWrapperStyle={styles.flex}
           onPageChange={(index) => {
-            if (isProgrammaticChange.value) {
+            if (isProgrammaticChange.value === true) {
               isProgrammaticChange.value = false;
               return;
             }
-            index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfMonth(addMonths(today, index)))
+            index === 0 ? calendarState.monthSelectDate(today) : calendarState.monthSelectDate(startOfMonth(addMonths(today, index)))
           }}
         />
       </Animated.View>

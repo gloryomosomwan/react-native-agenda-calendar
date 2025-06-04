@@ -20,7 +20,14 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, botto
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
 
   useEffect(() => {
-    const unsubscribe = calendarState.subscribe(() => {
+    const unsubscribe = calendarState.weekSubscribe(() => {
+      setSelectedDate(calendarState.currentDate)
+    });
+    return unsubscribe;
+  }, [calendarState])
+
+  useEffect(() => {
+    const unsubscribe = calendarState.monthSubscribe(() => {
       setSelectedDate(calendarState.currentDate)
     });
     return unsubscribe;

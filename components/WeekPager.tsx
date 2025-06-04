@@ -17,7 +17,7 @@ export default function WeekPager() {
   const isProgrammaticChange = useSharedValue(false)
 
   useEffect(() => {
-    const unsubscribe = calendarState.subscribe(() => {
+    const unsubscribe = calendarState.monthSubscribe(() => {
       isProgrammaticChange.value = true;
       weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
     })
@@ -33,12 +33,11 @@ export default function WeekPager() {
           // style={styles.flex}
           // pageWrapperStyle={styles.flex}
           onPageChange={(index) => {
-            if (isProgrammaticChange.value) {
+            if (isProgrammaticChange.value === true) {
               isProgrammaticChange.value = false;
               return;
             }
-
-            index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfWeek(addWeeks(today, index)))
+            index === 0 ? calendarState.weekSelectDate(today) : calendarState.weekSelectDate(startOfWeek(addWeeks(today, index)))
           }}
         />
       </Animated.View>

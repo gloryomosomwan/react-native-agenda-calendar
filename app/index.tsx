@@ -17,7 +17,7 @@ const CalendarContent = () => {
   return (
     <View style={{ flex: 1 }}>
       <WeekPager />
-      <MonthPager />
+      {/* <MonthPager /> */}
     </View>
   );
 };

@@ -2,8 +2,9 @@ import { isSameDay } from 'date-fns';
 
 export class CalendarState {
   private _currentDate: Date;
-  private _subscribers: Set<() => void>;
   private _daySubscribers: Set<() => void>;
+  private _weekSubscribers: Set<() => void>;
+  private _monthSubscribers: Set<() => void>;
   private _todayDate: Date;
   private _dateOfDisplayedMonth: Date;
   private _previousDate: Date
@@ -13,8 +14,9 @@ export class CalendarState {
     this._todayDate = new Date(new Date().toISOString());
     this._currentDate = initialDate;
     this._previousDate = initialDate
-    this._subscribers = new Set();
     this._daySubscribers = new Set();
+    this._weekSubscribers = new Set();
+    this._monthSubscribers = new Set();
     this._dateOfDisplayedMonth = initialDate
   }
 
@@ -23,9 +25,14 @@ export class CalendarState {
     this.notifyDaySubscribers()
   }
 
-  selectDate(date: Date) {
+  weekSelectDate(date: Date) {
     this._currentDate = date;
-    this.notifySubscribers();
+    this.notifyWeekSubscribers();
+  }
+
+  monthSelectDate(date: Date) {
+    this._currentDate = date;
+    this.notifyMonthSubscribers();
   }
 
   selectPreviousDate(date: Date) {
@@ -37,13 +44,6 @@ export class CalendarState {
     this._dateOfDisplayedMonth = date
   }
 
-  subscribe(callback: () => void): () => void {
-    this._subscribers.add(callback);
-    return () => {
-      this._subscribers.delete(callback);
-    };
-  }
-
   daySubscribe(callback: () => void): () => void {
     this._daySubscribers.add(callback);
     return () => {
@@ -51,13 +51,32 @@ export class CalendarState {
     };
   }
 
-  private notifySubscribers() {
-    this._subscribers.forEach(callback => callback());
+  weekSubscribe(callback: () => void): () => void {
+    this._weekSubscribers.add(callback);
+    return () => {
+      this._weekSubscribers.delete(callback);
+    };
+  }
+
+  monthSubscribe(callback: () => void): () => void {
+    this._monthSubscribers.add(callback);
+    return () => {
+      this._monthSubscribers.delete(callback);
+    };
   }
 
   private notifyDaySubscribers() {
     this._daySubscribers.forEach(callback => callback());
   }
+
+  private notifyWeekSubscribers() {
+    this._weekSubscribers.forEach(callback => callback());
+  }
+
+  private notifyMonthSubscribers() {
+    this._monthSubscribers.forEach(callback => callback());
+  }
+
 
   get currentDate() { return this._currentDate; }
   get previousDate() { return this._previousDate }
