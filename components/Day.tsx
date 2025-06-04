@@ -52,21 +52,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, botto
   }
 
   const onPress = () => {
-    // if (bottomSheetTranslationY.value === 0 || bottomSheetTranslationY.value === -235) {
-    //   if (elementRef.current) {
-    //     elementRef.current.measure((x, y, width, height, pageX, pageY) => {
-    //       // if (bottomSheetTranslationY.value > -235) {
-    //       selectedDatePosition.value = pageY
-    //       // }
-    //     });
-    //   }
-    // }
-
-    // setSelectedDate(date)
-
     calendarState.selectPreviousDate(calendarState.currentDate)
-    // calendarState.selectDate(date, true)
-
     calendarState.daySelectDate(date)
   }
 
