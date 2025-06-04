@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Animated, { useAnimatedProps } from "react-native-reanimated";
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
-import { addMonths, addWeeks, isAfter, isBefore, isSameDay, startOfMonth, startOfWeek } from "date-fns"
+import { addMonths, addWeeks, isAfter, isBefore, isSameDay, startOfMonth, startOfWeek, differenceInCalendarWeeks } from "date-fns"
 import { useSharedValue } from "react-native-reanimated";
 import { CalendarProvider, useCalendar } from "@/components/CalendarContext";
 
@@ -23,7 +23,8 @@ export default function App() {
 
 const CalendarContent = () => {
   const { calendarState } = useCalendar();
-  const pagerRef = useRef<InfinitePagerImperativeApi>(null)
+  const monthPagerRef = useRef<InfinitePagerImperativeApi>(null)
+  const weekPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const isProgrammaticChange = useSharedValue(false)
 
   const animatedProps = useAnimatedProps(() => {
@@ -36,22 +37,29 @@ const CalendarContent = () => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
       if (isInEarlierMonth(calendarState.currentDate, calendarState.previousDate)) {
         isProgrammaticChange.value = true;
-        pagerRef.current?.decrementPage({ animated: true })
+        monthPagerRef.current?.decrementPage({ animated: true })
       }
       else if (isInLaterMonth(calendarState.currentDate, calendarState.previousDate)) {
         isProgrammaticChange.value = true;
-        pagerRef.current?.incrementPage({ animated: true })
+        monthPagerRef.current?.incrementPage({ animated: true })
       }
     })
     return dayUnsubscribe
   }, [])
+
+  useEffect(() => {
+    const unsubscribe = calendarState.subscribe(() => {
+      weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
+    })
+    return unsubscribe
+  }, [calendarState.currentDate])
 
   return (
     <View style={{ flex: 1 }}>
       <GestureHandlerRootView style={{}}  >
         <Animated.View animatedProps={animatedProps}>
           <InfinitePager
-            ref={pagerRef}
+            ref={weekPagerRef}
             PageComponent={WeekPage}
             // style={styles.flex}
             // pageWrapperStyle={styles.flex}
@@ -60,7 +68,7 @@ const CalendarContent = () => {
                 isProgrammaticChange.value = false;
                 return;
               }
-              index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfWeek(addWeeks(today, index)))
+              // index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfWeek(addWeeks(today, index)))
             }}
           />
         </Animated.View>
@@ -68,7 +76,7 @@ const CalendarContent = () => {
       <GestureHandlerRootView style={{}}>
         <Animated.View animatedProps={animatedProps}>
           <InfinitePager
-            ref={pagerRef}
+            ref={monthPagerRef}
             PageComponent={MonthPage}
             // style={styles.flex}
             // pageWrapperStyle={styles.flex}
