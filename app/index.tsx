@@ -23,14 +23,19 @@ export default function App() {
 const CalendarContent = () => {
   const insets = useSafeAreaInsets()
   const bottomSheetTranslationY = useSharedValue(0)
-  let topPadding = Platform.OS === 'android' ? 0 : insets.top
-  const calendarBottom = useSharedValue((47 * 6) + topPadding + 52)
+  const selectedDatePosition = useSharedValue(0)
+  let paddingTop = Platform.OS === 'android' ? 0 : insets.top
+  const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52)
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View style={{ flex: 1, backgroundColor: 'white', paddingTop: paddingTop, paddingBottom: insets.bottom }}>
       <Header />
-      <MonthPager />
       {/* <WeekPager /> */}
+      <MonthPager
+        bottomSheetTranslationY={bottomSheetTranslationY}
+        calendarBottom={calendarBottom}
+        selectedDatePosition={selectedDatePosition}
+      />
       <BottomSheet
         translateY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}

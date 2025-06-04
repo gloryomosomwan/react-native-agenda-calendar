@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, Platform } from 'react-native'
 import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
-import { isSameMonth, isSameDay, getWeekOfMonth, isBefore } from 'date-fns'
+import { isSameMonth, isSameDay, getWeekOfMonth, isBefore, startOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCalendar } from './CalendarContext';
@@ -60,7 +60,6 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, botto
     //       // }
     //     });
     //   }
-    //   handlePress(date)
     // }
 
     // setSelectedDate(date)
@@ -72,16 +71,10 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, botto
   }
 
   useLayoutEffect(() => {
-    // Add a check to see where botttom sheet is?
-    // if (isSameDay(date, selectedDate) && isSameMonth(date, selectedDate) && isSameMonth(firstDayOfMonth, calendarState.dateOfDisplayedMonth)) {
-    //     if (bottomSheetTranslationY.value > -235) {
-    //       selectedDatePosition.value = pageY
-    //     }
-    const weekOfMonth = getWeekOfMonth(date)
-    selectedDatePosition.value = (topPadding + 50) + (47 * (weekOfMonth - 1))
-  }
-    // }
-  )
+    if (isSameDay(date, selectedDate) && isSameDay(firstDayOfMonth, startOfMonth(date))) {
+      selectedDatePosition.value = (topPadding + 52) + (47 * (getWeekOfMonth(date) - 1))
+    }
+  })
 
   return (
     <Pressable onPress={onPress}>

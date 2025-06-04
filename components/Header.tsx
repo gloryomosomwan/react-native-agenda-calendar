@@ -47,8 +47,8 @@ export default function Header() {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: 'white',
-    // position: 'absolute',
-    // zIndex: 1,
+    position: 'absolute',
+    zIndex: 1,
   },
   monthName: {
     fontSize: 25,
