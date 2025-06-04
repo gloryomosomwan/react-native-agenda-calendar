@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, View } from 'react-native'
+import { Button, Platform, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import { useCalendar } from './CalendarContext';
@@ -67,6 +67,13 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
     return weekUnsubscribe
   }, [])
 
+  useEffect(() => {
+    const todayUnsubscribe = calendarState.todaySubscribe(() => {
+      monthPagerRef.current?.setPage(differenceInCalendarMonths(calendarState.currentDate, today), { animated: false })
+    })
+    return todayUnsubscribe
+  }, [])
+
   const rMonthPagerStyle = useAnimatedStyle(() => {
     return {
       transform: [{
@@ -118,10 +125,12 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
           calendarState.monthSelectDate(date)
         }}
       />
+      <View style={{ position: 'absolute', top: 400, left: 240 }}>
+        <Button title='today' onPress={() => { calendarState.selectToday() }} />
+      </View>
     </Animated.View>
   )
 }
-
 
 function isInEarlierMonth(dateToCheck: Date, referenceDate: Date) {
   const monthOfDateToCheck = startOfMonth(dateToCheck);

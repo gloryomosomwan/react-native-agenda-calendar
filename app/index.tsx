@@ -38,10 +38,10 @@ const CalendarContent = () => {
         calendarBottom={calendarBottom}
         selectedDatePosition={selectedDatePosition}
       />
-      <BottomSheet
+      {/* <BottomSheet
         translateY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}
-      />
+      /> */}
     </View>
   );
 };

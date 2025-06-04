@@ -43,7 +43,7 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'aliceblue',
+    // backgroundColor: 'aliceblue',
     // flex: 1
   },
   days: {
