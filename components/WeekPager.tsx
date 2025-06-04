@@ -14,9 +14,11 @@ today.setHours(0, 0, 0, 0)
 export default function WeekPager() {
   const { calendarState } = useCalendar();
   const weekPagerRef = useRef<InfinitePagerImperativeApi>(null)
+  const isProgrammaticChange = useSharedValue(false)
 
   useEffect(() => {
     const unsubscribe = calendarState.subscribe(() => {
+      isProgrammaticChange.value = true;
       weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
     })
     return unsubscribe
@@ -31,7 +33,12 @@ export default function WeekPager() {
           // style={styles.flex}
           // pageWrapperStyle={styles.flex}
           onPageChange={(index) => {
-            // index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfWeek(addWeeks(today, index)))
+            if (isProgrammaticChange.value) {
+              isProgrammaticChange.value = false;
+              return;
+            }
+
+            index === 0 ? calendarState.selectDate(today) : calendarState.selectDate(startOfWeek(addWeeks(today, index)))
           }}
         />
       </Animated.View>
