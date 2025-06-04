@@ -40,25 +40,23 @@ export default function WeekPager() {
   }, [])
 
   return (
-    <GestureHandlerRootView style={{}}  >
-      <Animated.View >
-        <InfinitePager
-          ref={weekPagerRef}
-          PageComponent={WeekPage}
-          // style={styles.flex}
-          // pageWrapperStyle={styles.flex}
-          onPageChange={(index) => {
-            if (isProgrammaticChange.value === true) {
-              isProgrammaticChange.value = false;
-              return;
-            }
-            let date = index === 0 ? today : startOfWeek(addWeeks(today, index))
-            calendarState.selectPreviousDate(calendarState.currentDate)
-            calendarState.weekSelectDate(date)
-          }}
-        />
-      </Animated.View>
-    </GestureHandlerRootView>
+    <Animated.View style={{}}>
+      <InfinitePager
+        ref={weekPagerRef}
+        PageComponent={WeekPage}
+        // style={styles.flex}
+        // pageWrapperStyle={styles.flex}
+        onPageChange={(index) => {
+          if (isProgrammaticChange.value === true) {
+            isProgrammaticChange.value = false;
+            return;
+          }
+          let date = index === 0 ? today : startOfWeek(addWeeks(today, index))
+          calendarState.selectPreviousDate(calendarState.currentDate)
+          calendarState.weekSelectDate(date)
+        }}
+      />
+    </Animated.View>
   )
 }
 

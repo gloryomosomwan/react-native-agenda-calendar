@@ -52,25 +52,23 @@ export default function MonthPager() {
   }, [])
 
   return (
-    <GestureHandlerRootView style={{}}>
-      <Animated.View animatedProps={animatedProps}>
-        <InfinitePager
-          ref={monthPagerRef}
-          PageComponent={MonthPage}
-          // style={styles.flex}
-          // pageWrapperStyle={styles.flex}
-          onPageChange={(index) => {
-            if (isProgrammaticChange.value === true) {
-              isProgrammaticChange.value = false;
-              return;
-            }
-            let date = index === 0 ? today : startOfMonth(addMonths(today, index))
-            calendarState.selectPreviousDate(calendarState.currentDate)
-            calendarState.monthSelectDate(date)
-          }}
-        />
-      </Animated.View>
-    </GestureHandlerRootView>
+    <Animated.View style={{}} animatedProps={animatedProps}>
+      <InfinitePager
+        ref={monthPagerRef}
+        PageComponent={MonthPage}
+        // style={styles.flex}
+        // pageWrapperStyle={styles.flex}
+        onPageChange={(index) => {
+          if (isProgrammaticChange.value === true) {
+            isProgrammaticChange.value = false;
+            return;
+          }
+          let date = index === 0 ? today : startOfMonth(addMonths(today, index))
+          calendarState.selectPreviousDate(calendarState.currentDate)
+          calendarState.monthSelectDate(date)
+        }}
+      />
+    </Animated.View>
   )
 }
 
