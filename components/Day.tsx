@@ -41,14 +41,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
 
   const elementRef = useRef<View | null>(null)
   const insets = useSafeAreaInsets()
-
-  let topPadding = 0;
-  if (Platform.OS === 'android') {
-    topPadding = 0
-  }
-  else if (Platform.OS === 'ios') {
-    topPadding = insets.top
-  }
+  let paddingTop = Platform.OS === 'android' ? 0 : insets.top
 
   const onPress = () => {
     calendarState.selectPreviousDate(calendarState.currentDate)
@@ -57,7 +50,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
 
   useLayoutEffect(() => {
     if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) {
-      selectedDatePosition.value = (topPadding + 52) + (47 * (getWeekOfMonth(date) - 1))
+      selectedDatePosition.value = (paddingTop + 52) + (47 * (getWeekOfMonth(date) - 1))
     }
   })
 
