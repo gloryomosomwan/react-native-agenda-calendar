@@ -18,7 +18,7 @@ export default function WeekPager() {
   const didInitialSync = useRef<boolean>(false)
 
   useEffect(() => {
-    const unsubscribe = calendarState.monthSubscribe(() => {
+    const monthUnsubscribe = calendarState.monthSubscribe(() => {
       // MonthPager's onPageChange is invoked on mount so we skip that initial "change"
       if (didInitialSync.current === false) {
         didInitialSync.current = true;
@@ -27,8 +27,16 @@ export default function WeekPager() {
       isProgrammaticChange.value = true;
       weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
     })
-    return unsubscribe
+    return monthUnsubscribe
   }, [calendarState.currentDate])
+
+  useEffect(() => {
+    const dayUnsubscribe = calendarState.daySubscribe(() => {
+      isProgrammaticChange.value = true;
+      weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
+    })
+    return dayUnsubscribe
+  }, [])
 
   return (
     <GestureHandlerRootView style={{}}  >
