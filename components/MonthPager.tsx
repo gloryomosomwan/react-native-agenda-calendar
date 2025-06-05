@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import { useCalendar } from './CalendarContext';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
-import Animated, { interpolate, SharedValue, useAnimatedProps, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { interpolate, SharedValue, useAnimatedProps, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Month from '@/components/Month'
@@ -25,6 +25,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
   const isProgrammaticChange = useSharedValue(false)
   const didInitialSync = useRef<boolean>(false)
   const insets = useSafeAreaInsets()
+  const pagerOpacity = useSharedValue(1)
 
   const paddingTop = useSharedValue(Platform.OS === 'android' ? 0 : insets.top)
   // const paddingTop = Platform.OS === 'android' ? 0 : insets.top
@@ -69,7 +70,15 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
 
   useEffect(() => {
     const todayUnsubscribe = calendarState.todaySubscribe(() => {
-      monthPagerRef.current?.setPage(differenceInCalendarMonths(calendarState.currentDate, today), { animated: false })
+      if (Math.abs(differenceInCalendarMonths(calendarState.previousDate, today)) > 1) {
+        pagerOpacity.value = withRepeat(
+          withTiming(0, { duration: 150 }),
+          2,
+          true
+        );
+      }
+      isProgrammaticChange.value = true;
+      monthPagerRef.current?.setPage(0, { animated: false })
     })
     return todayUnsubscribe
   }, [])
@@ -83,28 +92,25 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
           [0, (paddingTop.value + 52) - selectedDatePosition.value] // 52 is for the Month padding
         )
       }],
-      opacity: bottomSheetTranslationY.value === -235 ? 0 : 1
+      opacity: pagerOpacity.value
     };
   });
 
+  const rPageStyle = useAnimatedStyle(() => {
+    return {
+      opacity: bottomSheetTranslationY.value === -235 ? 0 : 1
+    }
+  })
+
   const MonthPage = ({ index }: { index: number }) => {
     return (
-      <View
-        style={[
-          // styles.flex,
-          {
-            // alignItems: "center",
-            // justifyContent: "center",
-            backgroundColor: 'white'
-          },
-        ]}
-      >
+      <Animated.View style={[rPageStyle]} >
         <Month
           initialDay={startOfMonth(addMonths(today, index))}
           selectedDatePosition={selectedDatePosition}
           setCalendarBottom={setCalendarBottom}
         />
-      </View>
+      </Animated.View>
     );
   };
 

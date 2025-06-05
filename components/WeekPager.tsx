@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { useCalendar } from './CalendarContext';
 import { addWeeks, differenceInCalendarWeeks, isSameWeek, startOfWeek } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
-import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { SharedValue, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Week from './Week';
@@ -22,6 +22,7 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
   const didInitialSync = useRef<boolean>(false)
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
+  const pagerOpacity = useSharedValue(1)
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
@@ -45,12 +46,44 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
     return monthUnsubscribe
   }, [])
 
+  useEffect(() => {
+    const todayUnsubscribe = calendarState.todaySubscribe(() => {
+      if (Math.abs(differenceInCalendarWeeks(calendarState.previousDate, today)) > 1) {
+        pagerOpacity.value = withRepeat(
+          withTiming(0, { duration: 150 }),
+          2,
+          true
+        );
+      }
+      isProgrammaticChange.value = true
+      weekPagerRef.current?.setPage(0, { animated: false })
+    })
+    return todayUnsubscribe
+  }, [])
+
   const rWeekPagerStyle = useAnimatedStyle(() => {
+    return {
+      opacity: pagerOpacity.value
+    }
+  })
+
+  const rPageStyle = useAnimatedStyle(() => {
     return {
       opacity: bottomSheetTranslationY.value === -235 ? 1 : 0
     }
   })
 
+  const WeekPage = ({ index }: { index: number }) => {
+    const selectedDatePosition = useSharedValue(0)
+    return (
+      <Animated.View style={[rPageStyle]} >
+        <Week
+          initialDay={startOfWeek(addWeeks(today, index))}
+          selectedDatePosition={selectedDatePosition}
+        />
+      </Animated.View>
+    );
+  };
   return (
     <Animated.View style={[styles.weekPagerContainer, { paddingTop: paddingTop + 30 + 5 + 17 }, rWeekPagerStyle]}>
       {/* 30 (size of header) + 5 (header margin) + 17 (weekday name text height) */}
@@ -73,26 +106,6 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
   )
 }
 
-const WeekPage = ({ index }: { index: number }) => {
-  const selectedDatePosition = useSharedValue(0)
-  return (
-    <View
-      style={[
-        // styles.flex,
-        {
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: 'white'
-        },
-      ]}
-    >
-      <Week
-        initialDay={startOfWeek(addWeeks(today, index))}
-        selectedDatePosition={selectedDatePosition}
-      />
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   weekPagerContainer: {
