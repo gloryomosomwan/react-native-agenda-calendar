@@ -45,7 +45,7 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
 
   useEffect(() => {
     const todayUnsubscribe = calendarState.todaySubscribe(() => {
-      if (Math.abs(differenceInCalendarWeeks(calendarState.previousDate, calendarState.todayDate)) > 1) {
+      if (Math.abs(differenceInCalendarWeeks(calendarState.previousDate, calendarState.todayDate)) > 4) {
         pagerOpacity.value = withRepeat(
           withTiming(0, { duration: 150 }),
           2,
