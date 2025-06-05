@@ -10,9 +10,6 @@ import Month from '@/components/Month'
 
 const EXPANDED_MODE_THRESHOLD = -235
 
-const today = new Date()
-today.setHours(0, 0, 0, 0)
-
 type MonthPagerProps = {
   bottomSheetTranslationY: SharedValue<number>
   calendarBottom: SharedValue<number>
@@ -63,14 +60,14 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
       }
       if (isSameMonth(calendarState.currentDate, calendarState.previousDate)) return;
       isProgrammaticChange.value = true;
-      monthPagerRef.current?.setPage(differenceInCalendarMonths(calendarState.currentDate, today), { animated: false })
+      monthPagerRef.current?.setPage(differenceInCalendarMonths(calendarState.currentDate, calendarState.todayDate), { animated: false })
     })
     return weekUnsubscribe
   }, [])
 
   useEffect(() => {
     const todayUnsubscribe = calendarState.todaySubscribe(() => {
-      if (Math.abs(differenceInCalendarMonths(calendarState.previousDate, today)) > 1) {
+      if (Math.abs(differenceInCalendarMonths(calendarState.previousDate, calendarState.todayDate)) > 1) {
         pagerOpacity.value = withRepeat(
           withTiming(0, { duration: 150 }),
           2,
@@ -106,7 +103,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
     return (
       <Animated.View style={[rPageStyle]} >
         <Month
-          initialDay={startOfMonth(addMonths(today, index))}
+          initialDay={startOfMonth(addMonths(calendarState.todayDate, index))}
           selectedDatePosition={selectedDatePosition}
           setCalendarBottom={setCalendarBottom}
         />
@@ -126,7 +123,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
             isProgrammaticChange.value = false;
             return;
           }
-          let date = index === 0 ? today : startOfMonth(addMonths(today, index))
+          let date = index === 0 ? calendarState.todayDate : startOfMonth(addMonths(calendarState.todayDate, index))
           calendarState.selectPreviousDate(calendarState.currentDate)
           calendarState.monthSelectDate(date)
         }}

@@ -11,9 +11,6 @@ import MonthPager from "@/components/MonthPager";
 import BottomSheet from "@/components/BottomSheet";
 import { isSameDay } from "date-fns";
 
-const today = new Date()
-today.setHours(0, 0, 0, 0)
-
 export default function App() {
   return (
     <GestureHandlerRootView>
@@ -33,7 +30,7 @@ const CalendarContent = () => {
   const { calendarState } = useCalendar()
 
   const setToday = () => {
-    if (isSameDay(calendarState.currentDate, today)) return;
+    if (isSameDay(calendarState.currentDate, calendarState.todayDate)) return;
     calendarState.selectPreviousDate(calendarState.currentDate)
     calendarState.selectToday()
   }

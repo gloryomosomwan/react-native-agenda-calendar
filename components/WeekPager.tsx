@@ -8,9 +8,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Week from './Week';
 
-const today = new Date()
-today.setHours(0, 0, 0, 0)
-
 type WeekPagerProps = {
   bottomSheetTranslationY: SharedValue<number>
 }
@@ -28,7 +25,7 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
       if (isSameWeek(calendarState.currentDate, calendarState.previousDate)) return;
       isProgrammaticChange.value = true;
-      weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
+      weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, calendarState.todayDate), { animated: false })
     })
     return dayUnsubscribe
   }, [])
@@ -41,14 +38,14 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
         return;
       }
       isProgrammaticChange.value = true;
-      weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, today), { animated: false })
+      weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, calendarState.todayDate), { animated: false })
     })
     return monthUnsubscribe
   }, [])
 
   useEffect(() => {
     const todayUnsubscribe = calendarState.todaySubscribe(() => {
-      if (Math.abs(differenceInCalendarWeeks(calendarState.previousDate, today)) > 1) {
+      if (Math.abs(differenceInCalendarWeeks(calendarState.previousDate, calendarState.todayDate)) > 1) {
         pagerOpacity.value = withRepeat(
           withTiming(0, { duration: 150 }),
           2,
@@ -78,7 +75,7 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
     return (
       <Animated.View style={[rPageStyle]} >
         <Week
-          initialDay={startOfWeek(addWeeks(today, index))}
+          initialDay={startOfWeek(addWeeks(calendarState.todayDate, index))}
           selectedDatePosition={selectedDatePosition}
         />
       </Animated.View>
@@ -97,7 +94,7 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
             isProgrammaticChange.value = false;
             return;
           }
-          let date = index === 0 ? today : startOfWeek(addWeeks(today, index))
+          let date = index === 0 ? calendarState.todayDate : startOfWeek(addWeeks(calendarState.todayDate, index))
           calendarState.selectPreviousDate(calendarState.currentDate)
           calendarState.weekSelectDate(date)
         }}

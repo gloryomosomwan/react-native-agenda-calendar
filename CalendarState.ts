@@ -8,7 +8,8 @@ export class CalendarState {
   private _previousDate: Date
 
   constructor(initialDate: Date = new Date()) {
-    this._todayDate = new Date(new Date().toISOString());
+    this._todayDate = new Date()
+    this._todayDate.setHours(0, 0, 0, 0)
     this._currentDate = initialDate;
     this._previousDate = initialDate;
     this._daySubscribers = new Set();
