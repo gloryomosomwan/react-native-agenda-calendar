@@ -39,12 +39,12 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
     return dayUnsubscribe
   }, [])
 
-  // useEffect(() => {
-  //   const todayUnsubscribe = calendarState.todaySubscribe(() => {
-  //     setSelectedDate(calendarState.currentDate)
-  //   })
-  //   return todayUnsubscribe
-  // }, [])
+  useEffect(() => {
+    const todayUnsubscribe = calendarState.todaySubscribe(() => {
+      setSelectedDate(calendarState.currentDate)
+    })
+    return todayUnsubscribe
+  }, [])
 
   const elementRef = useRef<View | null>(null)
   const insets = useSafeAreaInsets()
