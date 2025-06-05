@@ -32,6 +32,13 @@ export default function Header() {
     return unsubscribe;
   }, [])
 
+  useEffect(() => {
+    const todayUnsubscribe = calendarState.todaySubscribe(() => {
+      setSelectedDate(calendarState.currentDate)
+    })
+    return todayUnsubscribe
+  }, [])
+
   return (
     <View style={[styles.header, { paddingTop: paddingTop }]}>
       <Text style={styles.monthName}>{selectedDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</Text>
