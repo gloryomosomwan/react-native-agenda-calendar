@@ -89,7 +89,8 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
           [0, (paddingTop.value + 52) - selectedDatePosition.value] // 52 is for the Month padding
         )
       }],
-      opacity: pagerOpacity.value
+      opacity: pagerOpacity.value,
+      pointerEvents: bottomSheetTranslationY.value === -235 ? 'none' : 'auto'
     };
   });
 
