@@ -60,7 +60,8 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
 
   const rWeekPagerStyle = useAnimatedStyle(() => {
     return {
-      opacity: pagerOpacity.value
+      opacity: pagerOpacity.value,
+      pointerEvents: bottomSheetTranslationY.value === -235 ? 'auto' : 'none'
     }
   })
 
