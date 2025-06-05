@@ -125,9 +125,6 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
           calendarState.monthSelectDate(date)
         }}
       />
-      <View style={{ position: 'absolute', top: 400, left: 240 }}>
-        <Button title='today' onPress={() => { calendarState.selectToday() }} />
-      </View>
     </Animated.View>
   )
 }
