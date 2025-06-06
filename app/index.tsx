@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Platform, StyleSheet, Text, View } from "react-native";
-import { useSharedValue } from "react-native-reanimated";
+import Animated, { runOnJS, useAnimatedReaction, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -9,7 +9,7 @@ import Header from "@/components/Header";
 import WeekPager from "@/components/WeekPager";
 import MonthPager from "@/components/MonthPager";
 import BottomSheet from "@/components/BottomSheet";
-import { isSameDay } from "date-fns";
+import { isSameDay, isSameMonth, isSameWeek } from "date-fns";
 
 export default function App() {
   return (
@@ -29,6 +29,19 @@ const CalendarContent = () => {
   const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52)
   const { calendarState } = useCalendar()
 
+  let showTodayButton = false
+
+  // if ((bottomSheetTranslationY.value === -235 && !isSameWeek(calendarState.currentDate, calendarState.todayDate)) || (bottomSheetTranslationY.value === 0 && !isSameMonth(calendarState.currentDate, calendarState.todayDate))) {
+  //   showTodayButton = true
+  // }
+
+  const todayButtonStyle = useAnimatedStyle(() => {
+    return {
+      opacity: bottomSheetTranslationY.value === -235 ? 0 : 1,
+      pointerEvents: bottomSheetTranslationY.value === -235 ? "none" : "auto"
+    }
+  })
+
   const setToday = () => {
     if (isSameDay(calendarState.currentDate, calendarState.todayDate)) return;
     calendarState.selectPreviousDate(calendarState.currentDate)
@@ -46,10 +59,12 @@ const CalendarContent = () => {
         calendarBottom={calendarBottom}
         selectedDatePosition={selectedDatePosition}
       />
-      <View style={{ position: 'absolute', top: 15, zIndex: 999, left: 280 }}>
-        <Button title='Today' onPress={setToday}
-        />
-      </View>
+      {/* { */}
+      {/* // showTodayButton && */}
+      <Animated.View style={[todayButtonStyle, { position: 'absolute', top: 15, zIndex: 999, left: 280 }]}>
+        <Button title='Today' onPress={setToday} />
+      </Animated.View>
+      {/* } */}
       <BottomSheet
         translateY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}
