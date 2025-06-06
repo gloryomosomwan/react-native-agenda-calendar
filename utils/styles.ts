@@ -1,1 +1,1 @@
-export const calendarColor = 'white'
+export const calendarColor = '#F8F8F8'

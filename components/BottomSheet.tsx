@@ -38,10 +38,7 @@ export default function BottomSheet({ translateY, calendarBottom }: BottomSheetP
     })
 
   const rBottomSheetStyle = useAnimatedStyle(() => {
-    const borderRadius = interpolate(translateY.value, [MAX_TRANSLATE_Y + 50, MAX_TRANSLATE_Y], [25, 5], Extrapolate.CLAMP)
-
     return {
-      borderRadius,
       transform: [{ translateY: translateY.value }],
     }
   })
@@ -59,9 +56,18 @@ const styles = StyleSheet.create({
   bottomSheetContainer: {
     height: SCREEN_HEIGHT,
     width: '100%',
-    backgroundColor: 'powderblue',
+    backgroundColor: '#FFF',
     position: 'absolute',
+    zIndex: 1,
     borderRadius: 25,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   line: {
     width: 75,

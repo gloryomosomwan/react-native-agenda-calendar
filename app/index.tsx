@@ -28,7 +28,7 @@ const CalendarContent = () => {
   const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52)
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white', paddingTop: paddingTop, paddingBottom: insets.bottom }}>
+    <View style={{ flex: 1, backgroundColor: '#F8F8F8', paddingTop: paddingTop, paddingBottom: insets.bottom }}>
       <Header bottomSheetTranslationY={bottomSheetTranslationY} />
       <WeekPager
         bottomSheetTranslationY={bottomSheetTranslationY}
