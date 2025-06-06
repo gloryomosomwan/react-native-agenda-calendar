@@ -1,15 +1,28 @@
-import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, Platform, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useCalendar } from "./CalendarContext";
+import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import { isSameDay, isSameMonth, isSameWeek } from 'date-fns';
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-export default function Header() {
+type HeaderProps = {
+  bottomSheetTranslationY: SharedValue<number>
+}
+
+export default function Header({ bottomSheetTranslationY }: HeaderProps) {
   const { calendarState } = useCalendar()
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
+  const isTodayMonth = useSharedValue(true)
+  const isTodayWeek = useSharedValue(true)
+
+  useEffect(() => {
+    isTodayWeek.value = isSameWeek(calendarState.currentDate, calendarState.todayDate)
+    isTodayMonth.value = isSameMonth(calendarState.currentDate, calendarState.todayDate)
+  }, [selectedDate])
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
@@ -39,9 +52,29 @@ export default function Header() {
     return todayUnsubscribe
   }, [])
 
+  const setToday = () => {
+    if (isSameDay(calendarState.currentDate, calendarState.todayDate)) return;
+    calendarState.selectPreviousDate(calendarState.currentDate)
+    calendarState.selectToday()
+  }
+
+  const todayButtonStyle = useAnimatedStyle(() => {
+    let opacity = 0
+    if ((isTodayWeek.value === false && bottomSheetTranslationY.value === -235) || (isTodayMonth.value === false && bottomSheetTranslationY.value === 0)) {
+      opacity = 1
+    }
+    return {
+      opacity: opacity,
+      pointerEvents: bottomSheetTranslationY.value === -235 || bottomSheetTranslationY.value === 0 ? "auto" : "none"
+    }
+  })
+
   return (
     <View style={[styles.header, { paddingTop: paddingTop }]}>
       <Text style={styles.monthName}>{selectedDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</Text>
+      <Animated.View style={[todayButtonStyle, { position: 'absolute', top: 15, zIndex: 1, left: 280 }]}>
+        <Button title='Today' onPress={setToday} />
+      </Animated.View>
       <View style={styles.weekdayNames}>
         {daysOfWeek.map((day) => (
           <Text key={day} style={styles.dayName}>{day}</Text>
