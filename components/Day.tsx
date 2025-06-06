@@ -68,12 +68,12 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
           dayType === 'month' ? (
             <>
               {isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && <View style={styles.selectedDateCircle} />}
-              <Text style={[styles.text, !isSameMonth(date, firstDayOfMonth) && styles.notInCurrentMonth]}>{date.getDate()}</Text>
+              <Text style={[styles.text, !isSameMonth(date, firstDayOfMonth) && styles.notInCurrentMonth, isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && styles.selectedDate]}>{date.getDate()}</Text>
             </>
           ) : (
             <>
               {isSameDay(date, selectedDate) && <View style={styles.selectedDateCircle} />}
-              <Text style={[styles.text, !isSameMonth(date, selectedDate) && styles.notInCurrentMonth]}>{date.getDate()}</Text>
+              <Text style={[styles.text, !isSameMonth(date, selectedDate) && styles.notInCurrentMonth, isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && styles.selectedDate]}>{date.getDate()}</Text>
             </>
           )
         }
@@ -96,9 +96,12 @@ const styles = StyleSheet.create({
   notInCurrentMonth: {
     color: 'grey',
   },
+  selectedDate: {
+    color: 'white'
+  },
   selectedDateCircle: {
     position: 'absolute',
-    backgroundColor: 'powderblue',
+    backgroundColor: '#289eed',
     zIndex: -1,
     width: 34,
     height: 34,
