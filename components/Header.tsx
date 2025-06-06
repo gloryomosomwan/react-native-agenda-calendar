@@ -5,6 +5,8 @@ import { useCalendar } from "./CalendarContext";
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { isSameDay, isSameMonth, isSameWeek } from 'date-fns';
 
+import { calendarColor } from '@/utils/styles'
+
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 type HeaderProps = {
@@ -86,7 +88,7 @@ export default function Header({ bottomSheetTranslationY }: HeaderProps) {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: 'white',
+    backgroundColor: calendarColor,
     position: 'absolute',
     zIndex: 1,
   },
