@@ -1,4 +1,4 @@
-import { Button, Platform, StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import { useCalendar } from './CalendarContext';
@@ -118,8 +118,6 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
       <InfinitePager
         ref={monthPagerRef}
         PageComponent={MonthPage}
-        // style={styles.flex}
-        // pageWrapperStyle={styles.flex}
         onPageChange={(index) => {
           if (isProgrammaticChange.value === true) {
             isProgrammaticChange.value = false;

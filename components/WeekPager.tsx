@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { useCalendar } from './CalendarContext';
 import { addWeeks, differenceInCalendarWeeks, isSameWeek, startOfWeek } from 'date-fns';
@@ -89,8 +89,6 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
       <InfinitePager
         ref={weekPagerRef}
         PageComponent={WeekPage}
-        // style={styles.flex}
-        // pageWrapperStyle={styles.flex}
         onPageChange={(index) => {
           if (isProgrammaticChange.value === true) {
             isProgrammaticChange.value = false;

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Dimensions, Button } from 'react-native'
+import { StyleSheet, View, Dimensions } from 'react-native'
 import React, { useCallback } from 'react'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
@@ -50,7 +50,6 @@ export default function BottomSheet({ translateY, calendarBottom }: BottomSheetP
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle, { top: calendarBottom }]} >
         <View style={styles.line} />
-        {/* <Button title='press me' onPress={() => console.log(translateY.value)}></Button> */}
       </Animated.View>
     </GestureDetector>
   )
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
     height: SCREEN_HEIGHT,
     width: '100%',
     backgroundColor: 'powderblue',
-    // opacity: 0.1,
     position: 'absolute',
     borderRadius: 25,
   },

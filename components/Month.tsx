@@ -36,7 +36,6 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
       }}
     >
       <View style={styles.weeks}>
-        {/* <Text style={{ left: 130, color: 'blue' }}>{initialDay.toDateString()}</Text> */}
         {weeks.map((week, index) => (
           <View key={index} style={styles.week}>
             {week}
@@ -107,8 +106,6 @@ function createWeeks(daysArray: React.ReactNode[]) {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // height: '100%',
     //  30 (size of header) + 5 (header margin) + 17 (weekday name text height) = 52
     paddingTop: 52,
     width: '100%',
