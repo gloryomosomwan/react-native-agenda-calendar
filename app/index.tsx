@@ -29,8 +29,6 @@ const CalendarContent = () => {
   const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52)
   const { calendarState } = useCalendar()
 
-  let showTodayButton = false
-
   // if ((bottomSheetTranslationY.value === -235 && !isSameWeek(calendarState.currentDate, calendarState.todayDate)) || (bottomSheetTranslationY.value === 0 && !isSameMonth(calendarState.currentDate, calendarState.todayDate))) {
   //   showTodayButton = true
   // }
@@ -59,12 +57,9 @@ const CalendarContent = () => {
         calendarBottom={calendarBottom}
         selectedDatePosition={selectedDatePosition}
       />
-      {/* { */}
-      {/* // showTodayButton && */}
       <Animated.View style={[todayButtonStyle, { position: 'absolute', top: 15, zIndex: 999, left: 280 }]}>
         <Button title='Today' onPress={setToday} />
       </Animated.View>
-      {/* } */}
       <BottomSheet
         translateY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}
