@@ -23,9 +23,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
   const didInitialSync = useRef<boolean>(false)
   const insets = useSafeAreaInsets()
   const pagerOpacity = useSharedValue(1)
-
-  const paddingTop = useSharedValue(Platform.OS === 'android' ? 0 : insets.top)
-  // const paddingTop = Platform.OS === 'android' ? 0 : insets.top
+  const paddingTop = Platform.OS === 'android' ? 0 : insets.top
 
   const setCalendarBottom = (y: number) => {
     calendarBottom.value = y
@@ -87,7 +85,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
         translateY: interpolate(
           bottomSheetTranslationY.value,
           [0, EXPANDED_MODE_THRESHOLD],
-          [0, (paddingTop.value + 52) - selectedDatePosition.value] // 52 is for the Month padding
+          [0, (paddingTop + 52) - selectedDatePosition.value] // 52 is for the Month padding
         )
       }],
       opacity: pagerOpacity.value,
