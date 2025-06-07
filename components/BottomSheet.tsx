@@ -1,7 +1,9 @@
-import { StyleSheet, View, Dimensions } from 'react-native'
+import { StyleSheet, View, Dimensions, Text } from 'react-native'
 import React, { useCallback } from 'react'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
+
+import Lecture from './Lecture'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 const MAX_TRANSLATE_Y = (-SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT * 0.145)
@@ -47,6 +49,12 @@ export default function BottomSheet({ translateY, calendarBottom }: BottomSheetP
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle, { top: calendarBottom }]} >
         <View style={styles.line} />
+        <View style={styles.section}>
+          <Text style={styles.sectionHeadingText}>{"Lectures"}</Text>
+          <Lecture />
+          <Lecture />
+          <Lecture />
+        </View>
       </Animated.View>
     </GestureDetector>
   )
@@ -76,5 +84,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: 15,
     borderRadius: 2,
+  },
+  section: {
+    marginLeft: 20,
+    marginRight: 20,
+    height: '30%'
+  },
+  sectionHeadingText: {
+    fontSize: 22,
+    fontWeight: '500',
+    marginBottom: 8
   }
 })

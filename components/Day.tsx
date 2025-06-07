@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   selectedDateCircle: {
     position: 'absolute',
-    backgroundColor: '#289eed',
+    backgroundColor: '#007bff',
     zIndex: -1,
     width: 34,
     height: 34,
