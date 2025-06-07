@@ -1,4 +1,4 @@
-import { StyleSheet, View, Dimensions, Text } from 'react-native'
+import { StyleSheet, View, Dimensions, Text, ScrollView } from 'react-native'
 import React, { useCallback } from 'react'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
@@ -50,24 +50,26 @@ export default function BottomSheet({ translateY, calendarBottom }: BottomSheetP
     <GestureDetector gesture={gesture}>
       <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle, { top: calendarBottom }]} >
         <View style={styles.line} />
-        <View style={styles.section}>
-          <Text style={styles.sectionHeadingText}>{"Schedule"}</Text>
-          <Event />
-          <Event />
-          <Event />
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.sectionHeadingText}>{"Assignments"}</Text>
-          <Activity />
-          <Activity />
-          <Activity />
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.sectionHeadingText}>{"Tasks"}</Text>
-          <Activity />
-          <Activity />
-          <Activity />
-        </View>
+        <ScrollView>
+          <View style={styles.section}>
+            <Text style={styles.sectionHeadingText}>{"Schedule"}</Text>
+            <Event />
+            <Event />
+            <Event />
+          </View>
+          <View style={styles.section}>
+            <Text style={styles.sectionHeadingText}>{"Assignments"}</Text>
+            <Activity />
+            <Activity />
+            <Activity />
+          </View>
+          <View style={styles.section}>
+            <Text style={styles.sectionHeadingText}>{"Tasks"}</Text>
+            <Activity />
+            <Activity />
+            <Activity />
+          </View>
+        </ScrollView>
       </Animated.View>
     </GestureDetector>
   )

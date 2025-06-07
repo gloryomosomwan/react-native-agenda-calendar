@@ -10,9 +10,10 @@ import Week from './Week';
 
 type WeekPagerProps = {
   bottomSheetTranslationY: SharedValue<number>
+  calendarBottom: SharedValue<number>
 }
 
-export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
+export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: WeekPagerProps) {
   const { calendarState } = useCalendar();
   const weekPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const isProgrammaticChange = useSharedValue(false)
@@ -62,13 +63,13 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
   const rWeekPagerStyle = useAnimatedStyle(() => {
     return {
       opacity: pagerOpacity.value,
-      pointerEvents: bottomSheetTranslationY.value === -235 ? 'auto' : 'none'
+      pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 'auto' : 'none'
     }
   })
 
   const rPageStyle = useAnimatedStyle(() => {
     return {
-      opacity: bottomSheetTranslationY.value === -235 ? 1 : 0
+      opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0
     }
   })
 
@@ -107,6 +108,6 @@ export default function WeekPager({ bottomSheetTranslationY }: WeekPagerProps) {
 const styles = StyleSheet.create({
   weekPagerContainer: {
     position: 'absolute',
-    zIndex: 1
+    zIndex: 0
   }
 })

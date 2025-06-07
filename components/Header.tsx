@@ -11,9 +11,10 @@ const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 type HeaderProps = {
   bottomSheetTranslationY: SharedValue<number>
+  calendarBottom: SharedValue<number>
 }
 
-export default function Header({ bottomSheetTranslationY }: HeaderProps) {
+export default function Header({ bottomSheetTranslationY, calendarBottom }: HeaderProps) {
   const { calendarState } = useCalendar()
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
@@ -62,12 +63,12 @@ export default function Header({ bottomSheetTranslationY }: HeaderProps) {
 
   const todayButtonStyle = useAnimatedStyle(() => {
     let opacity = 0
-    if ((isTodayWeek.value === false && bottomSheetTranslationY.value === -235) || (isTodayMonth.value === false && bottomSheetTranslationY.value === 0)) {
+    if ((isTodayWeek.value === false && bottomSheetTranslationY.value === calendarBottom.value - 235) || (isTodayMonth.value === false && bottomSheetTranslationY.value === calendarBottom.value)) {
       opacity = 1
     }
     return {
       opacity: opacity,
-      pointerEvents: bottomSheetTranslationY.value === -235 || bottomSheetTranslationY.value === 0 ? "auto" : "none"
+      pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 || bottomSheetTranslationY.value === calendarBottom.value ? "auto" : "none"
     }
   })
 

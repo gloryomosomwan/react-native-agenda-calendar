@@ -8,8 +8,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Month from '@/components/Month'
 
-const EXPANDED_MODE_THRESHOLD = -235
-
 type MonthPagerProps = {
   bottomSheetTranslationY: SharedValue<number>
   calendarBottom: SharedValue<number>
@@ -84,18 +82,18 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
       transform: [{
         translateY: interpolate(
           bottomSheetTranslationY.value,
-          [0, EXPANDED_MODE_THRESHOLD],
+          [calendarBottom.value, calendarBottom.value - 235],
           [0, (paddingTop + 52) - selectedDatePosition.value] // 52 is for the Month padding
         )
       }],
       opacity: pagerOpacity.value,
-      pointerEvents: bottomSheetTranslationY.value === -235 ? 'none' : 'auto'
+      pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 'none' : 'auto'
     };
   });
 
   const rPageStyle = useAnimatedStyle(() => {
     return {
-      opacity: bottomSheetTranslationY.value === -235 ? 0 : 1
+      opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 0 : 1
     }
   })
 
