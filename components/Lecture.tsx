@@ -12,7 +12,7 @@ export default function Lecture() {
       <View style={styles.divider} />
       <View style={styles.courseDetails}>
         <View style={styles.courseTitle}>
-          <SymbolView name="book.fill" style={styles.courseSymbol} type="hierarchical" />
+          <SymbolView name="function" style={styles.courseSymbol} size={29} type="hierarchical" />
           <Text style={styles.courseTitleText}>{"MATH 204"}</Text>
         </View>
         <View style={styles.courseLocation}>
@@ -66,9 +66,7 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
   courseSymbol: {
-    width: 23,
-    height: 27,
-    marginRight: 7,
+    marginRight: 4,
   },
   locationSymbol: {
     width: 15,
