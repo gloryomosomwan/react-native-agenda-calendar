@@ -6,8 +6,11 @@ export default function Assignment() {
   return (
     <View style={styles.container}>
       <SymbolView name="circle" style={styles.symbol} size={22} type="hierarchical" />
-      <View>
-        <Text style={styles.assignmentName}>{"Written Assignment 3"}</Text>
+      <View style={styles.assignmentDetails}>
+        <View style={styles.topRow}>
+          <Text style={styles.assignmentName}>{"Written Assignment 3"}</Text>
+          <Text style={styles.due}>{"11:00 PM"} </Text>
+        </View>
         <View style={styles.tag}>
           <Text style={styles.courseName} >{"MATH 204"}</Text>
         </View>
@@ -43,4 +46,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 2,
   },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  assignmentDetails: {
+    flex: 1
+  },
+  due: {
+    fontSize: 14,
+    color: "#bcbec4"
+  }
 })
