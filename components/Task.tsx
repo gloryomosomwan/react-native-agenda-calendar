@@ -2,13 +2,13 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SymbolView } from 'expo-symbols';
 
-export default function Assignment() {
+export default function Task() {
   return (
     <View style={styles.container}>
       <SymbolView name="circle" style={styles.symbol} size={22} type="hierarchical" />
       <View style={styles.assignmentDetails}>
         <View style={styles.topRow}>
-          <Text style={styles.assignmentName}>{"Written Assignment 3"}</Text>
+          <Text style={styles.assignmentName}>{"Buy Textbooks"}</Text>
           <Text style={styles.due}>{"11:00 PM"} </Text>
         </View>
         <View style={styles.tag}>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   assignmentDetails: {
-    flex: 1
+    flex: 1,
   },
   due: {
     fontSize: 14,

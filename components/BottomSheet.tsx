@@ -5,6 +5,7 @@ import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedStyle, useS
 
 import Event from './Event'
 import Assignment from './Assignment'
+import Task from './Task'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 const MAX_TRANSLATE_Y = (-SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT * 0.145)
@@ -52,15 +53,19 @@ export default function BottomSheet({ translateY, calendarBottom }: BottomSheetP
         <View style={styles.line} />
         <View style={styles.section}>
           <Text style={styles.sectionHeadingText}>{"Schedule"}</Text>
-          <Event />
-          <Event />
+          {/* <Event /> */}
+          {/* <Event /> */}
           <Event />
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionHeadingText}>{"Assignments"}</Text>
           <Assignment />
           <Assignment />
-          <Assignment />
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionHeadingText}>{"Tasks"}</Text>
+          <Task />
+          <Task />
         </View>
       </Animated.View>
     </GestureDetector>
@@ -95,7 +100,6 @@ const styles = StyleSheet.create({
   section: {
     marginHorizontal: 20,
     marginVertical: 10,
-    height: '30%'
   },
   sectionHeadingText: {
     fontSize: 22,
