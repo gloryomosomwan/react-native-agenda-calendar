@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SymbolView } from 'expo-symbols';
 
-export default function Lecture() {
+export default function Event() {
   return (
     <View style={styles.container}>
       <View style={styles.time}>
