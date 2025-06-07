@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SymbolView } from 'expo-symbols';
 
-export default function Task() {
+export default function Activity() {
   return (
     <View style={styles.container}>
       <SymbolView name="circle" style={styles.symbol} size={22} type="hierarchical" />

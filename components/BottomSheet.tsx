@@ -4,8 +4,7 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 
 import Event from './Event'
-import Assignment from './Assignment'
-import Task from './Task'
+import Activity from './Activity'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 const MAX_TRANSLATE_Y = (-SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT * 0.145)
@@ -53,19 +52,21 @@ export default function BottomSheet({ translateY, calendarBottom }: BottomSheetP
         <View style={styles.line} />
         <View style={styles.section}>
           <Text style={styles.sectionHeadingText}>{"Schedule"}</Text>
-          {/* <Event /> */}
-          {/* <Event /> */}
+          <Event />
+          <Event />
           <Event />
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionHeadingText}>{"Assignments"}</Text>
-          <Assignment />
-          <Assignment />
+          <Activity />
+          <Activity />
+          <Activity />
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionHeadingText}>{"Tasks"}</Text>
-          <Task />
-          <Task />
+          <Activity />
+          <Activity />
+          <Activity />
         </View>
       </Animated.View>
     </GestureDetector>
