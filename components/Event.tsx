@@ -45,14 +45,12 @@ const styles = StyleSheet.create({
     width: 3,
     borderRadius: 90,
     marginHorizontal: 3,
-    // opacity: 0.5
   },
   courseDetails: {
     justifyContent: 'space-between',
     marginLeft: 4
   },
   courseTitle: {
-    // justifyContent: 'flex-start'
     flexDirection: 'row'
   },
   courseTitleText: {
