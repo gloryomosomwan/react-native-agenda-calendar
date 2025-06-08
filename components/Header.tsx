@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Dimensions, Platform, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useCalendar } from "./CalendarContext";
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { isSameDay, isSameMonth, isSameWeek } from 'date-fns';
 
+import { useCalendar } from "./CalendarContext";
 import { calendarColor } from '@/utils/styles'
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']

@@ -1,12 +1,12 @@
 import { Platform, StyleSheet } from 'react-native'
 import React, { useEffect, useRef } from 'react'
-import { useCalendar } from './CalendarContext';
 import { addWeeks, differenceInCalendarWeeks, isSameWeek, startOfWeek } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Week from './Week';
+import { useCalendar } from './CalendarContext';
 
 type WeekPagerProps = {
   bottomSheetTranslationY: SharedValue<number>

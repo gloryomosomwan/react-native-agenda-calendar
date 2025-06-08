@@ -1,11 +1,11 @@
 import { Platform, StyleSheet } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
-import { useCalendar } from './CalendarContext';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import Animated, { interpolate, SharedValue, useAnimatedProps, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useCalendar } from './CalendarContext';
 import Month from '@/components/Month'
 
 type MonthPagerProps = {
