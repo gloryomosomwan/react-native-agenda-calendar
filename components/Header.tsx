@@ -43,7 +43,10 @@ export default function Header() {
 
   return (
     <View style={[styles.header, { paddingTop: paddingTop }]}>
-      <Text style={styles.monthName}>{selectedDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</Text>
+      <View style={styles.monthText}>
+        <Text style={styles.monthName}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>
+        <Text style={styles.monthYear}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
+      </View>
       <View style={styles.weekdayNames}>
         {daysOfWeek.map((day) => (
           <Text key={day} style={styles.dayName}>{day}</Text>
@@ -63,6 +66,17 @@ const styles = StyleSheet.create({
   monthName: {
     fontSize: 25,
     textAlign: 'center',
+    marginRight: 3
+  },
+  monthYear: {
+    fontSize: 25,
+    textAlign: 'center',
+    marginLeft: 3,
+    color: colors.grey
+  },
+  monthText: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginBottom: 5
   },
   weekdayNames: {
@@ -71,5 +85,5 @@ const styles = StyleSheet.create({
   dayName: {
     textAlign: 'center',
     width: Dimensions.get('window').width / 7,
-  }
+  },
 })
