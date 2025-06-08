@@ -1,8 +1,7 @@
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { useCalendar } from './CalendarContext'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { isSameDay, isSameMonth, isSameWeek } from 'date-fns'
 
 type TodayButtonProps = {
@@ -13,8 +12,6 @@ type TodayButtonProps = {
 export default function TodayButton({ bottomSheetTranslationY, calendarBottom }: TodayButtonProps) {
   const { calendarState } = useCalendar()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
-  const insets = useSafeAreaInsets()
-  const paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const isTodayMonth = useSharedValue(true)
   const isTodayWeek = useSharedValue(true)
   const abbreviatedMonth = calendarState.todayDate.toLocaleString('default', { month: 'short' }).toUpperCase()
@@ -71,7 +68,7 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
   })
 
   return (
-    <Animated.View style={[todayButtonStyle, { position: 'absolute', top: paddingTop + 500, zIndex: 9, right: 40 }]}>
+    <Animated.View style={[todayButtonStyle, styles.todayButtonView]}>
       <Pressable onPress={setToday} style={({ pressed }) => [
         styles.todayButtonContainer,
         pressed && { opacity: 0.6 },
@@ -84,6 +81,12 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
 }
 
 const styles = StyleSheet.create({
+  todayButtonView: {
+    position: 'absolute',
+    bottom: 90,
+    zIndex: 2,
+    right: 40
+  },
   todayButtonContainer: {
     backgroundColor: '#FFFFFF',
     borderRadius: 30,
