@@ -1,1 +1,5 @@
-export const calendarColor = '#F8F8F8'
+export const colors = {
+  calendarColor: '#F8F8F8',
+  accent: "#007bff",
+  grey: '#bcbec4',
+}

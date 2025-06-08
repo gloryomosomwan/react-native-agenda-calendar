@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useCalendar } from "./CalendarContext";
-import { calendarColor } from '@/utils/styles'
+import { colors } from '@/utils/styles'
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
@@ -55,7 +55,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: calendarColor,
+    backgroundColor: colors.calendarColor,
     width: '100%',
     position: 'absolute',
     zIndex: 1,

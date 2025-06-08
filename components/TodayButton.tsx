@@ -4,6 +4,7 @@ import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-n
 import { isSameDay, isSameMonth, isSameWeek } from 'date-fns'
 
 import { useCalendar } from './CalendarContext'
+import { colors } from '@/utils/styles'
 
 type TodayButtonProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -103,8 +104,10 @@ const styles = StyleSheet.create({
   },
   todayButtonMonth: {
     fontSize: 13,
+    color: colors.accent
   },
   todayButtonDate: {
     fontSize: 25,
+    color: colors.accent
   }
 })

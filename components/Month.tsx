@@ -4,7 +4,7 @@ import { startOfMonth, addDays, subDays, getDay, getDaysInMonth } from 'date-fns
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { calendarColor } from '@/utils/styles'
+import { colors } from '@/utils/styles'
 import Day from './Day'
 
 type MonthProps = {
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     //  30 (size of header) + 5 (header margin) + 17 (weekday name text height) = 52
     paddingTop: 52,
     width: '100%',
-    backgroundColor: calendarColor
+    backgroundColor: colors.calendarColor
   },
   week: {
     flexDirection: 'row',

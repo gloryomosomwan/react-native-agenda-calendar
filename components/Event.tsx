@@ -2,6 +2,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SymbolView } from 'expo-symbols';
 
+import { colors } from '@/utils/styles'
+
 export default function Event() {
   return (
     <View style={styles.container}>
@@ -12,11 +14,11 @@ export default function Event() {
       <View style={styles.divider} />
       <View style={styles.courseDetails}>
         <View style={styles.courseTitle}>
-          <SymbolView name="function" style={styles.courseSymbol} size={29} type="hierarchical" />
+          <SymbolView name="function" style={styles.courseSymbol} size={29} tintColor={colors.accent} type="hierarchical" />
           <Text style={styles.courseTitleText}>{"MATH 204"}</Text>
         </View>
         <View style={styles.courseLocation}>
-          <SymbolView name="mappin.circle.fill" style={styles.locationSymbol} tintColor="grey" type="hierarchical" />
+          <SymbolView name="mappin.circle.fill" style={styles.locationSymbol} tintColor={colors.grey} type="hierarchical" />
           <Text style={styles.courseLocationText}>{"A-101"}</Text>
         </View>
       </View>
@@ -37,10 +39,10 @@ const styles = StyleSheet.create({
   },
   endTime: {
     fontSize: 14,
-    color: '#bcbec4'
+    color: colors.grey
   },
   divider: {
-    backgroundColor: '#007bff',
+    backgroundColor: colors.accent,
     height: '100%',
     width: 3,
     borderRadius: 90,
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   courseLocationText: {
-    color: '#bcbec4',
+    color: colors.grey,
     fontSize: 15
   },
   courseSymbol: {

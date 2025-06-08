@@ -3,6 +3,8 @@ import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { colors } from '@/utils/styles'
 import { useCalendar } from './CalendarContext';
 
 type DayType = 'week' | 'month'
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
   },
   selectedDateCircle: {
     position: 'absolute',
-    backgroundColor: '#007bff',
+    backgroundColor: colors.accent,
     zIndex: -1,
     width: 34,
     height: 34,

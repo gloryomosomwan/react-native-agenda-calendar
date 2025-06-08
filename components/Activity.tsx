@@ -2,10 +2,12 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SymbolView } from 'expo-symbols';
 
+import { colors } from '@/utils/styles'
+
 export default function Activity() {
   return (
     <View style={styles.container}>
-      <SymbolView name="circle" style={styles.symbol} size={22} type="hierarchical" />
+      <SymbolView name="circle" style={styles.symbol} size={22} type="monochrome" tintColor={colors.accent} />
       <View style={styles.assignmentDetails}>
         <View style={styles.topRow}>
           <Text style={styles.assignmentName}>{"Buy Textbooks"}</Text>
@@ -35,10 +37,10 @@ const styles = StyleSheet.create({
   courseName: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#007bff',
+    color: colors.accent,
   },
   tag: {
-    borderColor: '#007bff',
+    borderColor: colors.accent,
     borderWidth: 1,
     alignSelf: 'flex-start',
     backgroundColor: 'rgba(0,123,255,0.15)',
@@ -55,6 +57,6 @@ const styles = StyleSheet.create({
   },
   due: {
     fontSize: 14,
-    color: "#bcbec4"
+    color: colors.grey
   }
 })
