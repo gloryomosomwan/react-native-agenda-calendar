@@ -86,7 +86,7 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
   };
   return (
     <Animated.View style={[styles.weekPagerContainer, { top: paddingTop + 52 }, rWeekPagerStyle]}>
-      {/* 20 (top inset/paddingTop) + 30 (size of header) + 5 (header margin) + 17 (weekday name text height) */}
+      {/* top = 20 (top inset/paddingTop) + 30 (size of header) + 5 (header margin) + 17 (weekday name text height) */}
       <InfinitePager
         ref={weekPagerRef}
         PageComponent={WeekPage}
