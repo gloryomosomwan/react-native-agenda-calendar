@@ -1,8 +1,9 @@
 import { Pressable, StyleSheet, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
-import { useCalendar } from './CalendarContext'
 import { isSameDay, isSameMonth, isSameWeek } from 'date-fns'
+
+import { useCalendar } from './CalendarContext'
 
 type TodayButtonProps = {
   bottomSheetTranslationY: SharedValue<number>
