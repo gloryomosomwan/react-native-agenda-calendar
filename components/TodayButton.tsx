@@ -84,7 +84,7 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
 const styles = StyleSheet.create({
   todayButtonView: {
     position: 'absolute',
-    bottom: 90,
+    bottom: 50,
     zIndex: 2,
     right: 40
   },
