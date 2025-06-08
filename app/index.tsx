@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Platform, StyleSheet, View, Text } from "react-native";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomSheet, { BottomSheetView, BottomSheetScrollView, useBottomSheet } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
 import { CalendarProvider } from "@/components/CalendarContext";
 import Header from "@/components/Header";
