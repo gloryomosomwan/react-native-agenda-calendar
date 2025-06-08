@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, ReactNode } from 'react';
-import { CalendarState } from '../CalendarState';
+import { CalendarState } from '../utils/CalendarState';
 
 type CalendarContextType = {
   calendarState: CalendarState;
