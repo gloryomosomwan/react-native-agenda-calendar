@@ -21,6 +21,8 @@ export default function Header({ bottomSheetTranslationY, calendarBottom }: Head
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
   const isTodayMonth = useSharedValue(true)
   const isTodayWeek = useSharedValue(true)
+  const abbreviatedMonthName = calendarState.todayDate.toLocaleString('default', { month: 'short' }).toUpperCase()
+  const twoDigitDate = calendarState.todayDate.toLocaleString('default', { day: '2-digit' })
 
   const { width } = useWindowDimensions()
 
@@ -77,10 +79,17 @@ export default function Header({ bottomSheetTranslationY, calendarBottom }: Head
   return (
     <View style={[styles.header, { paddingTop: paddingTop }]}>
       <Text style={styles.monthName}>{selectedDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</Text>
-      <Animated.View style={[todayButtonStyle, { position: 'absolute', top: paddingTop + 5, zIndex: 1, right: 55 }]}>
-        <Pressable onPress={setToday}>
-          <Text>{'Today'}</Text>
+      <Animated.View style={[todayButtonStyle, { position: 'absolute', top: paddingTop + 500, zIndex: 1, right: 40 }]}>
+
+
+        <Pressable onPress={setToday} style={({ pressed }) => [
+          styles.todayButtonContainer,
+          pressed && { opacity: 0.6 },
+        ]}>
+          <Text style={styles.todayButtonMonth}>{abbreviatedMonthName}</Text>
+          <Text style={styles.todayButtonDate}>{twoDigitDate}</Text>
         </Pressable>
+
       </Animated.View>
       <View style={styles.weekdayNames}>
         {daysOfWeek.map((day) => (
@@ -110,4 +119,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: Dimensions.get('window').width / 7,
   },
+  todayButtonContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    height: 60,
+    width: 60,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  todayButtonMonth: {
+    fontSize: 13,
+  },
+  todayButtonDate: {
+    fontSize: 25,
+  }
 })
