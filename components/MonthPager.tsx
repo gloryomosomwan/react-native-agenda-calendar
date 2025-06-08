@@ -87,7 +87,8 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
         )
       }],
       opacity: pagerOpacity.value,
-      pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 'none' : 'auto'
+      pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 'none' : 'auto',
+      zIndex: bottomSheetTranslationY.value === calendarBottom.value - 235 ? -1 : 0,
     };
   });
 
