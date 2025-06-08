@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   tag: {
     borderColor: colors.accent,
     borderWidth: 1,
+    borderRadius: 99,
     alignSelf: 'flex-start',
     backgroundColor: 'rgba(0,123,255,0.15)',
     paddingHorizontal: 8,
