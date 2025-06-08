@@ -1,35 +1,17 @@
-import { StyleSheet, Text, View, Dimensions, Platform, Button, Pressable, useWindowDimensions } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import { isSameDay, isSameMonth, isSameWeek } from 'date-fns';
 
 import { useCalendar } from "./CalendarContext";
 import { calendarColor } from '@/utils/styles'
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-type HeaderProps = {
-  bottomSheetTranslationY: SharedValue<number>
-  calendarBottom: SharedValue<number>
-}
-
-export default function Header({ bottomSheetTranslationY, calendarBottom }: HeaderProps) {
+export default function Header() {
   const { calendarState } = useCalendar()
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
-  const isTodayMonth = useSharedValue(true)
-  const isTodayWeek = useSharedValue(true)
-  const abbreviatedMonthName = calendarState.todayDate.toLocaleString('default', { month: 'short' }).toUpperCase()
-  const twoDigitDate = calendarState.todayDate.toLocaleString('default', { day: '2-digit' })
-
-  const { width } = useWindowDimensions()
-
-  useEffect(() => {
-    isTodayWeek.value = isSameWeek(calendarState.currentDate, calendarState.todayDate)
-    isTodayMonth.value = isSameMonth(calendarState.currentDate, calendarState.todayDate)
-  }, [selectedDate])
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
@@ -59,38 +41,9 @@ export default function Header({ bottomSheetTranslationY, calendarBottom }: Head
     return todayUnsubscribe
   }, [])
 
-  const setToday = () => {
-    if (isSameDay(calendarState.currentDate, calendarState.todayDate)) return;
-    calendarState.selectPreviousDate(calendarState.currentDate)
-    calendarState.selectToday()
-  }
-
-  const todayButtonStyle = useAnimatedStyle(() => {
-    let opacity = 0
-    if ((isTodayWeek.value === false && bottomSheetTranslationY.value === calendarBottom.value - 235) || (isTodayMonth.value === false && bottomSheetTranslationY.value === calendarBottom.value)) {
-      opacity = 1
-    }
-    return {
-      opacity: opacity,
-      pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 || bottomSheetTranslationY.value === calendarBottom.value ? "auto" : "none"
-    }
-  })
-
   return (
     <View style={[styles.header, { paddingTop: paddingTop }]}>
       <Text style={styles.monthName}>{selectedDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</Text>
-      <Animated.View style={[todayButtonStyle, { position: 'absolute', top: paddingTop + 500, zIndex: 1, right: 40 }]}>
-
-
-        <Pressable onPress={setToday} style={({ pressed }) => [
-          styles.todayButtonContainer,
-          pressed && { opacity: 0.6 },
-        ]}>
-          <Text style={styles.todayButtonMonth}>{abbreviatedMonthName}</Text>
-          <Text style={styles.todayButtonDate}>{twoDigitDate}</Text>
-        </Pressable>
-
-      </Animated.View>
       <View style={styles.weekdayNames}>
         {daysOfWeek.map((day) => (
           <Text key={day} style={styles.dayName}>{day}</Text>
@@ -118,24 +71,5 @@ const styles = StyleSheet.create({
   dayName: {
     textAlign: 'center',
     width: Dimensions.get('window').width / 7,
-  },
-  todayButtonContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    height: 60,
-    width: 60,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  todayButtonMonth: {
-    fontSize: 13,
-  },
-  todayButtonDate: {
-    fontSize: 25,
   }
 })

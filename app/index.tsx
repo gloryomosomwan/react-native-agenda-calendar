@@ -9,6 +9,7 @@ import Header from "@/components/Header";
 import WeekPager from "@/components/WeekPager";
 import MonthPager from "@/components/MonthPager";
 import Agenda from "@/components/Agenda";
+import TodayButton from "@/components/TodayButton";
 
 export default function App() {
   return (
@@ -29,10 +30,7 @@ const CalendarContent = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#F8F8F8', paddingTop: paddingTop, paddingBottom: insets.bottom }}>
-      <Header
-        bottomSheetTranslationY={bottomSheetTranslationY}
-        calendarBottom={calendarBottom}
-      />
+      <Header />
       <WeekPager
         bottomSheetTranslationY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}
@@ -44,6 +42,10 @@ const CalendarContent = () => {
       />
       <Agenda
         bottomSheetTranslationY={bottomSheetTranslationY}
+      />
+      <TodayButton
+        bottomSheetTranslationY={bottomSheetTranslationY}
+        calendarBottom={calendarBottom}
       />
     </View>
   );
