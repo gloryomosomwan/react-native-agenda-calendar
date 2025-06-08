@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, Platform, Button } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, Platform, Button, Pressable, useWindowDimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
@@ -21,6 +21,8 @@ export default function Header({ bottomSheetTranslationY, calendarBottom }: Head
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
   const isTodayMonth = useSharedValue(true)
   const isTodayWeek = useSharedValue(true)
+
+  const { width } = useWindowDimensions()
 
   useEffect(() => {
     isTodayWeek.value = isSameWeek(calendarState.currentDate, calendarState.todayDate)
@@ -75,8 +77,10 @@ export default function Header({ bottomSheetTranslationY, calendarBottom }: Head
   return (
     <View style={[styles.header, { paddingTop: paddingTop }]}>
       <Text style={styles.monthName}>{selectedDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</Text>
-      <Animated.View style={[todayButtonStyle, { position: 'absolute', top: 15, zIndex: 1, left: 280 }]}>
-        <Button title='Today' onPress={setToday} />
+      <Animated.View style={[todayButtonStyle, { position: 'absolute', top: paddingTop + 5, zIndex: 1, right: 55 }]}>
+        <Pressable onPress={setToday}>
+          <Text>{'Today'}</Text>
+        </Pressable>
       </Animated.View>
       <View style={styles.weekdayNames}>
         {daysOfWeek.map((day) => (
@@ -90,6 +94,7 @@ export default function Header({ bottomSheetTranslationY, calendarBottom }: Head
 const styles = StyleSheet.create({
   header: {
     backgroundColor: calendarColor,
+    width: '100%',
     position: 'absolute',
     zIndex: 1,
   },
