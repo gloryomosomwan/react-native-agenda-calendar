@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import React, { useMemo } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedValue } from 'react-native-reanimated';
@@ -15,7 +15,8 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const insets = useSafeAreaInsets()
   let paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const initialCalendarBottom = (47 * 6) + paddingTop + 52
-  const snapPoints = useMemo(() => [667 - initialCalendarBottom, 667 - initialCalendarBottom + 235], []);
+  const { height } = useWindowDimensions();
+  const snapPoints = useMemo(() => [height - initialCalendarBottom, height - initialCalendarBottom + 235], []);
 
   return (
     <BottomSheet
