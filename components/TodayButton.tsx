@@ -63,8 +63,8 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
 
   const todayButtonStyle = useAnimatedStyle(() => {
     let opacity;
-    let fadeOut = withTiming(0, { duration: 150 })
-    let fadeIn = withTiming(1, { duration: 150 })
+    let fadeOut = withTiming(0, { duration: 100 })
+    let fadeIn = withTiming(1, { duration: 100 })
     if ((isTodayWeek.value === false && bottomSheetTranslationY.value === calendarBottom.value - 235) || (isTodayMonth.value === false && bottomSheetTranslationY.value === calendarBottom.value)) {
       opacity = fadeIn
     } else {
