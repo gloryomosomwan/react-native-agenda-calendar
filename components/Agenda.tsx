@@ -34,10 +34,10 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       enableDynamicSizing={false}
       animateOnMount={false}
       style={styles.bottomSheet}
-      handleStyle={{ backgroundColor: theme.primary }}
+      handleStyle={[styles.handleStyle, { backgroundColor: theme.primary }]}
       handleIndicatorStyle={{ backgroundColor: theme.tertiary }}
     >
-      <BottomSheetScrollView style={[styles.scrollView, { backgroundColor: theme.primary }]}>
+      <BottomSheetScrollView style={{ backgroundColor: theme.primary }}>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
           {eventElements}
@@ -57,6 +57,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
 
 const styles = StyleSheet.create({
   bottomSheet: {
+    borderRadius: 1000,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -68,7 +69,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 3,
   },
-  scrollView: {
+  handleStyle: {
+    borderRadius: 25
   },
   section: {
     marginHorizontal: 20,
