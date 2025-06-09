@@ -1,4 +1,4 @@
-import { Platform, Pressable, StyleSheet, Text } from 'react-native'
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { isSameDay, isSameMonth, isSameWeek } from 'date-fns'
@@ -73,7 +73,7 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
   })
 
   return (
-    <Animated.View style={[todayButtonStyle, styles.todayButtonView, { paddingTop: paddingTop }]}>
+    <Animated.View style={[todayButtonStyle, styles.todayButtonView, { top: paddingTop }]}>
       <Pressable onPress={setToday} style={({ pressed }) => [styles.todayButtonContainer, pressed && { opacity: 0.6 },]}>
         <SymbolView name="arrow.uturn.backward" style={styles.icon} size={12} type="monochrome" tintColor={colors.accent} />
         <Text style={styles.todayText}>{'TODAY'}</Text>
@@ -87,6 +87,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 3,
     right: 35,
+    justifyContent: 'center',
+    height: 30,
   },
   todayButtonContainer: {
     height: 20,
