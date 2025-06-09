@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
     color: colors.text
   },
   handleStyle: {
-    color: colors.agendaColor
+    backgroundColor: colors.agendaColor
   }
 })
