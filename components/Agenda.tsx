@@ -6,7 +6,7 @@ import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
 import Event from "@/components/Event";
 import Activity from "@/components/Activity";
-import { events, assignments } from '@/utils/data'
+import { events, assignments, tasks } from '@/utils/data'
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -20,6 +20,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const snapPoints = useMemo(() => [height - initialCalendarBottom, height - initialCalendarBottom + 235], []);
   const eventElements = events.map(event => <Event event={event} />)
   const assignmentElements = assignments.map(assignment => <Activity activity={assignment} />)
+  const taskElements = tasks.map(task => <Activity activity={task} />)
 
   return (
     <BottomSheet
@@ -43,9 +44,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionHeadingText}>{"Tasks"}</Text>
-          {/* <Activity />
-          <Activity />
-          <Activity /> */}
+          {taskElements}
         </View>
       </BottomSheetScrollView>
     </BottomSheet>

@@ -19,7 +19,7 @@ interface Activity {
 export const events: Event[] = [
   {
     type: 'Lecture',
-    course: 'MATH 201',
+    course: 'MATH 119',
     icon: 'function',
     start: new Date(2025, 5, 8, 7, 0),
     end: new Date(2025, 5, 8, 8, 0),
@@ -34,8 +34,8 @@ export const events: Event[] = [
     location: 'L-204',
   },
   {
-    type: 'Final Exam',
-    course: 'HIST 310',
+    type: 'Midterm',
+    course: 'HIST 211',
     icon: 'book',
     start: new Date(2025, 5, 8, 14, 30),
     end: new Date(2025, 5, 8, 16, 0),
@@ -46,20 +46,39 @@ export const events: Event[] = [
 export const assignments: Activity[] = [
   {
     title: 'Reading Assignment 3',
-    course: 'CHEM 201',
-    due: new Date(2025, 5, 9, 0, 0),
-  },
-  {
-    title: 'Problem Set 4',
-    course: 'MATH 201',
-    due: new Date(2025, 5, 12, 23, 59),
-    priority: 'high'
+    course: 'MARK 161',
+    due: new Date(2025, 5, 9, 16, 0),
   },
   {
     title: 'Lab Report 2',
-    course: 'MARK 218',
-    due: new Date(2025, 5, 16, 17, 0),
+    course: 'PHYS 102',
+    due: new Date(2025, 5, 16, 18, 0),
+  },
+  {
+    title: 'Problem Set 4',
+    course: 'MATH 119',
+    due: new Date(2025, 5, 12, 23, 59),
+  },
+]
+
+export const tasks: Activity[] = [
+  {
+    title: 'Buy lab coat',
+    course: 'CHEM 105',
+    due: new Date(2025, 5, 9, 9, 0),
+    priority: 'high'
+  },
+  {
+    title: 'Talk to Prof. Brown',
+    course: 'PHYS 102',
+    due: new Date(2025, 5, 9, 16, 0),
+    priority: 'medium'
+  },
+  {
+    title: 'Check out extra resources',
+    course: 'MARK 161',
+    due: new Date(2025, 5, 9, 9, 0),
     priority: 'low'
-  }
+  },
 ]
 

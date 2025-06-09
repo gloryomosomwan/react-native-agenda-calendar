@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   timeContainer: {
     width: 60,
-    // marginRight: 3
+    marginRight: 3
   },
   startTime: {
     fontSize: 14,
