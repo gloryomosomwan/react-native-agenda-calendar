@@ -5,7 +5,8 @@ export const colors = {
   grey: '#bcbec4',
   red: 'red',
   warning: 'gold',
-  text: 'purple'
+  text: 'purple',
+  inverseText: 'orange'
 }
 
 // export const colors = {

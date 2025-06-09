@@ -19,6 +19,9 @@ type DayProps = {
 export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayType }: DayProps) {
   const { calendarState } = useCalendar()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
+  const elementRef = useRef<View | null>(null)
+  const insets = useSafeAreaInsets()
+  let paddingTop = Platform.OS === 'android' ? 0 : insets.top
 
   useEffect(() => {
     const unsubscribe = calendarState.weekSubscribe(() => {
@@ -48,20 +51,16 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
     return todayUnsubscribe
   }, [])
 
-  const elementRef = useRef<View | null>(null)
-  const insets = useSafeAreaInsets()
-  let paddingTop = Platform.OS === 'android' ? 0 : insets.top
-
-  const onPress = () => {
-    calendarState.selectPreviousDate(calendarState.currentDate)
-    calendarState.daySelectDate(date)
-  }
-
   useLayoutEffect(() => {
     if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) {
       selectedDatePosition.value = (paddingTop + 52) + (47 * (getWeekOfMonth(date) - 1))
     }
   })
+
+  const onPress = () => {
+    calendarState.selectPreviousDate(calendarState.currentDate)
+    calendarState.daySelectDate(date)
+  }
 
   return (
     <Pressable onPress={onPress}>
@@ -94,12 +93,13 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontWeight: '500',
+    color: colors.text
   },
   notInCurrentMonth: {
     color: 'grey',
   },
   selectedDate: {
-    color: 'white'
+    color: colors.inverseText
   },
   selectedDateCircle: {
     position: 'absolute',
