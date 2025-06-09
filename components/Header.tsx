@@ -42,14 +42,14 @@ export default function Header() {
   }, [])
 
   return (
-    <View style={[styles.header, { paddingTop: paddingTop }]}>
-      <View style={styles.monthText}>
-        <Text style={styles.monthName}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>
-        <Text style={styles.monthYear}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
+    <View style={[styles.container, { paddingTop: paddingTop }]}>
+      <View style={styles.monthTextContainer}>
+        <Text style={styles.monthNameText}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>
+        <Text style={styles.monthYearText}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
       </View>
-      <View style={styles.weekdayNames}>
+      <View style={styles.weekdayNamesContainer}>
         {daysOfWeek.map((day) => (
-          <Text key={day} style={styles.dayName}>{day}</Text>
+          <Text key={day} style={styles.dayNameText}>{day}</Text>
         ))}
       </View>
     </View>
@@ -57,33 +57,35 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
-  header: {
+  container: {
     backgroundColor: colors.calendarColor,
     width: '100%',
     position: 'absolute',
     zIndex: 1,
   },
-  monthName: {
+  monthNameText: {
     fontSize: 25,
     textAlign: 'center',
-    marginRight: 3
+    marginRight: 3,
+    color: colors.text
   },
-  monthYear: {
+  monthYearText: {
     fontSize: 25,
     textAlign: 'center',
     marginLeft: 3,
     color: colors.grey
   },
-  monthText: {
+  monthTextContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 5
   },
-  weekdayNames: {
+  weekdayNamesContainer: {
     flexDirection: 'row',
   },
-  dayName: {
+  dayNameText: {
     textAlign: 'center',
     width: Dimensions.get('window').width / 7,
+    color: colors.text
   },
 })
