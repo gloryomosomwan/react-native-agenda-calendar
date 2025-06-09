@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     right: 40
   },
   todayButtonContainer: {
-    backgroundColor: colors.alternate,
+    backgroundColor: colors.accent,
     borderRadius: 30,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -104,10 +104,10 @@ const styles = StyleSheet.create({
   },
   todayButtonMonth: {
     fontSize: 13,
-    color: colors.accent
+    color: colors.text
   },
   todayButtonDate: {
     fontSize: 25,
-    color: colors.accent
+    color: colors.text
   }
 })
