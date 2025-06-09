@@ -18,7 +18,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const initialCalendarBottom = (47 * 6) + paddingTop + 52
   const { height } = useWindowDimensions();
   const snapPoints = useMemo(() => [height - initialCalendarBottom, height - initialCalendarBottom + 235], []);
-  const eventElements = events.map(data => <Event data={data} />)
+  const eventElements = events.map(event => <Event event={event} />)
 
   return (
     <BottomSheet

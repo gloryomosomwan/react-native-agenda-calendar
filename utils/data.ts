@@ -1,7 +1,7 @@
 import { SFSymbol } from 'expo-symbols';
 
 interface Event {
-  type: 'Lecture' | 'Lab' | 'Seminar' | 'Assessment' | 'Exam' | 'Midterm',
+  type: string;
   course: string;
   start: Date;
   end: Date;
@@ -27,7 +27,7 @@ export const events: Event[] = [
     location: 'L-204',
   },
   {
-    type: 'Midterm',
+    type: 'Final Exam',
     course: 'HIST 310',
     icon: 'book',
     start: new Date(2025, 5, 8, 14, 30),
