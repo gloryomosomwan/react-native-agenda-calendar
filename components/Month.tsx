@@ -4,8 +4,8 @@ import { startOfMonth, addDays, subDays, getDay, getDaysInMonth } from 'date-fns
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { colors } from '@/utils/styles'
 import Day from './Day'
+import { useTheme } from '@/utils/useTheme';
 
 type MonthProps = {
   initialDay: Date
@@ -19,6 +19,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   const daysArray = createDays(paddedDates, initialDay, selectedDatePosition)
   const weeks = createWeeks(daysArray)
   const insets = useSafeAreaInsets()
+  const theme = useTheme()
 
   let topPadding = 0;
 
@@ -30,7 +31,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   }
 
   return (
-    <View style={styles.container}
+    <View style={[styles.container, { backgroundColor: theme.secondary }]}
       onLayout={(e) => {
         let bottom = e.nativeEvent.layout.height + topPadding
         setCalendarBottom(bottom)
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     //  30 (size of header) + 5 (header margin) + 17 (weekday name text height) = 52
     paddingTop: 52,
     width: '100%',
-    backgroundColor: colors.secondary
+    // backgroundColor: colors.secondary
   },
   week: {
     flexDirection: 'row',

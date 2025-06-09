@@ -3,7 +3,7 @@ import React from 'react'
 import { SymbolView } from 'expo-symbols';
 import tinycolor from 'tinycolor2'
 
-import { colors } from '@/utils/styles'
+import { useTheme } from '@/utils/useTheme'
 
 type ActivityProps = {
   activity: {
@@ -16,39 +16,41 @@ type ActivityProps = {
 }
 
 export default function Activity({ activity }: ActivityProps) {
+  const theme = useTheme()
+
   return (
     <View style={styles.container}>
-      <SymbolView name="circle" style={styles.symbol} size={22} type="monochrome" tintColor={colors.accent} />
+      <SymbolView name="circle" style={styles.symbol} size={22} type="monochrome" tintColor={theme.accent} />
       <View style={styles.activityDetailsContainer}>
         <View style={styles.topRowContainer}>
-          <Text style={styles.activityTitleText}>{activity.title}</Text>
+          <Text style={[styles.activityTitleText, { color: theme.text }]}>{activity.title}</Text>
           {activity.due &&
-            <Text style={styles.activityDueText}>
+            <Text style={[styles.activityDueText, { color: theme.text }]}>
               {activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}
             </Text>}
         </View>
         {
           activity.description &&
-          <Text style={styles.activityDescriptionText}>{activity.description}</Text>
+          <Text style={[styles.activityDescriptionText, { color: theme.tertiary }]}>{activity.description}</Text>
         }
         <View style={styles.tagsContainer}>
           {activity.course &&
-            <View style={styles.courseTagContainer}>
-              <Text style={styles.courseNameText}>{activity.course}</Text>
+            <View style={[styles.courseTagContainer, { borderColor: theme.accent, backgroundColor: tinycolor(theme.accent).setAlpha(0.15).toRgbString() }]}>
+              <Text style={[styles.courseNameText, { color: theme.accent }]}>{activity.course}</Text>
             </View>
           }
           {activity.priority &&
             <View style={[
               styles.priorityTagContainer,
-              activity.priority === 'high' && styles.highPriorityTagContainer,
-              activity.priority === 'medium' && styles.mediumPriorityTagContainer,
-              activity.priority === 'low' && styles.lowPriorityTagContainer
+              activity.priority === 'high' && { borderColor: theme.danger, backgroundColor: tinycolor(theme.danger).setAlpha(0.15).toRgbString() },
+              activity.priority === 'medium' && { borderColor: theme.warning, backgroundColor: tinycolor(theme.warning).setAlpha(0.15).toRgbString() },
+              activity.priority === 'low' && { borderColor: theme.accent, backgroundColor: tinycolor(theme.accent).setAlpha(0.15).toRgbString() }
             ]}>
               {<Text style={[
                 styles.priorityTagText,
-                activity.priority === 'high' && styles.highPriorityTagText,
-                activity.priority === 'medium' && styles.mediumPriorityTagText,
-                activity.priority === 'low' && styles.lowPriorityTagText
+                activity.priority === 'high' && { color: theme.danger },
+                activity.priority === 'medium' && { color: theme.warning },
+                activity.priority === 'low' && { color: theme.accent }
               ]} >
                 {'PRIORITY: ' + activity.priority.toUpperCase()}
               </Text>}
@@ -72,12 +74,12 @@ const styles = StyleSheet.create({
   },
   activityTitleText: {
     fontSize: 20,
-    color: colors.text
+    // color: colors.text
   },
   courseNameText: {
     fontSize: 9,
     fontWeight: '700',
-    color: colors.accent,
+    // color: colors.accent,
   },
   tagsContainer: {
     alignSelf: 'flex-start',
@@ -85,10 +87,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   courseTagContainer: {
-    borderColor: colors.accent,
+    // borderColor: colors.accent,
     borderWidth: 1,
     borderRadius: 99,
-    backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
+    // backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
     paddingHorizontal: 8,
     paddingVertical: 2,
     marginRight: 8
@@ -102,11 +104,11 @@ const styles = StyleSheet.create({
   },
   activityDueText: {
     fontSize: 14,
-    color: colors.text
+    // color: colors.text
   },
   activityDescriptionText: {
     fontSize: 12,
-    color: colors.tertiary
+    // color: colors.tertiary
   },
 
   priorityTagContainer: {
@@ -122,28 +124,28 @@ const styles = StyleSheet.create({
 
   // High
   highPriorityTagContainer: {
-    borderColor: colors.danger,
-    backgroundColor: tinycolor(colors.danger).setAlpha(0.15).toRgbString(),
+    // borderColor: colors.danger,
+    // backgroundColor: tinycolor(colors.danger).setAlpha(0.15).toRgbString(),
   },
   highPriorityTagText: {
-    color: colors.danger,
+    // color: colors.danger,
   },
 
   // Medium 
   mediumPriorityTagContainer: {
-    borderColor: colors.warning,
-    backgroundColor: tinycolor(colors.warning).setAlpha(0.15).toRgbString(),
+    // borderColor: colors.warning,
+    // backgroundColor: tinycolor(colors.warning).setAlpha(0.15).toRgbString(),
   },
   mediumPriorityTagText: {
-    color: colors.warning,
+    // color: colors.warning,
   },
 
   // Low 
   lowPriorityTagContainer: {
-    borderColor: colors.accent,
-    backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
+    // borderColor: colors.accent,
+    // backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
   },
   lowPriorityTagText: {
-    color: colors.accent,
+    // color: colors.accent,
   },
 })

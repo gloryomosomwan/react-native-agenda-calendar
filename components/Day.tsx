@@ -4,8 +4,8 @@ import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { colors } from '@/utils/styles'
 import { useCalendar } from './CalendarContext';
+import { useTheme } from '@/utils/useTheme';
 
 type DayType = 'week' | 'month'
 
@@ -22,6 +22,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   const elementRef = useRef<View | null>(null)
   const insets = useSafeAreaInsets()
   let paddingTop = Platform.OS === 'android' ? 0 : insets.top
+  const theme = useTheme()
 
   useEffect(() => {
     const unsubscribe = calendarState.weekSubscribe(() => {
@@ -68,13 +69,28 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
         {
           dayType === 'month' ? (
             <>
-              {isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && <View style={styles.selectedDateCircle} />}
-              <Text style={[styles.text, !isSameMonth(date, firstDayOfMonth) && styles.notInCurrentMonth, isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && styles.selectedDate]}>{date.getDate()}</Text>
+              {isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
+              <Text
+                style={[
+                  styles.text,
+                  { color: theme.text },
+                  !isSameMonth(date, firstDayOfMonth) && { color: theme.tertiary },
+                  isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && { color: theme.inverseText }
+                ]}>
+                {date.getDate()}
+              </Text>
             </>
           ) : (
             <>
-              {isSameDay(date, selectedDate) && <View style={styles.selectedDateCircle} />}
-              <Text style={[styles.text, !isSameMonth(date, selectedDate) && styles.notInCurrentMonth, isSameDay(date, selectedDate) && styles.selectedDate]}>{date.getDate()}</Text>
+              {isSameDay(date, selectedDate) && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
+              <Text style={[
+                styles.text,
+                { color: theme.text },
+                !isSameMonth(date, selectedDate) && { color: theme.tertiary },
+                isSameDay(date, selectedDate) && { color: theme.inverseText }
+              ]}>
+                {date.getDate()}
+              </Text>
             </>
           )
         }
@@ -93,17 +109,17 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontWeight: '500',
-    color: colors.text
+    // color: colors.text
   },
   notInCurrentMonth: {
-    color: colors.tertiary,
+    // color: colors.tertiary,
   },
   selectedDate: {
-    color: colors.inverseText
+    // color: colors.inverseText
   },
   selectedDateCircle: {
     position: 'absolute',
-    backgroundColor: colors.accent,
+    // backgroundColor: colors.accent,
     zIndex: -1,
     width: 34,
     height: 34,

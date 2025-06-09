@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SymbolView, SFSymbol } from 'expo-symbols';
 
-import { colors } from '@/utils/styles'
+import { useTheme } from '@/utils/useTheme';
 
 type EventProps = {
   event: {
@@ -23,23 +23,24 @@ function isAssessment(eventType: string) {
 }
 
 export default function Event({ event }: EventProps) {
+  const theme = useTheme()
 
   return (
     <View style={styles.container}>
       <View style={styles.timeContainer}>
-        <Text style={styles.startTimeText}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
-        <Text style={styles.endTimeText}>{event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+        <Text style={[styles.startTimeText, { color: theme.text }]}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+        <Text style={[styles.endTimeText, { color: theme.tertiary }]}>{event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
       </View>
-      <View style={styles.divider} />
+      <View style={[styles.divider, { backgroundColor: theme.accent }]} />
       <View style={styles.courseDetailsContainer}>
-        <Text style={isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText}>{event.type}</Text>
+        <Text style={[isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText, { color: isAssessment(event.type) ? theme.accent : theme.tertiary }]}>{event.type}</Text>
         <View style={styles.courseTitleContainer}>
-          <SymbolView name={event.icon} style={styles.eventIcon} size={25} tintColor={colors.accent} type="hierarchical" />
-          <Text style={styles.courseTitleText}>{event.course}</Text>
+          <SymbolView name={event.icon} style={[styles.eventIcon]} tintColor={theme.accent} size={25} type="hierarchical" />
+          <Text style={[styles.courseTitleText, { color: theme.text }]}>{event.course}</Text>
         </View>
         <View style={styles.courseLocationContainer}>
-          <SymbolView name="mappin.circle.fill" style={styles.locationIcon} tintColor={colors.tertiary} type="hierarchical" />
-          <Text style={styles.courseLocationText}>{event.location}</Text>
+          <SymbolView name="mappin.circle.fill" style={[styles.locationIcon]} tintColor={theme.accent} type="hierarchical" />
+          <Text style={[styles.courseLocationText, { color: theme.tertiary }]}>{event.location}</Text>
         </View>
       </View>
     </View>
@@ -60,15 +61,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 2,
     textAlign: 'right',
-    color: colors.text
+    // color: colors.text
   },
   endTimeText: {
     fontSize: 14,
-    color: colors.tertiary,
+    // color: colors.tertiary,
     textAlign: 'right'
   },
   divider: {
-    backgroundColor: colors.accent,
+    // backgroundColor: colors.accent,
     height: '100%',
     width: 3,
     borderRadius: 90,
@@ -83,13 +84,13 @@ const styles = StyleSheet.create({
   },
   courseTitleText: {
     fontSize: 21,
-    color: colors.text
+    // color: colors.text
   },
   courseLocationContainer: {
     flexDirection: 'row'
   },
   courseLocationText: {
-    color: colors.tertiary,
+    // color: colors.tertiary,
     fontSize: 15
   },
   eventIcon: {
@@ -101,12 +102,12 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   instructionalTypeText: {
-    color: colors.tertiary,
+    // color: colors.tertiary,
     fontSize: 15
   },
   assessmentTypeText: {
     fontSize: 15,
     fontWeight: '600',
-    color: colors.accent
+    // color: colors.accent
   }
 })

@@ -4,10 +4,10 @@ import Animated, { SharedValue, useAnimatedStyle, useSharedValue, withTiming } f
 import { isSameDay, isSameMonth, isSameWeek } from 'date-fns'
 
 import { useCalendar } from './CalendarContext'
-import { colors } from '@/utils/styles'
 import tinycolor from 'tinycolor2'
 import { SymbolView } from 'expo-symbols'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useTheme } from '@/utils/useTheme'
 
 type TodayButtonProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -20,6 +20,7 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const isSelectedToday = useSharedValue(true)
+  const theme = useTheme()
 
   useEffect(() => {
     isSelectedToday.value = isSameDay(calendarState.currentDate, calendarState.todayDate)
@@ -77,9 +78,13 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
 
   return (
     <Animated.View style={[todayButtonStyle, styles.todayButtonView, { top: paddingTop }]}>
-      <Pressable onPress={setToday} style={({ pressed }) => [styles.todayButtonContainer, pressed && { opacity: 0.9 }]}>
-        <SymbolView name="arrow.uturn.backward" style={styles.icon} size={12} type="monochrome" tintColor={colors.accent} />
-        <Text style={styles.todayText}>{'TODAY'}</Text>
+      <Pressable onPress={setToday} style={({ pressed }) => [
+        styles.todayButtonContainer,
+        { backgroundColor: tinycolor(theme.accent).setAlpha(0.15).toRgbString() },
+        pressed && { opacity: 0.9 }
+      ]}>
+        <SymbolView name="arrow.uturn.backward" style={styles.icon} size={12} type="monochrome" tintColor={theme.accent} />
+        <Text style={[styles.todayText, { color: theme.accent }]}>{'TODAY'}</Text>
       </Pressable>
     </Animated.View>
   )
@@ -97,7 +102,7 @@ const styles = StyleSheet.create({
     height: 20,
     width: 65,
     flexDirection: 'row',
-    backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
+    // backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
@@ -109,7 +114,7 @@ const styles = StyleSheet.create({
   },
   todayText: {
     fontSize: 12,
-    color: colors.accent,
+    // color: colors.accent,
   },
   icon: {
     marginRight: 4

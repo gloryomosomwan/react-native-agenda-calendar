@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useCalendar } from "./CalendarContext";
-import { colors } from '@/utils/styles'
+import { useTheme } from '@/utils/useTheme'
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
@@ -12,6 +12,7 @@ export default function Header() {
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
+  const theme = useTheme()
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
@@ -42,14 +43,14 @@ export default function Header() {
   }, [])
 
   return (
-    <View style={[styles.container, { paddingTop: paddingTop }]}>
+    <View style={[styles.container, { paddingTop: paddingTop, backgroundColor: theme.secondary }]}>
       <View style={styles.monthTextContainer}>
-        <Text style={styles.monthNameText}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>
-        <Text style={styles.monthYearText}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
+        <Text style={[styles.monthNameText, { color: theme.text }]}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>
+        <Text style={[styles.monthYearText, { color: theme.tertiary }]}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
       </View>
       <View style={styles.weekdayNamesContainer}>
         {daysOfWeek.map((day) => (
-          <Text key={day} style={styles.dayNameText}>{day}</Text>
+          <Text key={day} style={[styles.dayNameText, { color: theme.text }]}>{day}</Text>
         ))}
       </View>
     </View>
@@ -58,7 +59,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.secondary,
+    // backgroundColor: colors.secondary,
     width: '100%',
     position: 'absolute',
     zIndex: 1,
@@ -67,13 +68,13 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     marginRight: 3,
-    color: colors.text
+    // color: colors.text
   },
   monthYearText: {
     fontSize: 25,
     textAlign: 'center',
     marginLeft: 3,
-    color: colors.tertiary
+    // color: colors.tertiary
   },
   monthTextContainer: {
     flexDirection: 'row',
@@ -86,6 +87,6 @@ const styles = StyleSheet.create({
   dayNameText: {
     textAlign: 'center',
     width: Dimensions.get('window').width / 7,
-    color: colors.text
+    // color: colors.text
   },
 })

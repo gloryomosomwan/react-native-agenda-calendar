@@ -7,7 +7,7 @@ import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import Event from "@/components/Event";
 import Activity from "@/components/Activity";
 import { events, assignments, tasks } from '@/utils/data'
-import { colors } from '@/utils/styles';
+import { useTheme } from '@/utils/useTheme'
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -22,6 +22,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const eventElements = events.map(event => <Event key={event.id} event={event} />)
   const assignmentElements = assignments.map(assignment => <Activity key={assignment.id} activity={assignment} />)
   const taskElements = tasks.map(task => <Activity key={task.id} activity={task} />)
+  const theme = useTheme()
 
   return (
     <BottomSheet
@@ -33,19 +34,19 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       enableDynamicSizing={false}
       animateOnMount={false}
       style={styles.bottomSheet}
-      handleStyle={styles.handleStyle as ViewStyle}
+      handleStyle={[styles.handleStyle as ViewStyle, { backgroundColor: theme.primary }]}
     >
-      <BottomSheetScrollView style={styles.scrollView}>
+      <BottomSheetScrollView style={[styles.scrollView, { backgroundColor: theme.primary }]}>
         <View style={styles.section}>
-          <Text style={styles.sectionHeadingText}>{"Schedule"}</Text>
+          <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
           {eventElements}
         </View>
         <View style={styles.section}>
-          <Text style={styles.sectionHeadingText}>{"Assignments"}</Text>
+          <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>
           {assignmentElements}
         </View>
         <View style={styles.section}>
-          <Text style={styles.sectionHeadingText}>{"Tasks"}</Text>
+          <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Tasks"}</Text>
           {taskElements}
         </View>
       </BottomSheetScrollView>
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   scrollView: {
-    backgroundColor: colors.primary
+    // backgroundColor: colors.primary
   },
   section: {
     marginHorizontal: 20,
@@ -77,9 +78,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '500',
     marginBottom: 4,
-    color: colors.text
+    // color: colors.text
   },
   handleStyle: {
-    backgroundColor: colors.primary
+    // backgroundColor: colors.primary
   }
 })

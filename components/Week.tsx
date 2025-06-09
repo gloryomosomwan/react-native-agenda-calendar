@@ -3,8 +3,8 @@ import React from 'react'
 import { addDays, startOfWeek } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 
-import { colors } from '@/utils/styles'
 import Day from './Day'
+import { useTheme } from '@/utils/useTheme'
 
 type WeekProps = {
   initialDay: Date
@@ -44,7 +44,7 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.secondary
+    // backgroundColor: colors.secondary
   },
   days: {
     flexDirection: 'row'
