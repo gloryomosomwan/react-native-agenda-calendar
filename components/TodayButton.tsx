@@ -1,6 +1,6 @@
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Platform, Pressable, StyleSheet, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
+import Animated, { SharedValue, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { isSameDay, isSameMonth, isSameWeek } from 'date-fns'
 
 import { useCalendar } from './CalendarContext'
@@ -62,9 +62,13 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
   }
 
   const todayButtonStyle = useAnimatedStyle(() => {
-    let opacity = 0
+    let opacity;
+    let fadeOut = withTiming(0, { duration: 150 })
+    let fadeIn = withTiming(1, { duration: 150 })
     if ((isTodayWeek.value === false && bottomSheetTranslationY.value === calendarBottom.value - 235) || (isTodayMonth.value === false && bottomSheetTranslationY.value === calendarBottom.value)) {
-      opacity = 1
+      opacity = fadeIn
+    } else {
+      opacity = fadeOut
     }
     return {
       opacity: opacity,
@@ -74,7 +78,7 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
 
   return (
     <Animated.View style={[todayButtonStyle, styles.todayButtonView, { top: paddingTop }]}>
-      <Pressable onPress={setToday} style={({ pressed }) => [styles.todayButtonContainer, pressed && { opacity: 0.6 },]}>
+      <Pressable onPress={setToday} style={({ pressed }) => [styles.todayButtonContainer]}>
         <SymbolView name="arrow.uturn.backward" style={styles.icon} size={12} type="monochrome" tintColor={colors.accent} />
         <Text style={styles.todayText}>{'TODAY'}</Text>
       </Pressable>
