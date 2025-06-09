@@ -34,11 +34,13 @@ export default function Activity({ activity }: ActivityProps) {
           }
           {activity.priority &&
             <View style={[
+              styles.priorityTagContainer,
               activity.priority === 'high' && styles.highPriorityTagContainer,
               activity.priority === 'medium' && styles.mediumPriorityTagContainer,
               activity.priority === 'low' && styles.lowPriorityTagContainer
             ]}>
               {<Text style={[
+                styles.priorityTagText,
                 activity.priority === 'high' && styles.highPriorityTagText,
                 activity.priority === 'medium' && styles.mediumPriorityTagText,
                 activity.priority === 'low' && styles.lowPriorityTagText
@@ -98,48 +100,41 @@ const styles = StyleSheet.create({
     color: colors.text
   },
 
-  // High
-  highPriorityTagContainer: {
-    borderColor: colors.danger,
+  priorityTagContainer: {
     borderWidth: 1,
     borderRadius: 99,
-    backgroundColor: tinycolor(colors.danger).setAlpha(0.15).toRgbString(),
     paddingHorizontal: 8,
     paddingVertical: 2,
   },
-  highPriorityTagText: {
+  priorityTagText: {
     fontSize: 9,
     fontWeight: '700',
+  },
+
+  // High
+  highPriorityTagContainer: {
+    borderColor: colors.danger,
+    backgroundColor: tinycolor(colors.danger).setAlpha(0.15).toRgbString(),
+  },
+  highPriorityTagText: {
     color: colors.danger,
   },
 
   // Medium 
   mediumPriorityTagContainer: {
     borderColor: colors.warning,
-    borderWidth: 1,
-    borderRadius: 99,
     backgroundColor: tinycolor(colors.warning).setAlpha(0.15).toRgbString(),
-    paddingHorizontal: 8,
-    paddingVertical: 2,
   },
   mediumPriorityTagText: {
-    fontSize: 9,
-    fontWeight: '700',
     color: colors.warning,
   },
 
   // Low 
   lowPriorityTagContainer: {
     borderColor: colors.accent,
-    borderWidth: 1,
-    borderRadius: 99,
     backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
-    paddingHorizontal: 8,
-    paddingVertical: 2,
   },
   lowPriorityTagText: {
-    fontSize: 9,
-    fontWeight: '700',
     color: colors.accent,
   },
 })
