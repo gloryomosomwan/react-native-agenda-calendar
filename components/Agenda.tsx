@@ -34,7 +34,8 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       enableDynamicSizing={false}
       animateOnMount={false}
       style={styles.bottomSheet}
-      handleStyle={[styles.handleStyle as ViewStyle, { backgroundColor: theme.primary }]}
+      handleStyle={{ backgroundColor: theme.primary }}
+      handleIndicatorStyle={{ backgroundColor: theme.tertiary }}
     >
       <BottomSheetScrollView style={[styles.scrollView, { backgroundColor: theme.primary }]}>
         <View style={styles.section}>
@@ -78,6 +79,4 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 4,
   },
-  handleStyle: {
-  }
 })
