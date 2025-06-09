@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     right: 40
   },
   todayButtonContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.agendaColor,
     borderRadius: 30,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
