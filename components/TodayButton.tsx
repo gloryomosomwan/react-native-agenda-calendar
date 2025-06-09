@@ -1,10 +1,13 @@
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { Platform, Pressable, StyleSheet, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { isSameDay, isSameMonth, isSameWeek } from 'date-fns'
 
 import { useCalendar } from './CalendarContext'
 import { colors } from '@/utils/styles'
+import tinycolor from 'tinycolor2'
+import { SymbolView } from 'expo-symbols'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type TodayButtonProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -14,10 +17,10 @@ type TodayButtonProps = {
 export default function TodayButton({ bottomSheetTranslationY, calendarBottom }: TodayButtonProps) {
   const { calendarState } = useCalendar()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
+  const insets = useSafeAreaInsets()
+  const paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const isTodayMonth = useSharedValue(true)
   const isTodayWeek = useSharedValue(true)
-  const abbreviatedMonth = calendarState.todayDate.toLocaleString('default', { month: 'short' }).toUpperCase()
-  const twoDigitDate = calendarState.todayDate.toLocaleString('default', { day: '2-digit' })
 
   useEffect(() => {
     isTodayWeek.value = isSameWeek(calendarState.currentDate, calendarState.todayDate)
@@ -70,13 +73,10 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
   })
 
   return (
-    <Animated.View style={[todayButtonStyle, styles.todayButtonView]}>
-      <Pressable onPress={setToday} style={({ pressed }) => [
-        styles.todayButtonContainer,
-        pressed && { opacity: 0.6 },
-      ]}>
-        <Text style={styles.todayButtonMonth}>{abbreviatedMonth}</Text>
-        <Text style={styles.todayButtonDate}>{twoDigitDate}</Text>
+    <Animated.View style={[todayButtonStyle, styles.todayButtonView, { paddingTop: paddingTop }]}>
+      <Pressable onPress={setToday} style={({ pressed }) => [styles.todayButtonContainer, pressed && { opacity: 0.6 },]}>
+        <SymbolView name="arrow.uturn.backward" style={styles.icon} size={12} type="monochrome" tintColor={colors.accent} />
+        <Text style={styles.todayText}>{'TODAY'}</Text>
       </Pressable>
     </Animated.View>
   )
@@ -85,29 +85,28 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
 const styles = StyleSheet.create({
   todayButtonView: {
     position: 'absolute',
-    bottom: 50,
-    zIndex: 2,
-    right: 40
+    zIndex: 3,
+    right: 35,
   },
   todayButtonContainer: {
-    backgroundColor: colors.accent,
-    borderRadius: 30,
+    height: 20,
+    width: 65,
+    flexDirection: 'row',
+    backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    height: 60,
-    width: 60,
-    alignItems: 'center',
-    justifyContent: 'center'
   },
-  todayButtonMonth: {
-    fontSize: 13,
-    color: colors.text
+  todayText: {
+    fontSize: 12,
+    color: colors.accent,
   },
-  todayButtonDate: {
-    fontSize: 25,
-    color: colors.text
-  }
+  icon: {
+    marginRight: 4
+  },
 })
