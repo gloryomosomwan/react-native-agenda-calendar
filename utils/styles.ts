@@ -5,7 +5,6 @@ let colorScheme = Appearance.getColorScheme()
 type theme = {
   primary: string,
   secondary: string,
-  tertiary: string,
   alternate: string,
   accent: string,
   text: string,
@@ -18,8 +17,7 @@ export let colors: theme;
 
 colors = {
   primary: 'black',
-  secondary: '#666666',
-  tertiary: 'grey',
+  secondary: '#525252',
   alternate: '#151616',
   accent: '#007bff',
   text: 'white',
