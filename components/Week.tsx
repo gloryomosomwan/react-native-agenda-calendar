@@ -44,7 +44,7 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.calendarColor
+    backgroundColor: colors.alternate
   },
   days: {
     flexDirection: 'row'

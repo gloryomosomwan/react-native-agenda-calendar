@@ -100,17 +100,17 @@ const styles = StyleSheet.create({
 
   // High
   highPriorityTagContainer: {
-    borderColor: colors.red,
+    borderColor: colors.danger,
     borderWidth: 1,
     borderRadius: 99,
-    backgroundColor: tinycolor(colors.red).setAlpha(0.15).toRgbString(),
+    backgroundColor: tinycolor(colors.danger).setAlpha(0.15).toRgbString(),
     paddingHorizontal: 8,
     paddingVertical: 2,
   },
   highPriorityTagText: {
     fontSize: 9,
     fontWeight: '700',
-    color: colors.red,
+    color: colors.danger,
   },
 
   // Medium 

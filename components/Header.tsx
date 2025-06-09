@@ -58,7 +58,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.calendarColor,
+    backgroundColor: colors.alternate,
     width: '100%',
     position: 'absolute',
     zIndex: 1,

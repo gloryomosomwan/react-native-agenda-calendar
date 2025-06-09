@@ -3,24 +3,33 @@ import { Appearance } from "react-native"
 let colorScheme = Appearance.getColorScheme()
 
 type theme = {
-  // alternate
-  calendarColor: string,
   primary: string,
   secondary: string,
+  tertiary: string,
+  alternate: string,
   accent: string,
-  darkgrey: string,
-  red: string,
-  warning: string,
   text: string,
   inverseText: string,
-
+  danger: string,
+  warning: string,
 }
 
 export let colors: theme;
 
-// if (colorScheme === 'light') {
+colors = {
+  primary: 'black',
+  secondary: 'grey',
+  tertiary: 'grey',
+  alternate: '#151616',
+  accent: '#007bff',
+  text: 'white',
+  inverseText: 'white',
+  danger: 'red',
+  warning: 'gold',
+}
+
 //   colors = {
-//     calendarColor: '#F8F8F8',
+//     alternate: '#F8F8F8',
 //     primary: 'white',
 //     accent: "#007bff",
 //     darkgrey: 'grey',
@@ -29,32 +38,5 @@ export let colors: theme;
 //     warning: 'gold',
 //     text: 'black',
 //     inverseText: 'white'
-//   }
-// }
-// else {
-//   colors = {
-//     calendarColor: '#151616',
-//     primary: 'black',
-//     accent: '#007bff',
-//     darkgrey: 'grey',
-//     grey: '#bcbec4',
-//     red: 'red',
-//     warning: 'gold',
-//     text: 'white',
-//     inverseText: 'white'
-//   }
-// }
 
-colors = {
-  calendarColor: '#151616',
-  primary: 'black',
-  secondary: '#bcbec4',
-  accent: '#007bff',
-  darkgrey: 'grey',
-  red: 'red',
-  warning: 'gold',
-  text: 'white',
-  inverseText: 'white'
-}
-
-// darkgrey: '#636363',
+// dark grey #636363,

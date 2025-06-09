@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     color: colors.text
   },
   notInCurrentMonth: {
-    color: colors.darkgrey,
+    color: colors.tertiary,
   },
   selectedDate: {
     color: colors.inverseText
