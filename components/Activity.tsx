@@ -18,20 +18,33 @@ export default function Activity({ activity }: ActivityProps) {
   return (
     <View style={styles.container}>
       <SymbolView name="circle" style={styles.symbol} size={22} type="monochrome" tintColor={colors.accent} />
-      <View style={styles.assignmentDetails}>
-        <View style={styles.topRow}>
-          <Text style={styles.assignmentName}>{activity.title}</Text>
-          {activity.due && <Text>{activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}</Text>}
+      <View style={styles.activityDetailsContainer}>
+        <View style={styles.topRowContainer}>
+          <Text style={styles.activityTitleText}>{activity.title}</Text>
+          {activity.due &&
+            <Text style={styles.activityDueText}>
+              {activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}
+            </Text>}
         </View>
-        <View style={styles.tags}>
+        <View style={styles.tagsContainer}>
           {activity.course &&
-            <View style={styles.courseTag}>
-              <Text style={styles.courseName}>{activity.course}</Text>
+            <View style={styles.courseTagContainer}>
+              <Text style={styles.courseNameText}>{activity.course}</Text>
             </View>
           }
           {activity.priority &&
-            <View style={[activity.priority === 'high' && styles.highPriorityTagContainer, activity.priority === 'medium' && styles.mediumPriorityTagContainer, activity.priority === 'low' && styles.lowPriorityTagContainer]}>
-              {<Text style={[activity.priority === 'high' && styles.highPriorityTagText, activity.priority === 'medium' && styles.mediumPriorityTagText, activity.priority === 'low' && styles.lowPriorityTagText]} >{'PRIORITY: ' + activity.priority.toUpperCase()}</Text>}
+            <View style={[
+              activity.priority === 'high' && styles.highPriorityTagContainer,
+              activity.priority === 'medium' && styles.mediumPriorityTagContainer,
+              activity.priority === 'low' && styles.lowPriorityTagContainer
+            ]}>
+              {<Text style={[
+                activity.priority === 'high' && styles.highPriorityTagText,
+                activity.priority === 'medium' && styles.mediumPriorityTagText,
+                activity.priority === 'low' && styles.lowPriorityTagText
+              ]} >
+                {'PRIORITY: ' + activity.priority.toUpperCase()}
+              </Text>}
             </View>
           }
         </View>
@@ -50,20 +63,21 @@ const styles = StyleSheet.create({
     marginRight: 15,
     height: 22
   },
-  assignmentName: {
+  activityTitleText: {
     fontSize: 20,
+    color: colors.text
   },
-  courseName: {
+  courseNameText: {
     fontSize: 9,
     fontWeight: '700',
     color: colors.accent,
   },
-  tags: {
+  tagsContainer: {
     alignSelf: 'flex-start',
     marginTop: 6,
     flexDirection: 'row'
   },
-  courseTag: {
+  courseTagContainer: {
     borderColor: colors.accent,
     borderWidth: 1,
     borderRadius: 99,
@@ -72,16 +86,16 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     marginRight: 8
   },
-  topRow: {
+  topRowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  assignmentDetails: {
+  activityDetailsContainer: {
     flex: 1,
   },
-  due: {
+  activityDueText: {
     fontSize: 14,
-    color: colors.grey
+    color: colors.text
   },
 
   // High
