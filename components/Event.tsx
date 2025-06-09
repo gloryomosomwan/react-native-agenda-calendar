@@ -29,7 +29,7 @@ export default function Event({ event }: EventProps) {
         <Text style={isAssessment(event.type) ? styles.assessmentType : styles.instructionalType}>{event.type}</Text>
 
         <View style={styles.courseTitle}>
-          <SymbolView name={event.icon} style={styles.icon} size={29} tintColor={colors.accent} type="hierarchical" />
+          <SymbolView name={event.icon} style={styles.icon} size={25} tintColor={colors.accent} type="hierarchical" />
           <Text style={styles.courseTitleText}>{event.course}</Text>
         </View>
         <View style={styles.courseLocation}>
