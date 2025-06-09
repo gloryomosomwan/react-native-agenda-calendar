@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { Platform, StyleSheet, Text, useWindowDimensions, View, ViewStyle } from 'react-native'
 import React, { useMemo } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedValue } from 'react-native-reanimated';
@@ -33,6 +33,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       enableDynamicSizing={false}
       animateOnMount={false}
       style={styles.bottomSheet}
+      handleStyle={styles.handleStyle as ViewStyle}
     >
       <BottomSheetScrollView style={styles.scrollView}>
         <View style={styles.section}>
@@ -77,5 +78,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 4,
     color: colors.text
+  },
+  handleStyle: {
+    color: colors.agendaColor
   }
 })
