@@ -1,25 +1,29 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { SymbolView } from 'expo-symbols';
+import { SymbolView, SFSymbol } from 'expo-symbols';
 
 import { colors } from '@/utils/styles'
 
-export default function Event() {
+type EventProps = {
+  data: { type: string, course: string, icon: SFSymbol, location: string, start: Date, end: Date }
+}
+
+export default function Event({ data }: EventProps) {
   return (
     <View style={styles.container}>
       <View style={styles.time}>
-        <Text style={styles.startTime}>{"8:00 AM"} </Text>
-        <Text style={styles.endTime}>{"9:00 AM"} </Text>
+        <Text style={styles.startTime}>{data.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+        <Text style={styles.endTime}>{data.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
       </View>
       <View style={styles.divider} />
       <View style={styles.courseDetails}>
         <View style={styles.courseTitle}>
-          <SymbolView name="function" style={styles.courseSymbol} size={29} tintColor={colors.accent} type="hierarchical" />
-          <Text style={styles.courseTitleText}>{"MATH 204"}</Text>
+          <SymbolView name={data.icon} style={styles.icon} size={29} tintColor={colors.accent} type="hierarchical" />
+          <Text style={styles.courseTitleText}>{data.course}</Text>
         </View>
         <View style={styles.courseLocation}>
           <SymbolView name="mappin.circle.fill" style={styles.locationSymbol} tintColor={colors.grey} type="hierarchical" />
-          <Text style={styles.courseLocationText}>{"A-101"}</Text>
+          <Text style={styles.courseLocationText}>{data.location}</Text>
         </View>
       </View>
     </View>
@@ -65,7 +69,7 @@ const styles = StyleSheet.create({
     color: colors.grey,
     fontSize: 15
   },
-  courseSymbol: {
+  icon: {
     marginRight: 4,
   },
   locationSymbol: {
