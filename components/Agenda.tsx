@@ -19,9 +19,9 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const initialCalendarBottom = (47 * 6) + paddingTop + 52
   const { height } = useWindowDimensions();
   const snapPoints = useMemo(() => [height - initialCalendarBottom, height - initialCalendarBottom + 235], []);
-  const eventElements = events.map(event => <Event event={event} />)
-  const assignmentElements = assignments.map(assignment => <Activity activity={assignment} />)
-  const taskElements = tasks.map(task => <Activity activity={task} />)
+  const eventElements = events.map(event => <Event key={event.id} event={event} />)
+  const assignmentElements = assignments.map(assignment => <Activity key={assignment.id} activity={assignment} />)
+  const taskElements = tasks.map(task => <Activity key={task.id} activity={task} />)
 
   return (
     <BottomSheet

@@ -1,6 +1,7 @@
 import { SFSymbol } from 'expo-symbols';
 
 interface Event {
+  id: number;
   type: string;
   course: string;
   start: Date;
@@ -10,6 +11,7 @@ interface Event {
 }
 
 interface Activity {
+  id: number
   title: string;
   course?: string;
   description?: string;
@@ -19,6 +21,7 @@ interface Activity {
 
 export const events: Event[] = [
   {
+    id: 1,
     type: 'Lecture',
     course: 'MATH 119',
     icon: 'function',
@@ -27,6 +30,7 @@ export const events: Event[] = [
     location: 'P-101',
   },
   {
+    id: 2,
     type: 'Lab',
     course: 'PHYS 102',
     icon: 'sum',
@@ -35,6 +39,7 @@ export const events: Event[] = [
     location: 'L-204',
   },
   {
+    id: 3,
     type: 'Midterm',
     course: 'HIST 211',
     icon: 'book',
@@ -46,41 +51,47 @@ export const events: Event[] = [
 
 export const assignments: Activity[] = [
   {
+    id: 1,
     title: 'Reading Assignment 3',
     course: 'MARK 161',
     due: new Date(2025, 5, 9, 16, 0),
   },
   {
+    id: 2,
     title: 'Lab Report 2',
     course: 'PHYS 102',
     due: new Date(2025, 5, 16, 18, 0),
   },
   {
+    id: 3,
     title: 'Problem Set 4',
     course: 'MATH 119',
     description: 'Problems 1 & 2',
     due: new Date(2025, 5, 12, 23, 59),
   },
-]
+];
 
 export const tasks: Activity[] = [
   {
+    id: 1,
     title: 'Buy lab coat',
     course: 'CHEM 105',
     due: new Date(2025, 5, 9, 9, 0),
-    priority: 'high'
+    priority: 'high',
   },
   {
+    id: 2,
     title: 'Check out extra resources',
     course: 'MARK 161',
     due: new Date(2025, 5, 9, 9, 0),
-    priority: 'low'
+    priority: 'low',
   },
   {
+    id: 3,
     title: 'Talk to Prof. Brown',
     course: 'PHYS 102',
     due: new Date(2025, 5, 9, 16, 0),
-    priority: 'medium'
+    priority: 'medium',
   },
-]
+];
 
