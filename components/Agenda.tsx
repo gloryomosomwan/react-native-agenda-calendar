@@ -34,7 +34,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       animateOnMount={false}
       style={styles.bottomSheet}
     >
-      <BottomSheetScrollView>
+      <BottomSheetScrollView style={styles.scrollView}>
         <View style={styles.section}>
           <Text style={styles.sectionHeadingText}>{"Schedule"}</Text>
           {eventElements}
@@ -64,6 +64,9 @@ const styles = StyleSheet.create({
     elevation: 5,
     position: 'absolute',
     zIndex: 3,
+  },
+  scrollView: {
+    backgroundColor: colors.agendaColor
   },
   section: {
     marginHorizontal: 20,

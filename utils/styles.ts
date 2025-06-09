@@ -1,7 +1,8 @@
 export const colors = {
   calendarColor: '#F8F8F8',
+  agendaColor: 'white',
   accent: "#007bff",
-  darkgrey: '#636363',
+  darkgrey: 'grey',
   grey: '#bcbec4',
   red: 'red',
   warning: 'gold',

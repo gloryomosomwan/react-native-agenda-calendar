@@ -27,20 +27,18 @@ export default function Event({ event }: EventProps) {
   return (
     <View style={styles.container}>
       <View style={styles.timeContainer}>
-        <Text style={styles.startTime}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
-        <Text style={styles.endTime}>{event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+        <Text style={styles.startTimeText}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+        <Text style={styles.endTimeText}>{event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
       </View>
       <View style={styles.divider} />
-      <View style={styles.courseDetails}>
-
-        <Text style={isAssessment(event.type) ? styles.assessmentType : styles.instructionalType}>{event.type}</Text>
-
-        <View style={styles.courseTitle}>
-          <SymbolView name={event.icon} style={styles.icon} size={25} tintColor={colors.accent} type="hierarchical" />
+      <View style={styles.courseDetailsContainer}>
+        <Text style={isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText}>{event.type}</Text>
+        <View style={styles.courseTitleContainer}>
+          <SymbolView name={event.icon} style={styles.eventIcon} size={25} tintColor={colors.accent} type="hierarchical" />
           <Text style={styles.courseTitleText}>{event.course}</Text>
         </View>
-        <View style={styles.courseLocation}>
-          <SymbolView name="mappin.circle.fill" style={styles.locationSymbol} tintColor={colors.grey} type="hierarchical" />
+        <View style={styles.courseLocationContainer}>
+          <SymbolView name="mappin.circle.fill" style={styles.locationIcon} tintColor={colors.grey} type="hierarchical" />
           <Text style={styles.courseLocationText}>{event.location}</Text>
         </View>
       </View>
@@ -58,12 +56,13 @@ const styles = StyleSheet.create({
     width: 60,
     marginRight: 3
   },
-  startTime: {
+  startTimeText: {
     fontSize: 14,
     marginBottom: 2,
-    textAlign: 'right'
+    textAlign: 'right',
+    color: colors.text
   },
-  endTime: {
+  endTimeText: {
     fontSize: 14,
     color: colors.grey,
     textAlign: 'right'
@@ -75,36 +74,37 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     marginHorizontal: 3,
   },
-  courseDetails: {
+  courseDetailsContainer: {
     justifyContent: 'space-between',
     marginLeft: 4
   },
-  courseTitle: {
+  courseTitleContainer: {
     flexDirection: 'row'
   },
   courseTitleText: {
-    fontSize: 21
+    fontSize: 21,
+    color: colors.text
   },
-  courseLocation: {
+  courseLocationContainer: {
     flexDirection: 'row'
   },
   courseLocationText: {
     color: colors.grey,
     fontSize: 15
   },
-  icon: {
+  eventIcon: {
     marginRight: 4,
   },
-  locationSymbol: {
+  locationIcon: {
     width: 15,
     height: 20,
     marginRight: 6,
   },
-  instructionalType: {
+  instructionalTypeText: {
     color: colors.grey,
     fontSize: 15
   },
-  assessmentType: {
+  assessmentTypeText: {
     fontSize: 15,
     fontWeight: '600',
     color: colors.accent
