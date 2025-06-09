@@ -5,7 +5,14 @@ import { SymbolView, SFSymbol } from 'expo-symbols';
 import { colors } from '@/utils/styles'
 
 type EventProps = {
-  event: { type: string, course: string, icon: SFSymbol, location: string, start: Date, end: Date }
+  event: {
+    type: string,
+    course: string,
+    icon: SFSymbol,
+    location: string,
+    start: Date,
+    end: Date
+  }
 }
 
 function isAssessment(eventType: string) {

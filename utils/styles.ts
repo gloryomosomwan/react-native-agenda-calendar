@@ -3,5 +3,6 @@ export const colors = {
   accent: "#007bff",
   darkgrey: '#636363',
   grey: '#bcbec4',
-  red: 'red'
+  red: 'red',
+  warning: 'gold'
 }
