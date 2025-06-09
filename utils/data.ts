@@ -69,16 +69,16 @@ export const tasks: Activity[] = [
     priority: 'high'
   },
   {
-    title: 'Talk to Prof. Brown',
-    course: 'PHYS 102',
-    due: new Date(2025, 5, 9, 16, 0),
-    priority: 'medium'
-  },
-  {
     title: 'Check out extra resources',
     course: 'MARK 161',
     due: new Date(2025, 5, 9, 9, 0),
     priority: 'low'
+  },
+  {
+    title: 'Talk to Prof. Brown',
+    course: 'PHYS 102',
+    due: new Date(2025, 5, 9, 16, 0),
+    priority: 'medium'
   },
 ]
 
