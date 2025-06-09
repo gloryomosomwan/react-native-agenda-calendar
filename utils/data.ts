@@ -12,6 +12,7 @@ interface Event {
 interface Activity {
   title: string;
   course?: string;
+  description?: string;
   due?: Date;
   priority?: string;
 }
@@ -57,6 +58,7 @@ export const assignments: Activity[] = [
   {
     title: 'Problem Set 4',
     course: 'MATH 119',
+    description: 'Problems 1 & 2',
     due: new Date(2025, 5, 12, 23, 59),
   },
 ]

@@ -9,6 +9,7 @@ type ActivityProps = {
   activity: {
     title: string;
     course?: string;
+    description?: string;
     due?: Date;
     priority?: string
   }
@@ -26,6 +27,10 @@ export default function Activity({ activity }: ActivityProps) {
               {activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}
             </Text>}
         </View>
+        {
+          activity.description &&
+          <Text style={styles.activityDescriptionText}>{activity.description}</Text>
+        }
         <View style={styles.tagsContainer}>
           {activity.course &&
             <View style={styles.courseTagContainer}>
@@ -98,6 +103,10 @@ const styles = StyleSheet.create({
   activityDueText: {
     fontSize: 14,
     color: colors.text
+  },
+  activityDescriptionText: {
+    fontSize: 12,
+    color: colors.tertiary
   },
 
   priorityTagContainer: {
