@@ -11,12 +11,13 @@ type EventProps = {
 export default function Event({ data }: EventProps) {
   return (
     <View style={styles.container}>
-      <View style={styles.time}>
+      <View style={styles.timeContainer}>
         <Text style={styles.startTime}>{data.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
         <Text style={styles.endTime}>{data.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
       </View>
       <View style={styles.divider} />
       <View style={styles.courseDetails}>
+        <Text style={styles.eventType}>{data.type}</Text>
         <View style={styles.courseTitle}>
           <SymbolView name={data.icon} style={styles.icon} size={29} tintColor={colors.accent} type="hierarchical" />
           <Text style={styles.courseTitleText}>{data.course}</Text>
@@ -32,18 +33,23 @@ export default function Event({ data }: EventProps) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
+    height: 70,
     flexDirection: 'row',
     marginVertical: 5
   },
-  time: {},
+  timeContainer: {
+    width: 60,
+    // marginRight: 3
+  },
   startTime: {
     fontSize: 14,
-    marginBottom: 2
+    marginBottom: 2,
+    textAlign: 'right'
   },
   endTime: {
     fontSize: 14,
-    color: colors.grey
+    color: colors.grey,
+    textAlign: 'right'
   },
   divider: {
     backgroundColor: colors.accent,
@@ -77,4 +83,8 @@ const styles = StyleSheet.create({
     height: 20,
     marginRight: 6,
   },
+  eventType: {
+    color: colors.grey,
+    fontSize: 15
+  }
 })
