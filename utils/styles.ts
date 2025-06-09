@@ -18,7 +18,7 @@ export let colors: theme;
 
 colors = {
   primary: 'black',
-  secondary: 'grey',
+  secondary: '#666666',
   tertiary: 'grey',
   alternate: '#151616',
   accent: '#007bff',
