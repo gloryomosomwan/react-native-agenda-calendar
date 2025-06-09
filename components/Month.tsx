@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     //  30 (size of header) + 5 (header margin) + 17 (weekday name text height) = 52
     paddingTop: 52,
     width: '100%',
-    backgroundColor: colors.alternate
+    backgroundColor: colors.secondary
   },
   week: {
     flexDirection: 'row',

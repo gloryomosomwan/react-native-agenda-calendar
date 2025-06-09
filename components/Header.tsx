@@ -58,7 +58,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.alternate,
+    backgroundColor: colors.secondary,
     width: '100%',
     position: 'absolute',
     zIndex: 1,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     marginLeft: 3,
-    color: colors.secondary
+    color: colors.tertiary
   },
   monthTextContainer: {
     flexDirection: 'row',
