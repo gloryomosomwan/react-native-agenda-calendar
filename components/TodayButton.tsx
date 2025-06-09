@@ -19,12 +19,10 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
-  const isTodayMonth = useSharedValue(true)
-  const isTodayWeek = useSharedValue(true)
+  const isSelectedToday = useSharedValue(true)
 
   useEffect(() => {
-    isTodayWeek.value = isSameWeek(calendarState.currentDate, calendarState.todayDate)
-    isTodayMonth.value = isSameMonth(calendarState.currentDate, calendarState.todayDate)
+    isSelectedToday.value = isSameDay(calendarState.currentDate, calendarState.todayDate)
   }, [selectedDate])
 
   useEffect(() => {
@@ -65,10 +63,11 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
     let opacity;
     let fadeOut = withTiming(0, { duration: 100 })
     let fadeIn = withTiming(1, { duration: 100 })
-    if ((isTodayWeek.value === false && bottomSheetTranslationY.value === calendarBottom.value - 235) || (isTodayMonth.value === false && bottomSheetTranslationY.value === calendarBottom.value)) {
-      opacity = fadeIn
-    } else {
+    if (isSelectedToday.value) {
       opacity = fadeOut
+    }
+    else {
+      opacity = fadeIn
     }
     return {
       opacity: opacity,
@@ -78,7 +77,7 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
 
   return (
     <Animated.View style={[todayButtonStyle, styles.todayButtonView, { top: paddingTop }]}>
-      <Pressable onPress={setToday} style={({ pressed }) => [styles.todayButtonContainer]}>
+      <Pressable onPress={setToday} style={({ pressed }) => [styles.todayButtonContainer, pressed && { opacity: 0.9 }]}>
         <SymbolView name="arrow.uturn.backward" style={styles.icon} size={12} type="monochrome" tintColor={colors.accent} />
         <Text style={styles.todayText}>{'TODAY'}</Text>
       </Pressable>
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
   todayButtonView: {
     position: 'absolute',
     zIndex: 3,
-    right: 35,
+    right: 20,
     justifyContent: 'center',
     height: 30,
   },
