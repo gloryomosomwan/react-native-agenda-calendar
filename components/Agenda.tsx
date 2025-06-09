@@ -7,6 +7,7 @@ import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import Event from "@/components/Event";
 import Activity from "@/components/Activity";
 import { events, assignments, tasks } from '@/utils/data'
+import { colors } from '@/utils/styles';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -71,6 +72,7 @@ const styles = StyleSheet.create({
   sectionHeadingText: {
     fontSize: 22,
     fontWeight: '500',
-    marginBottom: 4
+    marginBottom: 4,
+    color: colors.text
   }
 })

@@ -5,7 +5,7 @@ export const colors = {
   grey: '#bcbec4',
   red: 'red',
   warning: 'gold',
-  text: 'black'
+  text: 'purple'
 }
 
 // export const colors = {
