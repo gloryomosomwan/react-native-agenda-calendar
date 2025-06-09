@@ -74,12 +74,10 @@ const styles = StyleSheet.create({
   },
   activityTitleText: {
     fontSize: 20,
-    // color: colors.text
   },
   courseNameText: {
     fontSize: 9,
     fontWeight: '700',
-    // color: colors.accent,
   },
   tagsContainer: {
     alignSelf: 'flex-start',
@@ -87,10 +85,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   courseTagContainer: {
-    // borderColor: colors.accent,
     borderWidth: 1,
     borderRadius: 99,
-    // backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
     paddingHorizontal: 8,
     paddingVertical: 2,
     marginRight: 8
@@ -104,13 +100,10 @@ const styles = StyleSheet.create({
   },
   activityDueText: {
     fontSize: 14,
-    // color: colors.text
   },
   activityDescriptionText: {
     fontSize: 12,
-    // color: colors.tertiary
   },
-
   priorityTagContainer: {
     borderWidth: 1,
     borderRadius: 99,
@@ -120,32 +113,5 @@ const styles = StyleSheet.create({
   priorityTagText: {
     fontSize: 9,
     fontWeight: '700',
-  },
-
-  // High
-  highPriorityTagContainer: {
-    // borderColor: colors.danger,
-    // backgroundColor: tinycolor(colors.danger).setAlpha(0.15).toRgbString(),
-  },
-  highPriorityTagText: {
-    // color: colors.danger,
-  },
-
-  // Medium 
-  mediumPriorityTagContainer: {
-    // borderColor: colors.warning,
-    // backgroundColor: tinycolor(colors.warning).setAlpha(0.15).toRgbString(),
-  },
-  mediumPriorityTagText: {
-    // color: colors.warning,
-  },
-
-  // Low 
-  lowPriorityTagContainer: {
-    // borderColor: colors.accent,
-    // backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
-  },
-  lowPriorityTagText: {
-    // color: colors.accent,
   },
 })

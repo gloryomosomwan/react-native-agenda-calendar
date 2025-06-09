@@ -59,7 +59,6 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: colors.secondary,
     width: '100%',
     position: 'absolute',
     zIndex: 1,
@@ -68,13 +67,11 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     marginRight: 3,
-    // color: colors.text
   },
   monthYearText: {
     fontSize: 25,
     textAlign: 'center',
     marginLeft: 3,
-    // color: colors.tertiary
   },
   monthTextContainer: {
     flexDirection: 'row',
@@ -87,6 +84,5 @@ const styles = StyleSheet.create({
   dayNameText: {
     textAlign: 'center',
     width: Dimensions.get('window').width / 7,
-    // color: colors.text
   },
 })

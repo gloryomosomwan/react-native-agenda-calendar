@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     height: 20,
     width: 65,
     flexDirection: 'row',
-    // backgroundColor: tinycolor(colors.accent).setAlpha(0.15).toRgbString(),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
@@ -114,7 +113,6 @@ const styles = StyleSheet.create({
   },
   todayText: {
     fontSize: 12,
-    // color: colors.accent,
   },
   icon: {
     marginRight: 4

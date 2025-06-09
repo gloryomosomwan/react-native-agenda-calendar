@@ -31,5 +31,3 @@ export const lightTheme: theme = {
   danger: 'red',
   warning: 'gold',
 }
-
-// dark grey #636363,

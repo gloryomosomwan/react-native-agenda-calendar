@@ -109,17 +109,13 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontWeight: '500',
-    // color: colors.text
   },
   notInCurrentMonth: {
-    // color: colors.tertiary,
   },
   selectedDate: {
-    // color: colors.inverseText
   },
   selectedDateCircle: {
     position: 'absolute',
-    // backgroundColor: colors.accent,
     zIndex: -1,
     width: 34,
     height: 34,

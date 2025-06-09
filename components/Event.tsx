@@ -61,15 +61,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 2,
     textAlign: 'right',
-    // color: colors.text
   },
   endTimeText: {
     fontSize: 14,
-    // color: colors.tertiary,
     textAlign: 'right'
   },
   divider: {
-    // backgroundColor: colors.accent,
     height: '100%',
     width: 3,
     borderRadius: 90,
@@ -84,13 +81,11 @@ const styles = StyleSheet.create({
   },
   courseTitleText: {
     fontSize: 21,
-    // color: colors.text
   },
   courseLocationContainer: {
     flexDirection: 'row'
   },
   courseLocationText: {
-    // color: colors.tertiary,
     fontSize: 15
   },
   eventIcon: {
@@ -102,12 +97,10 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   instructionalTypeText: {
-    // color: colors.tertiary,
     fontSize: 15
   },
   assessmentTypeText: {
     fontSize: 15,
     fontWeight: '600',
-    // color: colors.accent
   }
 })

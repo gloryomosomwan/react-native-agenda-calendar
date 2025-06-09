@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   scrollView: {
-    // backgroundColor: colors.primary
   },
   section: {
     marginHorizontal: 20,
@@ -78,9 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '500',
     marginBottom: 4,
-    // color: colors.text
   },
   handleStyle: {
-    // backgroundColor: colors.primary
   }
 })
