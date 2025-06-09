@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     marginLeft: 3,
-    color: colors.grey
+    color: colors.secondary
   },
   monthTextContainer: {
     flexDirection: 'row',

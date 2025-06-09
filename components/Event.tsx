@@ -38,7 +38,7 @@ export default function Event({ event }: EventProps) {
           <Text style={styles.courseTitleText}>{event.course}</Text>
         </View>
         <View style={styles.courseLocationContainer}>
-          <SymbolView name="mappin.circle.fill" style={styles.locationIcon} tintColor={colors.grey} type="hierarchical" />
+          <SymbolView name="mappin.circle.fill" style={styles.locationIcon} tintColor={colors.secondary} type="hierarchical" />
           <Text style={styles.courseLocationText}>{event.location}</Text>
         </View>
       </View>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   endTimeText: {
     fontSize: 14,
-    color: colors.grey,
+    color: colors.secondary,
     textAlign: 'right'
   },
   divider: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   courseLocationText: {
-    color: colors.grey,
+    color: colors.secondary,
     fontSize: 15
   },
   eventIcon: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   instructionalTypeText: {
-    color: colors.grey,
+    color: colors.secondary,
     fontSize: 15
   },
   assessmentTypeText: {

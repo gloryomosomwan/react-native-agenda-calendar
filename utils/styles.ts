@@ -3,11 +3,12 @@ import { Appearance } from "react-native"
 let colorScheme = Appearance.getColorScheme()
 
 type theme = {
+  // alternate
   calendarColor: string,
-  agendaColor: string,
+  primary: string,
+  secondary: string,
   accent: string,
   darkgrey: string,
-  grey: string,
   red: string,
   warning: string,
   text: string,
@@ -17,39 +18,39 @@ type theme = {
 
 export let colors: theme;
 
-if (colorScheme === 'light') {
-  colors = {
-    calendarColor: '#F8F8F8',
-    agendaColor: 'white',
-    accent: "#007bff",
-    darkgrey: 'grey',
-    grey: '#bcbec4',
-    red: 'red',
-    warning: 'gold',
-    text: 'black',
-    inverseText: 'white'
-  }
-}
-else {
-  colors = {
-    calendarColor: '#151616',
-    agendaColor: 'black',
-    accent: '#007bff',
-    darkgrey: 'grey',
-    grey: '#bcbec4',
-    red: 'red',
-    warning: 'gold',
-    text: 'white',
-    inverseText: 'white'
-  }
-}
+// if (colorScheme === 'light') {
+//   colors = {
+//     calendarColor: '#F8F8F8',
+//     primary: 'white',
+//     accent: "#007bff",
+//     darkgrey: 'grey',
+//     grey: '#bcbec4',
+//     red: 'red',
+//     warning: 'gold',
+//     text: 'black',
+//     inverseText: 'white'
+//   }
+// }
+// else {
+//   colors = {
+//     calendarColor: '#151616',
+//     primary: 'black',
+//     accent: '#007bff',
+//     darkgrey: 'grey',
+//     grey: '#bcbec4',
+//     red: 'red',
+//     warning: 'gold',
+//     text: 'white',
+//     inverseText: 'white'
+//   }
+// }
 
 colors = {
   calendarColor: '#151616',
-  agendaColor: 'black',
+  primary: 'black',
+  secondary: '#bcbec4',
   accent: '#007bff',
   darkgrey: 'grey',
-  grey: '#bcbec4',
   red: 'red',
   warning: 'gold',
   text: 'white',
@@ -57,4 +58,3 @@ colors = {
 }
 
 // darkgrey: '#636363',
-// grey = subtle

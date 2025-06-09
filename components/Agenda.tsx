@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   scrollView: {
-    backgroundColor: colors.agendaColor
+    backgroundColor: colors.primary
   },
   section: {
     marginHorizontal: 20,
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
     color: colors.text
   },
   handleStyle: {
-    backgroundColor: colors.agendaColor
+    backgroundColor: colors.primary
   }
 })
