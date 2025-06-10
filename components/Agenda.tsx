@@ -59,7 +59,6 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
 
 const styles = StyleSheet.create({
   bottomSheet: {
-    borderRadius: 1000,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
