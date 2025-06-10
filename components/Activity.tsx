@@ -4,6 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import tinycolor from 'tinycolor2'
 
 import { useTheme } from '@/utils/useTheme'
+import { courseColors } from '@/utils/data';
 
 type ActivityProps = {
   activity: {
@@ -17,10 +18,11 @@ type ActivityProps = {
 
 export default function Activity({ activity }: ActivityProps) {
   const theme = useTheme()
+  const courseColor = courseColors[activity.course as keyof typeof courseColors];
 
   return (
     <View style={styles.container}>
-      <SymbolView name="circle" style={styles.symbol} size={22} type="monochrome" tintColor={theme.accent} />
+      <SymbolView name="circle" style={styles.symbol} size={22} type="monochrome" tintColor={courseColor} />
       <View style={styles.activityDetailsContainer}>
         <View style={styles.topRowContainer}>
           <Text style={[styles.activityTitleText, { color: theme.text }]}>{activity.title}</Text>
@@ -35,22 +37,24 @@ export default function Activity({ activity }: ActivityProps) {
         }
         <View style={styles.tagsContainer}>
           {activity.course &&
-            <View style={[styles.courseTagContainer, { borderColor: theme.accent, backgroundColor: tinycolor(theme.accent).setAlpha(0.15).toRgbString() }]}>
-              <Text style={[styles.courseNameText, { color: theme.accent }]}>{activity.course}</Text>
+            <View style={[styles.courseTagContainer, { borderColor: courseColor, backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
+              <Text style={[styles.courseNameText, { color: courseColor }]}>{activity.course}</Text>
             </View>
           }
           {activity.priority &&
             <View style={[
               styles.priorityTagContainer,
-              activity.priority === 'high' && { borderColor: theme.danger, backgroundColor: tinycolor(theme.danger).setAlpha(0.15).toRgbString() },
-              activity.priority === 'medium' && { borderColor: theme.warning, backgroundColor: tinycolor(theme.warning).setAlpha(0.15).toRgbString() },
-              activity.priority === 'low' && { borderColor: theme.accent, backgroundColor: tinycolor(theme.accent).setAlpha(0.15).toRgbString() }
+              { borderColor: courseColor, backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }
+              // activity.priority === 'high' && { borderColor: courseColor, backgroundColor: tinycolor(courseColor).setAlpha(0.35).toRgbString() },
+              // activity.priority === 'medium' && { borderColor: courseColor, backgroundColor: tinycolor(courseColor).setAlpha(0.25).toRgbString() },
+              // activity.priority === 'low' && { borderColor: courseColor, backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }
             ]}>
               {<Text style={[
                 styles.priorityTagText,
-                activity.priority === 'high' && { color: theme.danger },
-                activity.priority === 'medium' && { color: theme.warning },
-                activity.priority === 'low' && { color: theme.accent }
+                { color: courseColor },
+                activity.priority === 'high' && { fontWeight: '900' },
+                activity.priority === 'medium' && { fontWeight: '700' },
+                activity.priority === 'low' && { fontWeight: '500' }
               ]} >
                 {'PRIORITY: ' + activity.priority.toUpperCase()}
               </Text>}
