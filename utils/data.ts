@@ -1,5 +1,13 @@
 import { SFSymbol } from 'expo-symbols';
 
+export const courseColors = {
+  'MATH 119': '#FFBE0B',
+  'PHYS 102': '#FB5607',
+  'HIST 211': '#FF006E',
+  'MARK 161': '#8338EC',
+  'CHEM 105': '#3A86FF',
+}
+
 interface Event {
   id: number;
   type: string;

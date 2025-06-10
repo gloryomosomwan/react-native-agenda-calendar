@@ -3,6 +3,7 @@ import React from 'react'
 import { SymbolView, SFSymbol } from 'expo-symbols';
 
 import { useTheme } from '@/utils/useTheme';
+import { courseColors } from '@/utils/data';
 
 type EventProps = {
   event: {
@@ -24,6 +25,7 @@ function isAssessment(eventType: string) {
 
 export default function Event({ event }: EventProps) {
   const theme = useTheme()
+  const courseColor = courseColors[event.course as keyof typeof courseColors];
 
   return (
     <View style={styles.container}>
@@ -31,15 +33,15 @@ export default function Event({ event }: EventProps) {
         <Text style={[styles.startTimeText, { color: theme.text }]}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
         <Text style={[styles.endTimeText, { color: theme.tertiary }]}>{event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
       </View>
-      <View style={[styles.divider, { backgroundColor: theme.accent }]} />
+      <View style={[styles.divider, { backgroundColor: courseColor }]} />
       <View style={styles.courseDetailsContainer}>
-        <Text style={[isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText, { color: isAssessment(event.type) ? theme.accent : theme.tertiary }]}>{event.type}</Text>
+        <Text style={[isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText, { color: isAssessment(event.type) ? courseColor : theme.tertiary }]}>{event.type}</Text>
         <View style={styles.courseTitleContainer}>
-          <SymbolView name={event.icon} style={[styles.eventIcon]} tintColor={theme.accent} size={25} type="hierarchical" />
+          <SymbolView name={event.icon} style={[styles.eventIcon]} tintColor={courseColor} size={25} type="hierarchical" />
           <Text style={[styles.courseTitleText, { color: theme.text }]}>{event.course}</Text>
         </View>
         <View style={styles.courseLocationContainer}>
-          <SymbolView name="mappin.circle.fill" style={[styles.locationIcon]} tintColor={theme.accent} type="hierarchical" />
+          <SymbolView name="mappin.circle.fill" style={[styles.locationIcon]} tintColor={courseColor} type="hierarchical" />
           <Text style={[styles.courseLocationText, { color: theme.tertiary }]}>{event.location}</Text>
         </View>
       </View>
