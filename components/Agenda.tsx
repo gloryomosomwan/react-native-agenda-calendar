@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, useWindowDimensions, View, ViewStyle } from 'react-native'
+import { Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import React, { useMemo } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedValue } from 'react-native-reanimated';
