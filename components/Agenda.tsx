@@ -34,7 +34,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       enableDynamicSizing={false}
       backgroundStyle={{ backgroundColor: theme.primary }}
       animateOnMount={false}
-      enableContentPanningGesture={false}
+      // enableContentPanningGesture={false}
       style={styles.bottomSheet}
       handleStyle={[styles.handleStyle, { backgroundColor: theme.primary }]}
       handleIndicatorStyle={{ backgroundColor: theme.tertiary }}
