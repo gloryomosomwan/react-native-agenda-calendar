@@ -32,6 +32,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       enableOverDrag={false}
       enablePanDownToClose={false}
       enableDynamicSizing={false}
+      backgroundStyle={{ backgroundColor: theme.primary }}
       animateOnMount={false}
       enableContentPanningGesture={false}
       style={styles.bottomSheet}
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   handleStyle: {
-    borderRadius: 25
+    borderRadius: 25,
   },
   section: {
     marginHorizontal: 20,
