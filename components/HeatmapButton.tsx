@@ -1,10 +1,10 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
-
+import React from 'react'
 import { useTheme } from '@/utils/useTheme'
+import { useHeatmap } from './HeatmapContext'
 
 export default function HeatmapButton() {
-  const [active, setActive] = useState(false)
+  const { active, setActive } = useHeatmap()
   const theme = useTheme()
 
   const onPress = () => {

@@ -11,25 +11,27 @@ import WeekPager from "@/components/WeekPager";
 import MonthPager from "@/components/MonthPager";
 import Agenda from "@/components/Agenda";
 import TodayButton from "@/components/TodayButton";
+import { HeatmapProvider } from "@/components/HeatmapContext";
 
 export default function App() {
-
   return (
     <GestureHandlerRootView>
       <CalendarProvider>
-        <CalendarContent />
+        <HeatmapProvider>
+          <CalendarContent />
+        </HeatmapProvider>
       </CalendarProvider>
     </GestureHandlerRootView>
   );
 }
 
 const CalendarContent = () => {
-  const insets = useSafeAreaInsets()
-  const bottomSheetTranslationY = useSharedValue(0)
-  const selectedDatePosition = useSharedValue(0)
-  let paddingTop = Platform.OS === 'android' ? 0 : insets.top
-  const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52)
-  const theme = useTheme()
+  const insets = useSafeAreaInsets();
+  const bottomSheetTranslationY = useSharedValue(0);
+  const selectedDatePosition = useSharedValue(0);
+  let paddingTop = Platform.OS === "android" ? 0 : insets.top;
+  const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52);
+  const theme = useTheme();
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.secondary, paddingTop: paddingTop, paddingBottom: insets.bottom }}>

@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, Platform, useColorScheme } from 'react-native'
-import React, { useRef, useLayoutEffect, useEffect, useState, useMemo } from 'react'
+import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { useCalendar } from './CalendarContext';
 import { useTheme } from '@/utils/useTheme';
 import { Event, Activity, events, assignments, tasks } from '@/utils/data';
+import { useHeatmap } from './HeatmapContext'
 
 type DayType = 'week' | 'month'
 
@@ -19,12 +20,12 @@ type DayProps = {
 
 export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayType }: DayProps) {
   const { calendarState } = useCalendar()
+  const { active: heatmapActive } = useHeatmap()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
   const elementRef = useRef<View | null>(null)
   const insets = useSafeAreaInsets()
   let paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const theme = useTheme()
-  const [heatmapActive, setHeatmapActive] = useState(true)
 
   const isSelectedDay = (() => {
     if (dayType === 'month') {
