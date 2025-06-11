@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   },
   activityDescriptionText: {
     fontSize: 12,
+    width: '80%'
   },
   priorityTagContainer: {
     borderWidth: 1,
