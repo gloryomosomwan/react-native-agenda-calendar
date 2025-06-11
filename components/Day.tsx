@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, Platform } from 'react-native'
-import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
+import React, { useRef, useLayoutEffect, useEffect, useState, useMemo } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useCalendar } from './CalendarContext';
 import { useTheme } from '@/utils/useTheme';
+import { Event, Activity, events, assignments, tasks } from '@/utils/data';
 
 type DayType = 'week' | 'month'
 
@@ -23,6 +24,45 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   const insets = useSafeAreaInsets()
   let paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const theme = useTheme()
+
+  const isSelectedDay = (() => {
+    if (dayType === 'month') {
+      if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) { return true }
+    }
+    else if (dayType === 'week') {
+      if (isSameDay(date, selectedDate)) { return true }
+    }
+    return false
+  })()
+
+  const eventHappensToday = (event: Event) => {
+    if (isSameDay(event.start, date)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  const activityHappensToday = (activity: Activity) => {
+    if (activity.due) {
+      if (isSameDay(activity.due, date)) {
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+  }
+
+  const doesSomethingHappenToday = () => {
+    if (events.some(eventHappensToday) || assignments.some(activityHappensToday) || tasks.some(activityHappensToday)) {
+      return true
+    }
+    return false
+  }
+
+  const somethingHappensToday = doesSomethingHappenToday()
 
   useEffect(() => {
     const unsubscribe = calendarState.weekSubscribe(() => {
@@ -69,16 +109,17 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
         {
           dayType === 'month' ? (
             <>
-              {isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
+              {isSelectedDay && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
               <Text
                 style={[
                   styles.text,
                   { color: theme.text },
                   !isSameMonth(date, firstDayOfMonth) && { color: theme.tertiary },
-                  isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && { color: theme.inverseText }
+                  isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && { color: theme.inverseText },
                 ]}>
                 {date.getDate()}
               </Text>
+              {somethingHappensToday && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 3 }} />}
             </>
           ) : (
             <>
@@ -91,6 +132,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
               ]}>
                 {date.getDate()}
               </Text>
+              {somethingHappensToday && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 5 }} />}
             </>
           )
         }

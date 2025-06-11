@@ -8,7 +8,7 @@ export const courseColors = {
   'CHEM 105': '#3A86FF',
 }
 
-interface Event {
+export interface Event {
   id: number;
   type: string;
   course: string;
@@ -18,7 +18,7 @@ interface Event {
   icon: SFSymbol;
 }
 
-interface Activity {
+export interface Activity {
   id: number
   title: string;
   course?: string;
