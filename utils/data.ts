@@ -18,7 +18,7 @@ export const events: Event[] = [
   {
     id: 400000, type: 'Lecture', course: 'HIST 211', icon: 'books.vertical',
     start: new Date(2025, 5, 11, 0, 0),
-    end: new Date(2025, 5, 11, 0, 10),
+    end: new Date(2025, 5, 11, 3, 0),
     location: 'HIS 2-17',
   },
   {

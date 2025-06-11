@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { DimensionValue, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SymbolView, SFSymbol } from 'expo-symbols';
+import { isBefore, isSameDay } from 'date-fns';
 
 import { useTheme } from '@/utils/useTheme';
 import { courseColors } from '@/utils/data';
 import { useCalendar } from './CalendarContext';
-import { isAfter, isBefore, isSameDay } from 'date-fns';
 
 type EventProps = {
   event: {
@@ -36,13 +36,36 @@ export default function Event({ event }: EventProps) {
     return false
   })()
 
+  const eventStartMS = event.start.getTime()
+  const eventEndMS = event.end.getTime()
+
+  const isHappeningNow = (() => {
+    if (Date.now() > eventStartMS && Date.now() < eventEndMS) {
+      return true
+    }
+    return false
+  })()
+
+  const dynamicDividerHeightPct: DimensionValue = (() => {
+    if (isHappeningNow) {
+      let gap = eventEndMS - eventStartMS
+      let soFar = Date.now() - eventStartMS
+      let percentage = (soFar / gap) * 100
+      return `${Math.floor(percentage)}%`
+    }
+    return '0%'
+  })()
+
   return (
     <View style={styles.container}>
       <View style={styles.timeContainer}>
         <Text style={[styles.startTimeText, { color: eventWasEarlierToday ? theme.tertiary : theme.text }]}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
         <Text style={[styles.endTimeText, { color: theme.tertiary }]}>{event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
       </View>
-      <View style={[styles.divider, { backgroundColor: eventWasEarlierToday ? theme.tertiary : courseColor }]} />
+      <View style={styles.dividerContainer}>
+        <View style={[styles.staticDivider, { backgroundColor: eventWasEarlierToday ? theme.tertiary : courseColor }]} />
+        <View style={[styles.dynamicDivider, { backgroundColor: theme.tertiary, position: 'absolute', height: dynamicDividerHeightPct }]} />
+      </View>
       <View style={styles.courseDetailsContainer}>
         <Text style={[isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText, { color: isAssessment(event.type) ? courseColor : theme.tertiary }]}>{event.type}</Text>
         <View style={styles.courseTitleContainer}>
@@ -77,10 +100,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'right'
   },
-  divider: {
+  staticDivider: {
     height: '100%',
     width: 3,
     borderRadius: 90,
+  },
+  dynamicDivider: {
+    width: 3,
+    borderRadius: 90,
+  },
+  dividerContainer: {
+    height: '100%',
     marginHorizontal: 3,
   },
   courseDetailsContainer: {
@@ -113,5 +143,5 @@ const styles = StyleSheet.create({
   assessmentTypeText: {
     fontSize: 15,
     fontWeight: '600',
-  }
+  },
 })
