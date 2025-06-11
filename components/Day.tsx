@@ -132,7 +132,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
           ]}>
           {date.getDate()}
         </Text>
-        {somethingHappensToday && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 3 }} />}
+        {somethingHappensToday && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 4 }} />}
       </View>
     </Pressable>
   )
