@@ -1,5 +1,5 @@
 import { Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
-import React, { act, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedValue } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
@@ -38,10 +38,10 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   }
 
   const currentAssignments = assignments.filter(isActivityCurrent)
-  const assignmentElements = currentAssignments.map(assignment => <Activity key={assignment.id} activity={assignment} />)
+  const currentAssignmentElements = currentAssignments.map(assignment => <Activity key={assignment.id} activity={assignment} />)
 
   const currentTasks = tasks.filter(isActivityCurrent)
-  const taskElements = currentTasks.map(task => <Activity key={task.id} activity={task} />)
+  const currentTaskElements = currentTasks.map(task => <Activity key={task.id} activity={task} />)
 
   useEffect(() => {
     const unsubscribe = calendarState.weekSubscribe(() => {
@@ -89,15 +89,15 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       <BottomSheetScrollView style={{ backgroundColor: theme.primary }}>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
-          {currentEventElements}
+          {currentEvents.length > 1 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No events"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>
-          {assignmentElements}
+          {currentAssignments.length > 1 ? currentAssignmentElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No assignments"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Tasks"}</Text>
-          {taskElements}
+          {currentTasks.length > 1 ? currentTaskElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No tasks"}</Text>}
         </View>
       </BottomSheetScrollView>
     </BottomSheet>
@@ -129,4 +129,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 4,
   },
+  placeholderText: {
+    fontSize: 18,
+    fontWeight: '400'
+  }
 })
