@@ -89,15 +89,15 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       <BottomSheetScrollView style={{ backgroundColor: theme.primary }}>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
-          {currentEvents.length > 1 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No events"}</Text>}
+          {currentEvents.length > 0 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No events"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>
-          {currentAssignments.length > 1 ? currentAssignmentElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No assignments"}</Text>}
+          {currentAssignments.length > 0 ? currentAssignmentElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No assignments"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Tasks"}</Text>
-          {currentTasks.length > 1 ? currentTaskElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No tasks"}</Text>}
+          {currentTasks.length > 0 ? currentTaskElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No tasks"}</Text>}
         </View>
       </BottomSheetScrollView>
     </BottomSheet>
