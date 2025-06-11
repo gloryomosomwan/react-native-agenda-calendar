@@ -26,7 +26,7 @@ export const darkTheme: theme = {
   tertiary: '#525252',
   accent: '#007bff',
   text: 'white',
-  inverseText: 'white',
+  inverseText: 'black',
   danger: 'red',
   warning: 'gold',
 }

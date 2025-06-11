@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useCalendar } from "./CalendarContext";
 import { useTheme } from '@/utils/useTheme'
+import HeatmapButton from './HeatmapButton';
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
@@ -44,9 +45,12 @@ export default function Header() {
 
   return (
     <View style={[styles.container, { paddingTop: paddingTop, backgroundColor: theme.secondary }]}>
-      <View style={styles.monthTextContainer}>
-        <Text style={[styles.monthNameText, { color: theme.text }]}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>
-        <Text style={[styles.monthYearText, { color: theme.tertiary }]}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
+      <View style={styles.topRowContainer}>
+        <View style={styles.monthTextContainer}>
+          <Text style={[styles.monthNameText, { color: theme.text }]}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>
+          <Text style={[styles.monthYearText, { color: theme.tertiary }]}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
+        </View>
+        <HeatmapButton />
       </View>
       <View style={styles.weekdayNamesContainer}>
         {daysOfWeek.map((day) => (
@@ -84,5 +88,9 @@ const styles = StyleSheet.create({
   dayNameText: {
     textAlign: 'center',
     width: Dimensions.get('window').width / 7,
+  },
+  topRowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
 })

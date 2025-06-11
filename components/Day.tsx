@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable, Dimensions, Platform } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Dimensions, Platform, useColorScheme } from 'react-native'
 import React, { useRef, useLayoutEffect, useEffect, useState, useMemo } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
@@ -120,10 +120,14 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
     calendarState.daySelectDate(date)
   }
 
-  const MAX_ITEMS = 5
+  const MAX_ITEMS = 7
   const map01to08 = (t: number) => t * 0.8;
   const eventsOnThisDate = events.filter((event) => isSameDay(event.start, date))
   const opacityPct = map01to08((eventsOnThisDate.length / MAX_ITEMS))
+
+  const scheme = useColorScheme() ?? 'light'
+  const darkThemeText = theme.text
+  const lightThemeText = heatmapActive ? theme.inverseText : theme.text
 
   return (
     <Pressable onPress={onPress}>
@@ -134,9 +138,9 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
         <Text
           style={[
             styles.text,
-            { color: !heatmapActive ? theme.text : theme.inverseText },
+            { color: scheme === 'light' ? lightThemeText : darkThemeText },
             isInactive && { color: theme.tertiary },
-            isSelectedDay && { color: theme.inverseText },
+            isSelectedDay && { color: scheme === 'light' ? lightThemeText : darkThemeText },
           ]}>
           {date.getDate()}
         </Text>
