@@ -4,6 +4,8 @@ import { SymbolView, SFSymbol } from 'expo-symbols';
 
 import { useTheme } from '@/utils/useTheme';
 import { courseColors } from '@/utils/data';
+import { useCalendar } from './CalendarContext';
+import { isAfter, isBefore, isSameDay } from 'date-fns';
 
 type EventProps = {
   event: {
@@ -25,23 +27,30 @@ function isAssessment(eventType: string) {
 
 export default function Event({ event }: EventProps) {
   const theme = useTheme()
+  const { calendarState } = useCalendar()
   const courseColor = courseColors[event.course as keyof typeof courseColors];
+  const eventWasEarlierToday = (() => {
+    if (isSameDay(event.start, calendarState.todayDate) && isBefore(event.end, Date.now())) {
+      return true
+    }
+    return false
+  })()
 
   return (
     <View style={styles.container}>
       <View style={styles.timeContainer}>
-        <Text style={[styles.startTimeText, { color: theme.text }]}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+        <Text style={[styles.startTimeText, { color: eventWasEarlierToday ? theme.tertiary : theme.text }]}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
         <Text style={[styles.endTimeText, { color: theme.tertiary }]}>{event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
       </View>
-      <View style={[styles.divider, { backgroundColor: courseColor }]} />
+      <View style={[styles.divider, { backgroundColor: eventWasEarlierToday ? theme.tertiary : courseColor }]} />
       <View style={styles.courseDetailsContainer}>
         <Text style={[isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText, { color: isAssessment(event.type) ? courseColor : theme.tertiary }]}>{event.type}</Text>
         <View style={styles.courseTitleContainer}>
-          <SymbolView name={event.icon} style={[styles.eventIcon]} tintColor={courseColor} size={25} type="hierarchical" />
-          <Text style={[styles.courseTitleText, { color: theme.text }]}>{event.course}</Text>
+          <SymbolView name={event.icon} style={[styles.eventIcon]} tintColor={eventWasEarlierToday ? theme.tertiary : courseColor} size={25} type="hierarchical" />
+          <Text style={[styles.courseTitleText, { color: eventWasEarlierToday ? theme.tertiary : theme.text }]}>{event.course}</Text>
         </View>
         <View style={styles.courseLocationContainer}>
-          <SymbolView name="mappin.circle.fill" style={[styles.locationIcon]} tintColor={courseColor} type="hierarchical" />
+          <SymbolView name="mappin.circle.fill" style={[styles.locationIcon]} tintColor={eventWasEarlierToday ? theme.tertiary : courseColor} type="hierarchical" />
           <Text style={[styles.courseLocationText, { color: theme.tertiary }]}>{event.location}</Text>
         </View>
       </View>
