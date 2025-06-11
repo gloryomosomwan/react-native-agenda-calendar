@@ -10,6 +10,7 @@ import Activity from "@/components/Activity";
 import { events, assignments, tasks } from '@/utils/data'
 import { useTheme } from '@/utils/useTheme'
 import { useCalendar } from './CalendarContext';
+import { compareEventTimes, compareActivityTimes } from '@/utils/utils';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -26,6 +27,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
 
   const currentEvents = events.filter((event) => isSameDay(event.start, calendarState.currentDate))
+  currentEvents.sort(compareEventTimes)
   const currentEventElements = currentEvents.map(event => <Event key={event.id} event={event} />)
 
   const isActivityCurrent = (activity: any) => {
@@ -38,9 +40,11 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   }
 
   const currentAssignments = assignments.filter(isActivityCurrent)
+  currentAssignments.sort(compareActivityTimes)
   const currentAssignmentElements = currentAssignments.map(assignment => <Activity key={assignment.id} activity={assignment} />)
 
   const currentTasks = tasks.filter(isActivityCurrent)
+  currentTasks.sort(compareActivityTimes)
   const currentTaskElements = currentTasks.map(task => <Activity key={task.id} activity={task} />)
 
   useEffect(() => {
