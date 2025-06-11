@@ -27,10 +27,28 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
 
   const isSelectedDay = (() => {
     if (dayType === 'month') {
-      if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) { return true }
+      if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) {
+        return true
+      }
     }
     else if (dayType === 'week') {
-      if (isSameDay(date, selectedDate)) { return true }
+      if (isSameDay(date, selectedDate)) {
+        return true
+      }
+    }
+    return false
+  })()
+
+  const isInactive = (() => {
+    if (dayType === 'month') {
+      if (!isSameMonth(date, firstDayOfMonth)) {
+        return true
+      }
+    }
+    else if (dayType === 'week') {
+      if (!isSameMonth(date, selectedDate)) {
+        return true
+      }
     }
     return false
   })()
@@ -55,14 +73,12 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
     }
   }
 
-  const doesSomethingHappenToday = () => {
+  const somethingHappensToday = (() => {
     if (events.some(eventHappensToday) || assignments.some(activityHappensToday) || tasks.some(activityHappensToday)) {
       return true
     }
     return false
-  }
-
-  const somethingHappensToday = doesSomethingHappenToday()
+  })()
 
   useEffect(() => {
     const unsubscribe = calendarState.weekSubscribe(() => {
@@ -106,36 +122,17 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   return (
     <Pressable onPress={onPress}>
       <View style={styles.container} ref={elementRef}>
-        {
-          dayType === 'month' ? (
-            <>
-              {isSelectedDay && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
-              <Text
-                style={[
-                  styles.text,
-                  { color: theme.text },
-                  !isSameMonth(date, firstDayOfMonth) && { color: theme.tertiary },
-                  isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth) && { color: theme.inverseText },
-                ]}>
-                {date.getDate()}
-              </Text>
-              {somethingHappensToday && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 3 }} />}
-            </>
-          ) : (
-            <>
-              {isSameDay(date, selectedDate) && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
-              <Text style={[
-                styles.text,
-                { color: theme.text },
-                !isSameMonth(date, selectedDate) && { color: theme.tertiary },
-                isSameDay(date, selectedDate) && { color: theme.inverseText }
-              ]}>
-                {date.getDate()}
-              </Text>
-              {somethingHappensToday && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 5 }} />}
-            </>
-          )
-        }
+        {isSelectedDay && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
+        <Text
+          style={[
+            styles.text,
+            { color: theme.text },
+            isInactive && { color: theme.tertiary },
+            isSelectedDay && { color: theme.inverseText },
+          ]}>
+          {date.getDate()}
+        </Text>
+        {somethingHappensToday && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 3 }} />}
       </View>
     </Pressable>
   )
@@ -151,10 +148,6 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontWeight: '500',
-  },
-  notInCurrentMonth: {
-  },
-  selectedDate: {
   },
   selectedDateCircle: {
     position: 'absolute',
