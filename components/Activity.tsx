@@ -26,15 +26,9 @@ export default function Activity({ activity }: ActivityProps) {
       <View style={styles.activityDetailsContainer}>
         <View style={styles.topRowContainer}>
           <Text style={[styles.activityTitleText, { color: theme.text }]}>{activity.title}</Text>
-          {activity.due &&
-            <Text style={[styles.activityDueText, { color: theme.text }]}>
-              {activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}
-            </Text>}
+          {activity.due && <Text style={[styles.activityDueText, { color: theme.text }]}> {activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>}
         </View>
-        {
-          activity.description &&
-          <Text style={[styles.activityDescriptionText, { color: theme.tertiary }]}>{activity.description}</Text>
-        }
+        {activity.description && <Text style={[styles.activityDescriptionText, { color: theme.tertiary }]}>{activity.description}</Text>}
         <View style={styles.tagsContainer}>
           {activity.course &&
             <View style={[styles.courseTagContainer, { borderColor: courseColor, backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
@@ -78,6 +72,7 @@ const styles = StyleSheet.create({
   },
   activityTitleText: {
     fontSize: 20,
+    width: '80%'
   },
   courseNameText: {
     fontSize: 9,

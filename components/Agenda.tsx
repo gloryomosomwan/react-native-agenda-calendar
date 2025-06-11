@@ -1,13 +1,15 @@
 import { Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
-import React, { useMemo } from 'react'
+import React, { act, useEffect, useMemo, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedValue } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { isSameDay } from 'date-fns';
 
 import Event from "@/components/Event";
 import Activity from "@/components/Activity";
 import { events, assignments, tasks } from '@/utils/data'
 import { useTheme } from '@/utils/useTheme'
+import { useCalendar } from './CalendarContext';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -19,10 +21,55 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const initialCalendarBottom = (47 * 6) + paddingTop + 52
   const { height } = useWindowDimensions();
   const snapPoints = useMemo(() => [height - initialCalendarBottom, height - initialCalendarBottom + 235], []);
-  const eventElements = events.map(event => <Event key={event.id} event={event} />)
-  const assignmentElements = assignments.map(assignment => <Activity key={assignment.id} activity={assignment} />)
-  const taskElements = tasks.map(task => <Activity key={task.id} activity={task} />)
   const theme = useTheme()
+  const { calendarState } = useCalendar()
+  const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
+
+  const currentEvents = events.filter((event) => isSameDay(event.start, calendarState.currentDate))
+  const currentEventElements = currentEvents.map(event => <Event key={event.id} event={event} />)
+
+  const isActivityCurrent = (activity: any) => {
+    if (activity.due) {
+      if (isSameDay(activity.due, calendarState.currentDate)) {
+        return true
+      }
+    }
+    return false
+  }
+
+  const currentAssignments = assignments.filter(isActivityCurrent)
+  const assignmentElements = currentAssignments.map(assignment => <Activity key={assignment.id} activity={assignment} />)
+
+  const currentTasks = tasks.filter(isActivityCurrent)
+  const taskElements = currentTasks.map(task => <Activity key={task.id} activity={task} />)
+
+  useEffect(() => {
+    const unsubscribe = calendarState.weekSubscribe(() => {
+      setSelectedDate(calendarState.currentDate)
+    });
+    return unsubscribe;
+  }, [])
+
+  useEffect(() => {
+    const unsubscribe = calendarState.monthSubscribe(() => {
+      setSelectedDate(calendarState.currentDate)
+    });
+    return unsubscribe;
+  }, [])
+
+  useEffect(() => {
+    const dayUnsubscribe = calendarState.daySubscribe(() => {
+      setSelectedDate(calendarState.currentDate)
+    })
+    return dayUnsubscribe
+  }, [])
+
+  useEffect(() => {
+    const todayUnsubscribe = calendarState.todaySubscribe(() => {
+      setSelectedDate(calendarState.currentDate)
+    })
+    return todayUnsubscribe
+  }, [])
 
   return (
     <BottomSheet
@@ -42,7 +89,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       <BottomSheetScrollView style={{ backgroundColor: theme.primary }}>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
-          {eventElements}
+          {currentEventElements}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>

@@ -17,7 +17,7 @@ type EventProps = {
 }
 
 function isAssessment(eventType: string) {
-  if (eventType === 'Final Exam' || eventType === 'Midterm' || eventType === 'Quiz') {
+  if (eventType === 'Exam' || eventType === 'Midterm' || eventType === 'Quiz') {
     return true;
   }
   return false
