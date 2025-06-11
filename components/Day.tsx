@@ -24,6 +24,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   const insets = useSafeAreaInsets()
   let paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const theme = useTheme()
+  const [heatmapActive, setHeatmapActive] = useState(true)
 
   const isSelectedDay = (() => {
     if (dayType === 'month') {
@@ -119,20 +120,27 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
     calendarState.daySelectDate(date)
   }
 
+  const MAX_ITEMS = 5
+  const map01to08 = (t: number) => t * 0.8;
+  const eventsOnThisDate = events.filter((event) => isSameDay(event.start, date))
+  const opacityPct = map01to08((eventsOnThisDate.length / MAX_ITEMS))
+
   return (
     <Pressable onPress={onPress}>
       <View style={styles.container} ref={elementRef}>
-        {isSelectedDay && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
+        {isSelectedDay && !heatmapActive && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
+        {isSelectedDay && heatmapActive && <View style={[styles.heatmapSelectedDayCircle, { borderColor: theme.accent }]} />}
+        {heatmapActive && !isInactive && <View style={[styles.heatmapCircle, { backgroundColor: theme.accent, opacity: 0.2 + opacityPct }]} />}
         <Text
           style={[
             styles.text,
-            { color: theme.text },
+            { color: !heatmapActive ? theme.text : theme.inverseText },
             isInactive && { color: theme.tertiary },
             isSelectedDay && { color: theme.inverseText },
           ]}>
           {date.getDate()}
         </Text>
-        {somethingHappensToday && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 4 }} />}
+        {somethingHappensToday && !heatmapActive && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 4 }} />}
       </View>
     </Pressable>
   )
@@ -155,5 +163,21 @@ const styles = StyleSheet.create({
     width: 34,
     height: 34,
     borderRadius: 100
+  },
+  heatmapCircle: {
+    position: 'absolute',
+    zIndex: -1,
+    width: 34,
+    height: 34,
+    borderRadius: 100,
+    margin: 8
+  },
+  heatmapSelectedDayCircle: {
+    position: 'absolute',
+    zIndex: -1,
+    width: 43,
+    height: 43,
+    borderRadius: 100,
+    borderWidth: 2
   },
 })
