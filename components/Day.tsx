@@ -149,7 +149,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   const scheme = useColorScheme() ?? 'light'
   const darkThemeText = theme.text
   const lightThemeText = heatmapActive || isGradientBackground ? theme.inverseText : theme.text
-  const subduedTextColor = isGradientBackground ? '#dadada' : theme.tertiary
+  const subduedTextColor = isGradientBackground || scheme === 'dark' ? { color: 'white', opacity: 0.5 } : { color: theme.tertiary }
 
   return (
     <Pressable onPress={onPress}>
@@ -162,11 +162,11 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
             styles.text,
             { color: scheme === 'light' ? lightThemeText : darkThemeText },
             scheme === 'light' && isSelectedDay && { color: theme.inverseText },
-            isInactive && { color: subduedTextColor },
+            isInactive && subduedTextColor
           ]}>
           {date.getDate()}
         </Text>
-        {somethingHappensToday && !heatmapActive && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: subduedTextColor, position: 'absolute', bottom: 4 }} />}
+        {somethingHappensToday && !heatmapActive && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: 'white', opacity: 0.5, position: 'absolute', bottom: 4 }} />}
       </View>
     </Pressable>
   )
