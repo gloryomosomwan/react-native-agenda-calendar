@@ -95,7 +95,7 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
             isProgrammaticChange.value = false;
             return;
           }
-          let date = index === 0 ? calendarState.todayDate : startOfWeek(addWeeks(calendarState.todayDate, index))
+          let date = index === 0 ? calendarState.todayDate : addWeeks(calendarState.todayDate, index)
           calendarState.selectPreviousDate(calendarState.currentDate)
           calendarState.weekSelectDate(date)
         }}
