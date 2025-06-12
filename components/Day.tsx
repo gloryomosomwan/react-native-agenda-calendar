@@ -141,7 +141,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
             styles.text,
             { color: scheme === 'light' ? lightThemeText : darkThemeText },
             isInactive && { color: theme.tertiary },
-            isSelectedDay && { color: scheme === 'light' ? theme.inverseText : darkThemeText },
+            scheme === 'light' && isSelectedDay && { color: theme.inverseText }
           ]}>
           {date.getDate()}
         </Text>

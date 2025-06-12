@@ -35,7 +35,7 @@ const CalendarContent = () => {
   const theme = useTheme();
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.warning, paddingTop: paddingTop, paddingBottom: insets.bottom }}>
+    <View style={{ flex: 1, backgroundColor: theme.secondary, paddingTop: paddingTop, paddingBottom: insets.bottom }}>
       <Header />
       <ImageBackground style={{ flex: 1, zIndex: 0, position: 'absolute', top: 0, left: 0, right: 0, bottom: 400 }} source={image} resizeMode="cover" />
       <WeekPager
