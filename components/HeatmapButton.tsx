@@ -1,24 +1,28 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/utils/useTheme'
-import { useHeatmap } from './HeatmapContext'
+import { useCalendarAppearance } from './CalendarAppearanceContext'
 
 export default function HeatmapButton() {
-  const { active, setActive } = useHeatmap()
+  const { heatmapActive, setHeatmapActive, isGradientBackground } = useCalendarAppearance()
   const theme = useTheme()
 
   const onPress = () => {
-    setActive(!active)
+    setHeatmapActive(!heatmapActive)
   }
 
   return (
     <View style={styles.heatmapButtonContainer}>
       <Pressable onPress={onPress} style={({ pressed }) => [
         styles.heatmapButton,
-        { borderColor: theme.text, backgroundColor: active ? theme.text : undefined },
+        { borderColor: theme.text, backgroundColor: heatmapActive ? theme.text : undefined },
+        isGradientBackground && { borderColor: 'white', backgroundColor: heatmapActive ? 'white' : undefined },
         pressed && { opacity: 0.85 }
       ]}>
-        <Text style={[styles.heatmapButtonText, { color: active ? theme.inverseText : theme.text }]}>{'H'}</Text>
+        <Text style={[
+          styles.heatmapButtonText, { color: heatmapActive ? theme.inverseText : theme.text },
+          isGradientBackground && { color: heatmapActive ? 'black' : 'white' }
+        ]}>{'H'}</Text>
       </Pressable>
     </View>
   )

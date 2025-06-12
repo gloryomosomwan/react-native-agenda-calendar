@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useCalendar } from './CalendarContext';
 import { useTheme } from '@/utils/useTheme';
 import { Event, Activity, events, assignments, tasks } from '@/utils/data';
-import { useHeatmap } from './HeatmapContext'
+import { useCalendarAppearance } from './CalendarAppearanceContext'
 
 type DayType = 'week' | 'month'
 
@@ -20,7 +20,7 @@ type DayProps = {
 
 export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayType }: DayProps) {
   const { calendarState } = useCalendar()
-  const { active: heatmapActive } = useHeatmap()
+  const { heatmapActive, isGradientBackground } = useCalendarAppearance()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
   const elementRef = useRef<View | null>(null)
   const insets = useSafeAreaInsets()
@@ -128,7 +128,8 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
 
   const scheme = useColorScheme() ?? 'light'
   const darkThemeText = theme.text
-  const lightThemeText = heatmapActive ? theme.inverseText : theme.text
+  const lightThemeText = heatmapActive || isGradientBackground ? theme.inverseText : theme.text
+  const subduedTextColor = isGradientBackground ? 'lightgrey' : theme.tertiary
 
   return (
     <Pressable onPress={onPress}>
@@ -140,12 +141,12 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
           style={[
             styles.text,
             { color: scheme === 'light' ? lightThemeText : darkThemeText },
-            isInactive && { color: theme.tertiary },
-            scheme === 'light' && isSelectedDay && { color: theme.inverseText }
+            scheme === 'light' && isSelectedDay && { color: theme.inverseText },
+            isInactive && { color: subduedTextColor },
           ]}>
           {date.getDate()}
         </Text>
-        {somethingHappensToday && !heatmapActive && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: theme.tertiary, position: 'absolute', bottom: 4 }} />}
+        {somethingHappensToday && !heatmapActive && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: subduedTextColor, position: 'absolute', bottom: 4 }} />}
       </View>
     </Pressable>
   )

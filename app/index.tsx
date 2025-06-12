@@ -11,15 +11,16 @@ import WeekPager from "@/components/WeekPager";
 import MonthPager from "@/components/MonthPager";
 import Agenda from "@/components/Agenda";
 import TodayButton from "@/components/TodayButton";
-import { HeatmapProvider } from "@/components/HeatmapContext";
+import { CalendarAppearanceProvider } from "@/components/CalendarAppearanceContext";
+import { useCalendarAppearance } from '@/components/CalendarAppearanceContext'
 
 export default function App() {
   return (
     <GestureHandlerRootView>
       <CalendarProvider>
-        <HeatmapProvider>
+        <CalendarAppearanceProvider>
           <CalendarContent />
-        </HeatmapProvider>
+        </CalendarAppearanceProvider>
       </CalendarProvider>
     </GestureHandlerRootView>
   );
@@ -33,11 +34,14 @@ const CalendarContent = () => {
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
   const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52);
   const theme = useTheme();
+  const { isGradientBackground } = useCalendarAppearance()
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.secondary, paddingTop: paddingTop, paddingBottom: insets.bottom }}>
       <Header />
-      <ImageBackground style={{ flex: 1, zIndex: 0, position: 'absolute', top: 0, left: 0, right: 0, bottom: 400 }} source={image} resizeMode="cover" />
+      {isGradientBackground &&
+        <ImageBackground style={{ flex: 1, zIndex: 0, position: 'absolute', top: 0, left: 0, right: 0, bottom: 400 }} source={image} resizeMode="cover" />
+      }
       <WeekPager
         bottomSheetTranslationY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}

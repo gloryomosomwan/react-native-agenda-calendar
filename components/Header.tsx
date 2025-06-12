@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useCalendar } from "./CalendarContext";
 import { useTheme } from '@/utils/useTheme'
 import HeatmapButton from './HeatmapButton';
+import { useCalendarAppearance } from './CalendarAppearanceContext';
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
@@ -14,6 +15,7 @@ export default function Header() {
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
   const theme = useTheme()
+  const { isGradientBackground } = useCalendarAppearance()
 
   useEffect(() => {
     const dayUnsubscribe = calendarState.daySubscribe(() => {
@@ -43,18 +45,20 @@ export default function Header() {
     return todayUnsubscribe
   }, [])
 
+  const subduedTextColor = isGradientBackground ? 'lightgrey' : theme.tertiary
+
   return (
     <View style={[styles.container, { paddingTop: paddingTop, backgroundColor: 'undefined' }]}>
       <View style={styles.topRowContainer}>
         <View style={styles.monthTextContainer}>
-          <Text style={[styles.monthNameText, { color: theme.text }]}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>
-          <Text style={[styles.monthYearText, { color: theme.tertiary }]}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
+          <Text style={[styles.monthNameText, { color: isGradientBackground ? 'white' : theme.text }]}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>
+          <Text style={[styles.monthYearText, { color: subduedTextColor }]}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
         </View>
         <HeatmapButton />
       </View>
       <View style={styles.weekdayNamesContainer}>
         {daysOfWeek.map((day) => (
-          <Text key={day} style={[styles.dayNameText, { color: theme.text }]}>{day}</Text>
+          <Text key={day} style={[styles.dayNameText, { color: isGradientBackground ? 'white' : theme.text }]}>{day}</Text>
         ))}
       </View>
     </View>
