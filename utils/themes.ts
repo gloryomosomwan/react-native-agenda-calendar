@@ -23,7 +23,7 @@ export const lightTheme: theme = {
 export const darkTheme: theme = {
   primary: 'black',
   secondary: '#151616',
-  tertiary: '#525252',
+  tertiary: '#505050',
   accent: '#007bff',
   text: 'white',
   inverseText: 'black',

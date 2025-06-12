@@ -45,7 +45,7 @@ export default function Header() {
     return todayUnsubscribe
   }, [])
 
-  const subduedTextColor = isGradientBackground ? 'lightgrey' : theme.tertiary
+  const subduedTextColor = isGradientBackground ? '#f7f7f7' : theme.tertiary
 
   return (
     <View style={[styles.container, { paddingTop: paddingTop, backgroundColor: 'undefined' }]}>

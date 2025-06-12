@@ -129,7 +129,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   const scheme = useColorScheme() ?? 'light'
   const darkThemeText = theme.text
   const lightThemeText = heatmapActive || isGradientBackground ? theme.inverseText : theme.text
-  const subduedTextColor = isGradientBackground ? 'lightgrey' : theme.tertiary
+  const subduedTextColor = isGradientBackground ? '#dadada' : theme.tertiary
 
   return (
     <Pressable onPress={onPress}>
