@@ -121,10 +121,30 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
     calendarState.daySelectDate(date)
   }
 
-  const MAX_ITEMS = 7
-  const map01to08 = (t: number) => t * 0.8;
-  const eventsOnThisDate = events.filter((event) => isSameDay(event.start, date))
-  const opacityPct = map01to08((eventsOnThisDate.length / MAX_ITEMS))
+  const MAX_ITEMS = 5
+  const map01to08 = (t: number) => t * 0.9;
+  // const eventsOnThisDate = events.filter((event) => isSameDay(event.start, date))
+  const eventsOnThisDate = []
+  const tasksOnThisDate = tasks.filter((task) => {
+    if (task.due) {
+      if (isSameDay(task.due, date)) {
+        return true
+      }
+    }
+    return false
+  })
+
+  const assignmentOnThisDate = assignments.filter((assignment) => {
+    if (assignment.due) {
+      if (isSameDay(assignment.due, date)) {
+        return true
+      }
+    }
+    return false
+  })
+
+  const numberOfItemsOnThisDate = eventsOnThisDate.length + tasksOnThisDate.length + assignmentOnThisDate.length
+  const opacityPct = map01to08((numberOfItemsOnThisDate / MAX_ITEMS))
 
   const scheme = useColorScheme() ?? 'light'
   const darkThemeText = theme.text
@@ -136,7 +156,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
       <View style={styles.container} ref={elementRef}>
         {isSelectedDay && !heatmapActive && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
         {isSelectedDay && heatmapActive && <View style={[styles.heatmapSelectedDayCircle, { borderColor: theme.accent }]} />}
-        {heatmapActive && !isInactive && <View style={[styles.heatmapCircle, { backgroundColor: theme.accent, opacity: 0.2 + opacityPct }]} />}
+        {heatmapActive && !isInactive && <View style={[styles.heatmapCircle, { backgroundColor: theme.accent, opacity: 0.1 + opacityPct }]} />}
         <Text
           style={[
             styles.text,
