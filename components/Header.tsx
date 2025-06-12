@@ -44,7 +44,7 @@ export default function Header() {
   }, [])
 
   return (
-    <View style={[styles.container, { paddingTop: paddingTop, backgroundColor: theme.secondary }]}>
+    <View style={[styles.container, { paddingTop: paddingTop, backgroundColor: 'undefined' }]}>
       <View style={styles.topRowContainer}>
         <View style={styles.monthTextContainer}>
           <Text style={[styles.monthNameText, { color: theme.text }]}>{selectedDate.toLocaleString('default', { month: 'long', })}</Text>

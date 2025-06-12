@@ -14,7 +14,7 @@ export const lightTheme: theme = {
   secondary: '#F8F8F8',
   tertiary: '#bcbec4',
   accent: "#007bff",
-  text: 'black',
+  text: 'white',
   inverseText: 'white',
   danger: 'red',
   warning: 'gold',

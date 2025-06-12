@@ -107,6 +107,6 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
 const styles = StyleSheet.create({
   weekPagerContainer: {
     position: 'absolute',
-    zIndex: 0
+    zIndex: 1
   }
 })

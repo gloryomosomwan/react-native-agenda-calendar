@@ -31,10 +31,10 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.secondary }]}
+    <View style={[styles.container, { backgroundColor: undefined }]}
       onLayout={(e) => {
         let bottom = e.nativeEvent.layout.height + topPadding
-        setCalendarBottom(bottom)
+        setCalendarBottom(bottom + 52)
       }}
     >
       <View style={styles.weeks}>
@@ -109,7 +109,7 @@ function createWeeks(daysArray: React.ReactNode[]) {
 const styles = StyleSheet.create({
   container: {
     //  30 (size of header) + 5 (header margin) + 17 (weekday name text height) = 52
-    paddingTop: 52,
+    // paddingTop: 52,
     width: '100%',
   },
   week: {
