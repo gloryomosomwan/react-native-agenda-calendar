@@ -1,5 +1,6 @@
-import { compareAsc } from "date-fns"
+import { compareAsc, isSameDay } from "date-fns"
 import { Event, Activity } from "./data"
+import { useCalendar } from "@/components/CalendarContext"
 
 export const compareEventTimes = (eventA: Event, eventB: Event): number => {
   return compareAsc(eventA.start, eventB.start)
@@ -14,4 +15,14 @@ export const compareActivityTimes = (activityA: Activity, activityB: Activity): 
     return result
   }
   return activityA.title.localeCompare(activityB.title)
+}
+
+export const isActivityCurrent = (activity: Activity) => {
+  const { calendarState } = useCalendar()
+  if (activity.due) {
+    if (isSameDay(activity.due, calendarState.currentDate)) {
+      return true
+    }
+  }
+  return false
 }

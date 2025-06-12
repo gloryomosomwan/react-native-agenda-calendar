@@ -10,7 +10,7 @@ import Activity from "@/components/Activity";
 import { events, assignments, tasks } from '@/utils/data'
 import { useTheme } from '@/utils/useTheme'
 import { useCalendar } from './CalendarContext';
-import { compareEventTimes, compareActivityTimes } from '@/utils/utils';
+import { compareEventTimes, compareActivityTimes, isActivityCurrent } from '@/utils/utils';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -29,15 +29,6 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const currentEvents = events.filter((event) => isSameDay(event.start, calendarState.currentDate))
   currentEvents.sort(compareEventTimes)
   const currentEventElements = currentEvents.map(event => <Event key={event.id} event={event} />)
-
-  const isActivityCurrent = (activity: any) => {
-    if (activity.due) {
-      if (isSameDay(activity.due, calendarState.currentDate)) {
-        return true
-      }
-    }
-    return false
-  }
 
   const currentAssignments = assignments.filter(isActivityCurrent)
   currentAssignments.sort(compareActivityTimes)
