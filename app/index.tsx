@@ -52,9 +52,9 @@ const CalendarContent = () => {
         calendarBottom={calendarBottom}
         selectedDatePosition={selectedDatePosition}
       />
-      {/* <Agenda
+      <Agenda
         bottomSheetTranslationY={bottomSheetTranslationY}
-      /> */}
+      />
       <TodayButton
         bottomSheetTranslationY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}
