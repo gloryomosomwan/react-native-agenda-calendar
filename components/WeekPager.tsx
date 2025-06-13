@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from 'react-native'
 import React, { useEffect, useRef } from 'react'
-import { addWeeks, differenceInCalendarWeeks, isSameWeek, startOfWeek } from 'date-fns';
+import { addWeeks, differenceInCalendarWeeks, isSameWeek, setDay, startOfWeek } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -95,7 +95,8 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
             isProgrammaticChange.value = false;
             return;
           }
-          let date = index === 0 ? calendarState.todayDate : addWeeks(calendarState.todayDate, index)
+          const dayOfPreviousWeek = calendarState.currentDate.getDay()
+          let date = index === 0 ? calendarState.todayDate : setDay(addWeeks(calendarState.todayDate, index), dayOfPreviousWeek)
           calendarState.selectPreviousDate(calendarState.currentDate)
           calendarState.weekSelectDate(date)
         }}
