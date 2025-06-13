@@ -66,7 +66,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
       if (isSameMonth(calendarState.previousDate, calendarState.todayDate)) return;
       if (Math.abs(differenceInCalendarMonths(calendarState.previousDate, calendarState.todayDate)) > 1) {
         pagerOpacity.value = withRepeat(
-          withTiming(0, { duration: 150 }),
+          withTiming(0, { duration: 250 }),
           2,
           true
         );
