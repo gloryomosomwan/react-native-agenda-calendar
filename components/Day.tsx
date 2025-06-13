@@ -103,7 +103,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   useEffect(() => {
     if (dayType === 'week') {
       const dayUnsubscribe = calendarState.daySubscribe(() => {
-        if (isSameMonth(date, calendarState.currentDate) || isSameDay(date, calendarState.previousDate)) {
+        if (isSameMonth(date, calendarState.currentDate) || isSameMonth(date, calendarState.previousDate)) {
           setSelectedDate(calendarState.currentDate)
         }
       })
