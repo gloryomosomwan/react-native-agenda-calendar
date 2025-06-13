@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
@@ -112,21 +112,23 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
   };
 
   return (
-    <Animated.View style={[rMonthPagerStyle]} animatedProps={animatedProps}>
-      <InfinitePager
-        ref={monthPagerRef}
-        PageComponent={MonthPage}
-        onPageChange={(index) => {
-          if (isProgrammaticChange.value === true) {
-            isProgrammaticChange.value = false;
-            return;
-          }
-          let date = index === 0 ? calendarState.todayDate : startOfMonth(addMonths(calendarState.todayDate, index))
-          calendarState.selectPreviousDate(calendarState.currentDate)
-          calendarState.monthSelectDate(date)
-        }}
-      />
-    </Animated.View>
+    <View style={{ overflow: 'hidden', top: 52 }}>
+      <Animated.View style={[rMonthPagerStyle]} animatedProps={animatedProps}>
+        <InfinitePager
+          ref={monthPagerRef}
+          PageComponent={MonthPage}
+          onPageChange={(index) => {
+            if (isProgrammaticChange.value === true) {
+              isProgrammaticChange.value = false;
+              return;
+            }
+            let date = index === 0 ? calendarState.todayDate : startOfMonth(addMonths(calendarState.todayDate, index))
+            calendarState.selectPreviousDate(calendarState.currentDate)
+            calendarState.monthSelectDate(date)
+          }}
+        />
+      </Animated.View>
+    </View>
   )
 }
 

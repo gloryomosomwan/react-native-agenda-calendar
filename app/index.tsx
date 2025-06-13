@@ -47,13 +47,11 @@ const CalendarContent = () => {
         bottomSheetTranslationY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}
       />
-      <View style={{ overflow: 'hidden', top: 52 }}>
-        <MonthPager
-          bottomSheetTranslationY={bottomSheetTranslationY}
-          calendarBottom={calendarBottom}
-          selectedDatePosition={selectedDatePosition}
-        />
-      </View>
+      <MonthPager
+        bottomSheetTranslationY={bottomSheetTranslationY}
+        calendarBottom={calendarBottom}
+        selectedDatePosition={selectedDatePosition}
+      />
       <Agenda
         bottomSheetTranslationY={bottomSheetTranslationY}
       />
