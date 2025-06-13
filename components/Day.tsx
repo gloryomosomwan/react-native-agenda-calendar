@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, Platform, useColorScheme } from 'react-native'
-import React, { useRef, useLayoutEffect, useEffect, useState, memo } from 'react'
+import React, { useRef, useLayoutEffect, useEffect, useState, memo, useMemo } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth, isSameWeek } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from "react-native-safe-area-context"
@@ -142,23 +142,25 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   const map01to08 = (t: number) => t * 0.9;
   // const eventsOnThisDate = events.filter((event) => isSameDay(event.start, date))
   const eventsOnThisDate = []
-  const tasksOnThisDate = tasks.filter((task) => {
-    if (task.due) {
-      if (isSameDay(task.due, date)) {
-        return true
+  const tasksOnThisDate = useMemo(() =>
+    tasks.filter((task) => {
+      if (task.due) {
+        return isSameDay(task.due, date)
       }
-    }
-    return false
-  })
+      return false
+    }),
+    [tasks]
+  )
 
-  const assignmentOnThisDate = assignments.filter((assignment) => {
-    if (assignment.due) {
-      if (isSameDay(assignment.due, date)) {
-        return true
+  const assignmentOnThisDate = useMemo(() =>
+    assignments.filter((assignment) => {
+      if (assignment.due) {
+        return isSameDay(assignment.due, date)
       }
-    }
-    return false
-  })
+      return false
+    }),
+    [assignments]
+  )
 
   const numberOfItemsOnThisDate = eventsOnThisDate.length + tasksOnThisDate.length + assignmentOnThisDate.length
   const opacityPct = map01to08((numberOfItemsOnThisDate / MAX_ITEMS))
