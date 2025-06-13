@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, Platform, useColorScheme } from 'react-native'
-import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
-import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
+import React, { useRef, useLayoutEffect, useEffect, useState, memo } from 'react'
+import { isSameMonth, isSameDay, getWeekOfMonth, isSameWeek } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
@@ -84,28 +84,45 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
 
   useEffect(() => {
     const unsubscribe = calendarState.weekSubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
+      if (isSameWeek(date, calendarState.currentDate) || isSameWeek(date, calendarState.previousDate)) {
+        setSelectedDate(calendarState.currentDate)
+      }
     });
     return unsubscribe;
   }, [])
 
   useEffect(() => {
     const unsubscribe = calendarState.monthSubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
+      if (isSameDay(date, calendarState.currentDate) || isSameDay(date, calendarState.previousDate)) {
+        setSelectedDate(calendarState.currentDate)
+      }
     });
     return unsubscribe;
   }, [])
 
   useEffect(() => {
-    const dayUnsubscribe = calendarState.daySubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    })
-    return dayUnsubscribe
+    if (dayType === 'week') {
+      const dayUnsubscribe = calendarState.daySubscribe(() => {
+        if (isSameMonth(date, calendarState.currentDate) || isSameDay(date, calendarState.previousDate)) {
+          setSelectedDate(calendarState.currentDate)
+        }
+      })
+      return dayUnsubscribe
+    }
+    else {
+      const dayUnsubscribe = calendarState.daySubscribe(() => {
+        if (isSameDay(date, calendarState.currentDate) || isSameDay(date, calendarState.previousDate)) {
+          setSelectedDate(calendarState.currentDate)
+        }
+      })
+      return dayUnsubscribe
+    }
   }, [])
 
   useEffect(() => {
     const todayUnsubscribe = calendarState.todaySubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
+      if (isSameDay(date, calendarState.currentDate) || isSameDay(date, calendarState.previousDate))
+        setSelectedDate(calendarState.currentDate)
     })
     return todayUnsubscribe
   }, [])
