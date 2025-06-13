@@ -76,7 +76,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
 
   return (
     <BottomSheet
-      index={1}
+      // index={1}
       snapPoints={snapPoints}
       animatedPosition={bottomSheetTranslationY}
       enableOverDrag={false}

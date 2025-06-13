@@ -2,7 +2,7 @@ import { Platform, StyleSheet } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
-import Animated, { interpolate, SharedValue, useAnimatedProps, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
+import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedProps, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useCalendar } from './CalendarContext';
@@ -83,7 +83,8 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
         translateY: interpolate(
           bottomSheetTranslationY.value,
           [calendarBottom.value, calendarBottom.value - 235],
-          [0, (paddingTop + 52) - selectedDatePosition.value] // 52 is for the Month padding
+          [0, (paddingTop + 52) - selectedDatePosition.value], // 52 to get us under the header (header has a height of 52)
+          Extrapolate.CLAMP
         )
       }],
       opacity: pagerOpacity.value,

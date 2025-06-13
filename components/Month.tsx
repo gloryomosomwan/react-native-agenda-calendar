@@ -31,12 +31,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: undefined }]}
-      onLayout={(e) => {
-        let bottom = e.nativeEvent.layout.height + topPadding
-        setCalendarBottom(bottom + 52)
-      }}
-    >
+    <View style={[styles.container]}>
       <View style={styles.weeks}>
         {weeks.map((week, index) => (
           <View key={index} style={styles.week}>

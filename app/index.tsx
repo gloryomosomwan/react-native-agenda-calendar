@@ -3,6 +3,7 @@ import { ImageBackground, Platform, StyleSheet, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { getWeekOfMonth } from "date-fns";
 
 import { CalendarProvider } from "@/components/CalendarContext";
 import { useTheme } from "@/utils/useTheme";
@@ -29,10 +30,10 @@ const image = { uri: 'https://plus.unsplash.com/premium_photo-1672201106204-58e9
 
 const CalendarContent = () => {
   const insets = useSafeAreaInsets();
-  const bottomSheetTranslationY = useSharedValue(0);
-  const selectedDatePosition = useSharedValue(0);
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
+  const selectedDatePosition = useSharedValue((paddingTop + 52) + (47 * (getWeekOfMonth(new Date()) - 1)));
   const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52);
+  const bottomSheetTranslationY = useSharedValue(calendarBottom.value);
   const theme = useTheme();
   const { isGradientBackground } = useCalendarAppearance()
 
